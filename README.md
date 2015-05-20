@@ -1,30 +1,18 @@
-<!DOCTYPE html>
-<html>
-<body>
+README
 
-<h1>README</h1>
+Configure Tomcat 8, 7 should work as well.
 
-<p>Configure Tomcat 8, 7 should work as well.</p>
-<p>Set-up MySQL on localhost and do the following:</p>
+Set-up MySQL on localhost and do the following:
 
-<ol>
-  <li>Run the WmnsfFunds.sql as root.</li>
-  <li>Set-up User:</li>
-     <ul>
-        <li>username: fundsapp</li>
-        <li>password: password12345</li>
-     </ul>
-  <li>Complete access to the Schema: WmnsfFunds</li>
-  <li>With a Custom Administrative Role with the following permissions:</li>
-     <ul>
-        <li>Create</li>
-        <li>Delete</li>
-        <li>Execute</li>
-        <li>Insert</li>
-        <li>Select</li>
-        <li>Update</li>
-     </ul>
-</ol>  
-
-</body>
-</html>
+Run the WmnsfFunds.sql as root.
+Set-up User:
+username: fundsapp
+password: password12345
+Complete access to the Schema: WmnsfFunds
+With a Custom Administrative Role with the following permissions:
+Create
+Delete
+Execute
+Insert
+Select
+Update
