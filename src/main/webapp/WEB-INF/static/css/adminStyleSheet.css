@@ -1,0 +1,104 @@
+.title {
+	width: 100%;
+	text-align: center;
+}
+
+.formTabPane {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 60px;
+	margin-top: 20px;
+}
+
+.nav-tabs {
+	border-bottom: none;
+}
+
+.formHolder {
+	width: 100%;
+	padding-top: 20px;
+	border-top: 1px solid #ddd;
+}
+
+.buttonHolder {
+	width: 100%;
+	text-align: center;
+}
+
+#notification {
+	text-align: center;
+	font-size: 24px;
+	margin-top: 10%;
+}
+
+#aContainer {
+	text-align: center;
+	font-size: 18px;
+	width: 100%;
+}
+
+#divFormContainer {
+	display: none;
+	width: 100%;
+	text-align: center;
+}
+
+#divEditFormContainer {
+	display: none;
+}
+
+.table {
+	max-width: 400px;
+	border: 1px solid #ddd;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.tabs {
+	text-align: center;
+	
+}
+
+.nav.formSelect > li > a:hover, .nav.formSelect >li >a:focus {
+	background-color: lightgrey !important;
+	color: white !important;
+}
+
+.formSelect {
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.formSelect > li > a {
+	width: 180px !important;
+	font-weight: bold;
+}
+
+#submit {
+	display: none;
+	background: #4574BF;
+	color: #FFFFFF;
+}
+
+#saveChanges {
+	display: none;
+	background: #78A22F;
+	color: #FFFFFF;
+	border-color: #78A22F;
+}
+
+.editButton {
+	background: #78A22F;
+	color: #FFFFFF;
+	border-color: #78A22F;
+}
+
+#discard {
+	display: inline-block;
+}
+
+.ui-dialog-titlebar {
+    display:none;
+}

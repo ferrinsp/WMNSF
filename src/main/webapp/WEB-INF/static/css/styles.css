@@ -1,0 +1,64 @@
+/*Global Stylesheet*/
+
+body {
+	background-color: #f5f5f5;
+}
+      
+.header {
+	text-align: center;
+	margin-bottom: 15px;
+	background-color: #212121;
+    box-shadow: 0px 5px 3px #777;
+}
+
+.logo {
+	border: 0;
+	width: 325px;
+	height: auto;
+	margin-bottom: 30px;
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.footer {
+	position: fixed;
+	bottom:0;
+	height: 30px;
+    padding-top: 8px;
+    background-color: #545454;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    padding-left: 50px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.30) inset;
+    font-size: smaller;
+}
+
+.menu {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.menu li {
+	float: left;
+	display: inline-block;
+}
+
+.nav a{
+	width: 120px;
+}
+
+.nav > li > a:hover, .nav >li >a:focus {
+	background-color: #398439 !important;
+}
+
+.userContainer {
+	color: white;
+	position: absolute;
+	right: 25px;
+	font-size: 12pt;
+	font-weight: bold;
+	top: 70px;
+	margin-right: 25px;
+}
