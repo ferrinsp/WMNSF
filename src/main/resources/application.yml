@@ -3,9 +3,9 @@ spring:
         name: Funds Application
     datasource:
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost/sfcbdb
-        username: root
-        password: mysql
+        url: jdbc:mysql://localhost/WmnsfFunds
+        username: fundsapp
+        password: password12345
     view:
         prefix: /WEB-INF/templates/
         suffix: .jsp
