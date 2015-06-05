@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         auth.jdbcAuthentication()
                 .passwordEncoder(passwordEncoder())
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select email, password, enabled from sfcbdb.user where email=?")
+                .usersByUsernameQuery("select email, password, enabled from user where email=?")
 //                 .authoritiesByUsernameQuery("select CONCAT('ROLE_', p.description) from user u\n" +
                 .authoritiesByUsernameQuery("select u.email, p.description from user u\n" +
                         "inner join user_permission up on up.user_id = u.id\n" +
