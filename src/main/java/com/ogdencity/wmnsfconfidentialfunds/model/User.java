@@ -88,8 +88,6 @@ public class User implements Serializable{
     }
 
     public void setPassword(String password) {
-        PasswordEncoder encoder = new BCryptPasswordEncoder(10);
-        String test = encoder.encode(password);
-        this.password = test;
+        this.password = password;
     }
 }

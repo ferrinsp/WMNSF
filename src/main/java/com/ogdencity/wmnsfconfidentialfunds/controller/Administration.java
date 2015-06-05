@@ -4,7 +4,10 @@ import com.ogdencity.wmnsfconfidentialfunds.model.User;
 import com.ogdencity.wmnsfconfidentialfunds.repo.PermissionRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -29,6 +32,8 @@ public class Administration {
     private UserRepo userRepo;
     @Autowired
     private PermissionRepo permissionRepo;
+    @Autowired
+    PasswordEncoder encoder;
     @PersistenceContext
     EntityManager em;
 
@@ -45,16 +50,18 @@ public class Administration {
     @Transactional
     @RequestMapping("/NewUser")
     public ModelAndView NewUser(HttpServletRequest request){
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        String firstName = request.getParameter("firstName").trim();
+        String lastName = request.getParameter("lastName").trim();
         String permission = request.getParameter("permission");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String email = request.getParameter("email").trim();
+        String password = request.getParameter("password").trim();
 
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
+
+        password = encoder.encode(password);
         user.setPassword(password);
         user.setPermissions(permissionRepo.findById(Long.parseLong(permission)));
 
@@ -81,16 +88,18 @@ public class Administration {
     @Transactional
     @RequestMapping("/EditUser")
     public ModelAndView EditUser(HttpServletRequest request){
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        String firstName = request.getParameter("firstName").trim();
+        String lastName = request.getParameter("lastName").trim();
         String permission = request.getParameter("permission");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String email = request.getParameter("email").trim();
+        String password = request.getParameter("password").trim();
 
         User user = userRepo.findByEmail(email).get(0);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         //user.setEmail(email);
+
+        password = encoder.encode(password);
         user.setPassword(password);
         user.setPermissions(permissionRepo.findById(Long.parseLong(permission)));
 
