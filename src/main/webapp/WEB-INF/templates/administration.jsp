@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-<%@ page import="com.ogdencity.wmnsfconfidentialfunds.model.User" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.ogdencity.wmnsfconfidentialfunds.model.Permission" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -28,8 +25,7 @@
                         <a href="#usersForm" aria-controls="usersForm" role="tab" data-toggle="tab">Manage Users</a>
                     </li>
                     <li role="presentation" id="fundTypesTab">
-                        <a href="#fundTypesForm" aria-controls="fundTypesForm" role="tab" data-toggle="tab">Manage Fund
-                            Types</a>
+                        <a href="#fundTypesForm" aria-controls="fundTypesForm" role="tab" data-toggle="tab">Manage Fund Types</a>
                     </li>
                 </ul>
             </div>

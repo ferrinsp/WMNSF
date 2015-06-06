@@ -1,7 +1,9 @@
 package com.ogdencity.wmnsfconfidentialfunds.controller;
 
+import com.ogdencity.wmnsfconfidentialfunds.model.TransferTransaction;
 import com.ogdencity.wmnsfconfidentialfunds.model.User;
 import com.ogdencity.wmnsfconfidentialfunds.repo.PermissionRepo;
+import com.ogdencity.wmnsfconfidentialfunds.repo.TransferTransactionRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +34,8 @@ public class Administration {
     private UserRepo userRepo;
     @Autowired
     private PermissionRepo permissionRepo;
+    @Autowired
+    private TransferTransactionRepo transferTransactionRepo;
     @Autowired
     PasswordEncoder encoder;
     @PersistenceContext
@@ -73,6 +77,16 @@ public class Administration {
     @Transactional
     @RequestMapping("/StatusUpdate")
     public ModelAndView StatusUpdate(HttpServletRequest request){
+        List<TransferTransaction> transferTransactions = transferTransactionRepo.findAll();
+        TransferTransaction test = transferTransactions.get(2);
+        User blah = userRepo.findByEmail("tyler").get(0);
+
+        test.setCreditUser(blah);
+
+        em.persist(test);
+
+        transferTransactions = transferTransactionRepo.findAll();
+
         String email = request.getParameter("email");
         String status = request.getParameter("status");
 

@@ -1,0 +1,77 @@
+.transactionDate {
+    width: 175px;
+    height: 30px;
+}
+
+.formTabPane {
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    max-width: 90%;
+    margin-bottom: 30px;
+}
+
+.formSelect {
+    width: 100%;
+}
+
+.formHolder {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    margin-top: -1px;
+    padding-top: 15px;
+}
+
+.table {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 30px;
+    margin-top: 5px;
+}
+
+.table td {
+    border: none !important;
+}
+
+.nav.formSelect > li > a:hover, .nav.formSelect > li > a:focus {
+    background-color: lightgrey !important;
+    color: white !important;
+}
+
+.nav.formSelect > li {
+    text-align: center;
+    width: 25%;
+}
+
+.submitHolder {
+    width: 500px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#submit {
+    margin-left: auto;
+    margin-right: auto;
+    width: 140px;
+    max-width: 90%;
+    margin-bottom: 30px;
+}
+
+input, select, textarea {
+    width: 100%;
+    margin-right: 10px;
+}
+
+textarea {
+    resize: none;
+}
+
+input[type=radio] {
+    width: auto;
+    margin-right: 20px;
+}
