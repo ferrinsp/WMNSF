@@ -35,8 +35,6 @@ public class Administration {
     @Autowired
     private PermissionRepo permissionRepo;
     @Autowired
-    private TransferTransactionRepo transferTransactionRepo;
-    @Autowired
     PasswordEncoder encoder;
     @PersistenceContext
     EntityManager em;
@@ -77,15 +75,6 @@ public class Administration {
     @Transactional
     @RequestMapping("/StatusUpdate")
     public ModelAndView StatusUpdate(HttpServletRequest request){
-        List<TransferTransaction> transferTransactions = transferTransactionRepo.findAll();
-        TransferTransaction test = transferTransactions.get(2);
-        User blah = userRepo.findByEmail("tyler").get(0);
-
-        test.setCreditUser(blah);
-
-        em.persist(test);
-
-        transferTransactions = transferTransactionRepo.findAll();
 
         String email = request.getParameter("email");
         String status = request.getParameter("status");
