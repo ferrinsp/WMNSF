@@ -5,7 +5,8 @@
 
 <tags:template pageTitle="Administration">
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="/static/css/adminStyleSheet.css">
+        <link rel="stylesheet" href="/static/css/administration.css">
+        <link rel="stylesheet" href="/static/css/nav-tabs.css">
     </jsp:attribute>
     <jsp:body>
 

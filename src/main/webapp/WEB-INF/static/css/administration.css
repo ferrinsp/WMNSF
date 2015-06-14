@@ -3,23 +3,6 @@
 	text-align: center;
 }
 
-.formTabPane {
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 60px;
-	margin-top: 20px;
-}
-
-.nav-tabs {
-	border-bottom: none;
-}
-
-.formHolder {
-	width: 100%;
-	padding-top: 20px;
-	border-top: 1px solid #ddd;
-}
-
 .buttonHolder {
 	width: 100%;
 	text-align: center;
@@ -53,27 +36,6 @@
 	margin: 0 auto;
 	margin-top: 20px;
 	margin-bottom: 20px;
-}
-
-.tabs {
-	text-align: center;
-	
-}
-
-.nav.formSelect > li > a:hover, .nav.formSelect >li >a:focus {
-	background-color: lightgrey !important;
-	color: white !important;
-}
-
-.formSelect {
-	width: 400px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.formSelect > li > a {
-	width: 180px !important;
-	font-weight: bold;
 }
 
 #submit {
