@@ -2,7 +2,7 @@ package com.ogdencity.wmnsfconfidentialfunds.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Tyler on 6/4/2015.
@@ -16,7 +16,7 @@ public class TransferTransaction implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    private Calendar date;
+    private Date date;
     private String description;
     private double amount;
 
@@ -40,11 +40,11 @@ public class TransferTransaction implements Serializable {
         this.id = id;
     }
 
-    public Calendar getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

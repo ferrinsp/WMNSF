@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="/static/css/dataTables.css">
     <script src="/static/js/dataTables.js"></script>
 </head>
-<body>
 
-<button class="btn btn-large btn-primary" id="btnNewTransfer">New Transfer Transaction</button>
+<div class="buttonHolder">
+    <button class="btn btn-large btn-primary" id="btnNewTransfer">New Transfer Transaction</button>
+</div>
 <br/>
 <br/>
 <br/>
@@ -30,23 +31,23 @@
     </tr>
     </thead>
 
-    <%--<c:forEach var="transferTransaction" items="${transferTransactions}" >--%>
-    <%--<tr>--%>
-    <%--<td>${transferTransaction.getId()}</td>--%>
-    <%--<td><fmt:formatDate value="${transferTransaction.date.time}" pattern="MM-dd-yyyy" /></td>--%>
-    <%--<td>${transferTransaction.getDescription()}</td>--%>
-    <%--<td>${transferTransaction.debitUser.getFullName()}</td>--%>
-    <%--<td>${transferTransaction.creditUser.getFullName()}</td>--%>
-    <%--<td><fmt:formatNumber value="${transferTransaction.amount}" type="currency" /></td>--%>
-    <%--<td>${transferTransaction.operatorUser.getFullName()}</td>--%>
-    <%--<td>${transferTransaction.fundType.description}</td>--%>
-    <%--</tr>--%>
-    <%--</c:forEach>--%>
+    <c:forEach var="transferTransaction" items="${transferTransactions}" >
+    <tr>
+    <td>${transferTransaction.getId()}</td>
+    <td><fmt:formatDate value="${transferTransaction.date}" pattern="MM-dd-yyyy" /></td>
+    <td>${transferTransaction.getDescription()}</td>
+    <td>${transferTransaction.debitUser.getFullName()}</td>
+    <td>${transferTransaction.creditUser.getFullName()}</td>
+    <td><fmt:formatNumber value="${transferTransaction.amount}" type="currency" /></td>
+    <td>${transferTransaction.operatorUser.getFullName()}</td>
+    <td>${transferTransaction.fundType.description}</td>
+    </tr>
+    </c:forEach>
 </table>
 
 <!---------------------------------------- add transfer transaction ------------------------------------------->
 
-<form id="formAddTransferTransaction" action="/Transaction/NewTransferTransaction" method="post">
+<form id="formAddTransferTransaction" name="addTransferTransaction" action="/Transaction/NewTransferTransaction" method="post">
     <h2 id="formHeader">Add Transfer Transaction</h2>
     <table id="tblAddTransferTransaction" class="table">
 
@@ -68,8 +69,9 @@
             <td>Debit Officer:</td>
             <td>
                 <select id="debitOfficer">
-                    <option value="1">Debit 1</option>
-                    <option value="2">Debit 2</option>
+                    <c:forEach var="user" items="${allEnabledUsers}" >
+                    <option value="${user.id}">${user.getFullName()}</option>
+                    </c:forEach>
                 </select>
             </td>
             <td>
@@ -81,8 +83,9 @@
             <td>Credit Officer:</td>
             <td>
                 <select id="creditOfficer">
-                    <option value="1">Credit 1</option>
-                    <option value="2">Credit 2</option>
+                    <c:forEach var="user" items="${allEnabledUsers}" >
+                        <option value="${user.id}">${user.getFullName()}</option>
+                    </c:forEach>
                 </select>
             </td>
             <td>
@@ -97,14 +100,15 @@
             </td>
             <td>
                 <select id="fundType">
-                    <option value="1">Fund Type 1</option>
-                    <option value="2">Fund Type 2</option>
+                    <c:forEach var="fundType" items="${allActiveFundTypes}" >
+                        <option value="${fundType.id}">${fundType.description}</option>
+                    </c:forEach>
                 </select>
             </td>
         </tr>
         <tr>
             <td>
-                <input id="submit" type="submit" value="Submit">
+                <input id="submit" type="submit" value="submit">
             </td>
         </tr>
     </table>
@@ -117,6 +121,10 @@
         $('#btnNewTransfer').click(function () {
             transferModal.dialog("open");
         });
+    });
+
+    $(function() {
+        $( "#date" ).datepicker();
     });
 
     transferModal = $("#formAddTransferTransaction").dialog({
@@ -145,6 +153,4 @@
         $("#fundType").val('2');
         transferModal.dialog("close");
     }
-
 </script>
-</body>

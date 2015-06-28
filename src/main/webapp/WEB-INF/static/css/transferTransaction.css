@@ -48,3 +48,8 @@ input[type=radio] {
 .ui-dialog-titlebar {
     display:none;
 }
+
+.buttonHolder {
+    width: 100%;
+    text-align: center;
+}

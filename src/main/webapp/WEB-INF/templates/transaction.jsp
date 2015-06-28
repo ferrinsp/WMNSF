@@ -23,7 +23,9 @@
             </div>
             <div class="formHolder tab-content">
                 <div role="tabpanel" class="formContent tab-pane fade in active" id="transferPage">
+                    <!-- beginning of include -->
                     <jsp:include page="transferTransaction.jsp" />
+                    <!-- end of include -->
                 </div>
                 <div role="tabpanel" class="formContent tab-pane fade in" id="expendPage">
                     <h1>Test tab2</h1>
