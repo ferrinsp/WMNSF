@@ -88,6 +88,17 @@ public class User implements Serializable{
         this.permissions = permissions;
     }
 
+    public boolean isAdmin(){
+        boolean result = false;
+
+        for(Permission permission : this.permissions){
+            if(permission.getId() == 1)
+                result = true;
+        }
+
+        return  result;
+    }
+
     public String getPassword() {
         return password;
     }

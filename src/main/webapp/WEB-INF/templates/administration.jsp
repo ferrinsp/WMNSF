@@ -7,6 +7,10 @@
     <jsp:attribute name="head">
         <link rel="stylesheet" href="/static/css/administration.css">
         <link rel="stylesheet" href="/static/css/nav-tabs.css">
+        <link rel="stylesheet" href="/static/css/dataTables.css">
+        <script src="/static/js/dataTables.js"></script>
+        <link rel="stylesheet" href="/static/multi-select/css/multi-select.css">
+        <script src="/static/multi-select/js/jquery.multi-select.js"></script>
     </jsp:attribute>
     <jsp:body>
 
@@ -34,7 +38,7 @@
             <div class="formHolder tab-content">
                 <div role="tabpanel" class="formContent tab-pane fade in active" id="usersForm">
                     <div class="buttonHolder">
-                        <button class="btn btn-large btn-primary" id="btnNewUser">New User</button>
+                        <button class="btn btn-large btn-primary" id="btnNewUser" onclick="newUser()" >New User</button>
                     </div>
 
                     <!---------------------------------- Add/Edit User Form -------------------------------------->
@@ -56,11 +60,11 @@
                             </tr>
 
                             <tr>
-                                <td>Permission Level</td>
-                                <td>
-                                    <select id="permission" name="permission">
-                                        <option value="1">ADMIN</option>
-                                        <option value="2">USER</option>
+                                <td colspan="2">
+                                    <select id="permission" name="permission" multiple="multiple">
+                                        <c:forEach var="permission" items="${permissions}">
+                                            <option value="${permission.getId()}">${permission.getDescription()}</option>
+                                        </c:forEach>
                                     </select>
                                 </td>
                             </tr>
@@ -75,11 +79,6 @@
                                 <td>Password</td>
                                 <td><input type="password" class="input-block-level"
                                            id="password" name="password"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="submit" type="submit" value="submit">
-                                </td>
                             </tr>
                         </table>
                     </form>
@@ -172,6 +171,10 @@
         <script type="text/javascript">
             //jQuery
 
+            $('#permission').multiSelect({
+                selectableHeader: "<div class='custom-header'>Available</div>",
+                selectionHeader: "<div class='custom-header'>Selected Permissions</div>"
+            });
             window.onload = function () {
                 var notification = '${notification}';
                 if (notification) {
@@ -205,14 +208,14 @@
             });
 
             function addEditUser() {
-                document.getElementById("submit").click();
+                $("#formAddEditUser").submit();
             }
 
             function cancel() {
                 $("#id").val("");
                 $("#firstName").val("");
                 $("#lastName").val("");
-                $("#permission").val('2');
+                $("#permission").val('${permissions.get(0).id}');
                 $("#email").val("");
                 $("#password").val("");
                 userModal.dialog("close");
@@ -229,14 +232,12 @@
                 $("#firstName").val(document.getElementById(rowID).cells[2].innerHTML);
                 $("#lastName").val(document.getElementById(rowID).cells[3].innerHTML);
                 var permissionText = document.getElementById(rowID).cells[4].innerHTML;
-                var permissionValue = '2';
-                if (permissionText == "Administrator") {
-                    permissionValue = '1';
+                var array = permissionText.split(',');
+                for(index = 0; index < array.length; ++index){
+                    var trimmed = array[index].trim();
+                    $("#permission").multiSelect('select', trimmed);
                 }
-                else {
-                    permissionValue = '2';
-                }
-                $("#permission").val(permissionValue);
+                $("#permission").multiSelect('refresh');
                 $("#email").val(document.getElementById(rowID).cells[5].innerHTML);
                 $("#email").attr("readonly", "true");
                 $("#formHeader").text("Edit User");
@@ -286,16 +287,17 @@
                 form.submit();
             });
 
-            $(document).ready(function () {
+            function newUser(){
+                $("#formHeader").text("New User");
+                $("#formAddEditUser").attr("action", "/Administration/NewUser");
+                $("#action").val("newUser");
+                $("#email").removeAttr("readonly");
+                //$("#permission").val('2');
+                userModal.dialog("open");
+            }
 
-                $('#btnNewUser').click(function () {
-                    $("#formHeader").text("New User");
-                    $("#formAddEditUser").attr("action", "/Administration/NewUser");
-                    $("#action").val("newUser");
-                    $("#email").removeAttr("readonly");
-                    $("#permission").val('2');
-                    userModal.dialog("open");
-                });
+            $(document).ready(function () {
+                $('#usersTable').DataTable();
             });
         </script>
         </body>

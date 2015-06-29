@@ -30,14 +30,6 @@
 	display: none;
 }
 
-.table {
-	max-width: 400px;
-	border: 1px solid #ddd;
-	margin: 0 auto;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
 #submit {
 	display: none;
 	background: #4574BF;

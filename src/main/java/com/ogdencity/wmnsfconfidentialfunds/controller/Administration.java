@@ -1,5 +1,6 @@
 package com.ogdencity.wmnsfconfidentialfunds.controller;
 
+import com.ogdencity.wmnsfconfidentialfunds.model.Permission;
 import com.ogdencity.wmnsfconfidentialfunds.model.User;
 import com.ogdencity.wmnsfconfidentialfunds.repo.PermissionRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.UserRepo;
@@ -40,8 +41,13 @@ public class Administration {
         List<Sort.Order> order = new ArrayList<>();
         order.add(new Sort.Order(Sort.Direction.DESC, "enabled"));
         order.add(new Sort.Order(Sort.Direction.ASC, "firstName"));
+
         List<User> users = userRepo.findAll(new Sort(order));
         model.addAttribute("users", users);
+
+        List<Permission> permissions = permissionRepo.findAll();
+        model.addAttribute("permissions", permissions);
+
         return "administration";
     }
 
@@ -50,7 +56,7 @@ public class Administration {
     public ModelAndView NewUser(HttpServletRequest request){
         String firstName = request.getParameter("firstName").trim();
         String lastName = request.getParameter("lastName").trim();
-        String permission = request.getParameter("permission");
+        String permissions[] = request.getParameterValues("permission");
         String email = request.getParameter("email").trim();
         String password = request.getParameter("password").trim();
 
@@ -61,7 +67,13 @@ public class Administration {
 
         password = encoder.encode(password);
         user.setPassword(password);
-        user.setPermissions(permissionRepo.findById(Long.parseLong(permission)));
+
+        List<Permission> givenPermissions = new ArrayList<>();
+        for(String permission : permissions)
+        {
+            givenPermissions.addAll(permissionRepo.findById(Long.parseLong(permission)));
+        }
+        user.setPermissions(givenPermissions);
 
         em.persist(user);
 
