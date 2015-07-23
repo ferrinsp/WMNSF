@@ -41,11 +41,11 @@
 
                 <label style="padding: 5px; color: white;">From:</label>
 
-                <input class="input-block-level" id="dateFrom" name="dateFrom" style="vertical-align: middle; height: 20px;">
+                <input class="input-block-level" id="dateFrom" name="startDate" style="vertical-align: middle; height: 20px;">
 
                 <label style="padding: 5px; color: white;">To:</label>
 
-                <input class="input-block-level" id="dateTo" name="dateTo" style="vertical-align: middle; height: 20px;">
+                <input class="input-block-level" id="dateTo" name="endDate" style="vertical-align: middle; height: 20px;">
 
                 <button class="btn btn-large btn-primary" type="button" name="action" value="submit" onclick="searchSubmit()">Search</button>
 
@@ -72,7 +72,6 @@
             <tbody>
             <c:forEach var="transaction" items="${transactions}" >
                 <tr>
-                <tr>
                     <td>${transaction.getId()}</td>
                     <td><fmt:formatDate value="${transaction.date}" pattern="MM-dd-yyyy" /></td>
                     <td>${transaction.getDescription()}</td>
@@ -81,7 +80,6 @@
                     <td><fmt:formatNumber value="${transaction.amount}" type="currency" /></td>
                     <td>${transaction.fundType.description}</td>
                     <td>${transaction.operatorUser.getFullName()}</td>
-                </tr>
                 </tr>
             </c:forEach>
             </tbody>

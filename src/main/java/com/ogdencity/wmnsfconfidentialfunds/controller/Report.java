@@ -49,6 +49,11 @@ public class Report {
     public ModelAndView NewTransferTransaction(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         long userId = Long.parseLong(request.getParameter("users"));
         List<TransferTransaction> transferTransactions = transferTransactionRepo.findByCreditUserIdOrDebitUserId(userId, userId);
+
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+
+        //transferTransactions = transferTransactionRepo.test(userId, )
         redirectAttributes.addFlashAttribute("transactions", transferTransactions);
         return new ModelAndView("redirect:/Reports");
     }
