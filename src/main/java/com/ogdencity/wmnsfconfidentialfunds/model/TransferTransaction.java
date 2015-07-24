@@ -2,6 +2,7 @@ package com.ogdencity.wmnsfconfidentialfunds.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -95,4 +96,15 @@ public class TransferTransaction implements Serializable {
     public void setFundType(FundType fundType) {
         this.fundType = fundType;
     }
+
+    public static Comparator<TransferTransaction> TransferTransactionComparator = new Comparator<TransferTransaction>() {
+        @Override
+        public int compare(TransferTransaction o1, TransferTransaction o2) {
+            Date date1 = o1.getDate();
+            Date date2 = o2.getDate();
+
+            return date1.compareTo(date2);
+        }
+    };
+
 }

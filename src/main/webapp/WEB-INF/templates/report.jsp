@@ -26,6 +26,13 @@
         <div class="formBar">
             <form action="/Reports/Search" name="filter" method="post" id="reportFilter">
 
+                <label class="checkbox-inline" style="color:white"><input type="checkbox" id="cbCredit" value="credit">Credit</label>
+                <input type="hidden" id="credit" name="cbCredit" value="false" />
+                <label class="checkbox-inline" style="color:white"><input type="checkbox" id="cbDebit" value="debit">Debit</label>
+                <input type="hidden" id="debit" name="cbDebit" value="false" />
+                <label class="checkbox-inline" style="color:white"><input type="checkbox" id="cbOperator"  value="operator">Operator</label>
+                <input type="hidden" id="operator" name="cbOperator" value="false" />
+
                 <select id="users" name="users">
                     <c:forEach var="user" items="${users}" >
                         <option value="${user.getId()}">${user.getFullName()}</option>
@@ -33,10 +40,9 @@
                 </select>
 
                 <select id="transactionType" name="transactionType">
-                    <option value="expenditure">Expenditure</option>
-                    <option value="transfer">Transfer</option>
-                    <option value="insert">Insert</option>
-                    <option value="endOfMonth">End of Month</option>
+                    <c:forEach var="type" items="${transactionTypes}" >
+                        <option value="${type.toString()}">${type.toString()}</option>
+                    </c:forEach>
                 </select>
 
                 <label style="padding: 5px; color: white;">From:</label>
@@ -87,6 +93,12 @@
 
         <script>
             function searchSubmit(){
+                if($("#cbCredit").is(':checked'))
+                    $("#credit").val("true");
+                if($("#cbDebit").is(':checked'))
+                    $("#debit").val("true");
+                if($("#cbOperator").is(':checked'))
+                    $("#operator").val("true");
                 $("#reportFilter").submit();
             }
 
@@ -113,7 +125,27 @@
                         $("#dateFrom").datePicker("option", "maxDate", selectedDate);
                     }
                 });
+
+                <c:if test="${search != null}">
+                $("#dateTo").val("<fmt:formatDate value="${search.endDate}" pattern="MM/dd/yyyy" />");
+                $("#dateFrom").val("<fmt:formatDate value="${search.startDate}" pattern="MM/dd/yyyy" />");
+                $("#users").val("${search.userId}");
+                $("#transactionType").val("${search.getTransactionType().toString()}");
+                <c:if test="${search.credit}">
+                $('#cbCredit').prop('checked', true);
+                </c:if>
+                <c:if test="${search.debit}">
+                $('#cbDebit').prop('checked', true);
+                </c:if>
+                <c:if test="${search.operator}">
+                $('#cbOperator').prop('checked', true);
+                </c:if>
+                </c:if>
+
             });
+
+
+
         </script>
     </jsp:body>
 </tags:template>

@@ -1,10 +1,11 @@
 package com.ogdencity.wmnsfconfidentialfunds.controller;
 
+import com.ogdencity.wmnsfconfidentialfunds.model.Search;
+import com.ogdencity.wmnsfconfidentialfunds.model.TransactionType;
 import com.ogdencity.wmnsfconfidentialfunds.model.TransferTransaction;
 import com.ogdencity.wmnsfconfidentialfunds.model.User;
 import com.ogdencity.wmnsfconfidentialfunds.repo.TransferTransactionRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.UserRepo;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,8 +16,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by tyler on 5/16/15.
@@ -41,6 +47,7 @@ public class Report {
             allEnabledUsers.add(operator);
         }
 
+        model.addAttribute("transactionTypes", TransactionType.values());
         model.addAttribute("users", allEnabledUsers);
         return "report";
     }
@@ -48,12 +55,44 @@ public class Report {
     @RequestMapping("/Search")
     public ModelAndView NewTransferTransaction(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         long userId = Long.parseLong(request.getParameter("users"));
-        List<TransferTransaction> transferTransactions = transferTransactionRepo.findByCreditUserIdOrDebitUserId(userId, userId);
+        List<TransferTransaction> transferTransactions = new ArrayList<>();
+        User user = userRepo.findById(userId);
+        String stringEnd = request.getParameter("endDate").trim();
+        String stringStart = request.getParameter("startDate").trim();
 
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
+        Search search = new Search();
 
-        //transferTransactions = transferTransactionRepo.test(userId, )
+        search.setCredit(request.getParameter("cbCredit").trim().equals("true"));
+        search.setDebit(request.getParameter("cbDebit").trim().equals("true"));
+        search.setOperator(request.getParameter("cbOperator").trim().equals("true"));
+
+        Date startDate;
+        Date endDate;
+        DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+
+        try {
+            startDate = format.parse(stringStart);
+            endDate = format.parse(stringEnd);
+
+            if(search.isCredit())
+                transferTransactions.addAll(transferTransactionRepo.getCreditUserBetween(startDate, endDate, user));
+            if(search.isDebit())
+                transferTransactions.addAll(transferTransactionRepo.getDebitUserBetween(startDate,endDate,user));
+            if(search.isOperator())
+                transferTransactions.addAll(transferTransactionRepo.getOperatorUserBetween(startDate,endDate,user));
+
+            transferTransactions.sort(TransferTransaction.TransferTransactionComparator);
+
+            search.setEndDate(endDate);
+            search.setStartDate(startDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        search.setTransactionType(TransactionType.EXPENDITURE);
+        search.setUserId(userId);
+
+        redirectAttributes.addFlashAttribute("search", search);
         redirectAttributes.addFlashAttribute("transactions", transferTransactions);
         return new ModelAndView("redirect:/Reports");
     }
