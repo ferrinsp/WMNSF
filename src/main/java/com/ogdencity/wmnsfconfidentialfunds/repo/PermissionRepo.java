@@ -9,5 +9,5 @@ import java.util.List;
  * Created by tyler on 5/17/15.
  */
 public interface PermissionRepo extends JpaRepository<Permission, Long> {
-    List<Permission> findById(long id);
+    Permission findById(long id);
 }

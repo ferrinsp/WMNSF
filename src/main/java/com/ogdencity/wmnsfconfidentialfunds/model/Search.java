@@ -1,5 +1,7 @@
 package com.ogdencity.wmnsfconfidentialfunds.model;
 
+import com.ogdencity.wmnsfconfidentialfunds.enums.TransactionType;
+
 import java.util.Date;
 
 /**

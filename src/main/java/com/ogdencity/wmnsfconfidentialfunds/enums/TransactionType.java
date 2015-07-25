@@ -1,19 +1,19 @@
-package com.ogdencity.wmnsfconfidentialfunds.model;
+package com.ogdencity.wmnsfconfidentialfunds.enums;
 
 /**
  * Created by Tyler on 7/24/2015.
  */
 public enum TransactionType {
-    TRANSFER {public String toString(){
-        return "TRANSFER";
-    }},
     EXPENDITURE {public String toString(){
         return "EXPENDITURE";
+    }},
+    END_OF_MONTH{public String toString(){
+        return "END OF MONTH";
     }},
     INSERT {public String toString(){
         return "INSERT";
     }},
-    END_OF_MONTH{public String toString(){
-        return "END OF MONTH";
+    TRANSFER {public String toString(){
+        return "TRANSFER";
     }}
 }

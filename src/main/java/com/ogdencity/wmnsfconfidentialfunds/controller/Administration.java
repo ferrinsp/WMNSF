@@ -1,5 +1,6 @@
 package com.ogdencity.wmnsfconfidentialfunds.controller;
 
+import com.ogdencity.wmnsfconfidentialfunds.enums.NotificationTypes;
 import com.ogdencity.wmnsfconfidentialfunds.model.Permission;
 import com.ogdencity.wmnsfconfidentialfunds.model.User;
 import com.ogdencity.wmnsfconfidentialfunds.repo.PermissionRepo;
@@ -13,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -53,7 +55,7 @@ public class Administration {
 
     @Transactional
     @RequestMapping("/NewUser")
-    public ModelAndView NewUser(HttpServletRequest request){
+    public ModelAndView NewUser(HttpServletRequest request, RedirectAttributes redirectAttributes){
         String firstName = request.getParameter("firstName").trim();
         String lastName = request.getParameter("lastName").trim();
         String permissions[] = request.getParameterValues("permission");
@@ -64,6 +66,7 @@ public class Administration {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
+        user.setEnabled(true);
 
         password = encoder.encode(password);
         user.setPassword(password);
@@ -71,24 +74,32 @@ public class Administration {
         List<Permission> givenPermissions = new ArrayList<>();
         for(String permission : permissions)
         {
-            givenPermissions.addAll(permissionRepo.findById(Long.parseLong(permission)));
+            givenPermissions.add(permissionRepo.findById(Long.parseLong(permission)));
         }
         user.setPermissions(givenPermissions);
 
-        em.persist(user);
+        String errorMessage = ValidateUser(user, true);
+        if(errorMessage.equals("")) {
+            em.persist(user);
+            redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "User " + user.getFullName() + " has been successfully added.");
+        }
+        else {
+            redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
+            redirectAttributes.addFlashAttribute("failedUser", user);
+        }
 
         return new ModelAndView("redirect:/Administration");
     }
 
     @Transactional
     @RequestMapping("/StatusUpdate")
-    public ModelAndView StatusUpdate(HttpServletRequest request){
+    public ModelAndView StatusUpdate(HttpServletRequest request, RedirectAttributes redirectAttributes){
 
-        String email = request.getParameter("email");
+        long id = Long.parseLong(request.getParameter("id"));
         String status = request.getParameter("status");
 
         boolean enable = (status.equals("enable")) ? true : false;
-        User user = userRepo.findByEmail(email).get(0);
+        User user = userRepo.findById(id);
         user.setEnabled(enable);
 
         em.persist(user);
@@ -98,24 +109,56 @@ public class Administration {
 
     @Transactional
     @RequestMapping("/EditUser")
-    public ModelAndView EditUser(HttpServletRequest request){
+    public ModelAndView EditUser(HttpServletRequest request, RedirectAttributes redirectAttributes){
+        long id = Long.parseLong(request.getParameter("id"));
         String firstName = request.getParameter("firstName").trim();
         String lastName = request.getParameter("lastName").trim();
-        String permission = request.getParameter("permission");
-        String email = request.getParameter("email").trim();
+        String permissions[] = request.getParameterValues("permission");
         String password = request.getParameter("password").trim();
 
-        User user = userRepo.findByEmail(email).get(0);
+        User user = userRepo.findById(id);
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        //user.setEmail(email);
 
-        password = encoder.encode(password);
         user.setPassword(password);
-        user.setPermissions(permissionRepo.findById(Long.parseLong(permission)));
 
-        em.persist(user);
+        List<Permission> givenPermissions = new ArrayList<>();
+        if(permissions != null)
+            for(String permission : permissions)
+            {
+                givenPermissions.add(permissionRepo.findById(Long.parseLong(permission)));
+            }
+        user.setPermissions(givenPermissions);
+
+        String errorMessage = ValidateUser(user, false);
+        if(errorMessage.equals("")) {
+            password = encoder.encode(password);
+            user.setPassword(password);
+            em.persist(user);
+            redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "User " + user.getFullName() + " has been successfully modified.");
+        }
+        else {
+            redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
+            redirectAttributes.addFlashAttribute("failedUser", user);
+        }
 
         return new ModelAndView("redirect:/Administration");
+    }
+
+    private String ValidateUser(User user, boolean newUser){
+
+        if(user.getFirstName().length() == 0){
+            return  "User must have a first name.";
+        }
+
+        if(user.getLastName().length() == 0){
+            return  "User must have a last name.";
+        }
+
+        if((newUser && user.getPassword().length() <= 8) || (!newUser && user.getPassword().length() != 0 && user.getPassword().length() <= 8)){
+            return "Password must be at least 8 characters long.";
+        }
+
+        return "";
     }
 }

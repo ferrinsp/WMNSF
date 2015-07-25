@@ -10,11 +10,29 @@
 <script src="/static/js/jquery.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/jqui/jquery-ui.min.js"></script>
+<script src="/static/js/toastr.js" ></script>
+<script>
+    $(document).ready(function () {
+        <c:if test="${successNotification != null}">
+        toastr["success"]("${successNotification}");
+        </c:if>
+        <c:if test="${infoNotification != null}">
+        toastr["info"]("${infoNotification}");
+        </c:if>
+        <c:if test="${warningNotification != null}">
+        toastr["warning"]("${warningNotification}");
+        </c:if>
+        <c:if test="${errorNotification != null}">
+        toastr["error"]("${errorNotification}");
+        </c:if>
+    });
+</script>
 <link rel="stylesheet" href="/static/jqui/jquery-ui.min.css">
 <link rel="stylesheet" href="/static/jqui/jquery-ui.structure.min.css">
 <link rel="stylesheet" href="/static/jqui/jquery-ui.theme.min.css">
 <link rel="stylesheet" href="/static/css/styles.css">
 <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/css/toastr.css">
 <html lang="en">
 <head>
     <title><c:if test="${not empty pageTitle}"><c:out value="${pageTitle}"/></c:if></title>

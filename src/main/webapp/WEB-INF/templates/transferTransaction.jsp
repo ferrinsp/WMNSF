@@ -96,7 +96,7 @@
         <tr>
             <td>Fund Amount & Type:</td>
             <td>
-                <input type="number" class="input-block-level" id="amount" name="amount"/>
+                <input type="number" step="0.01" class="input-block-level" id="amount" name="amount"/>
             </td>
             <td>
                 <select id="fundType" name="fundType">
@@ -121,6 +121,17 @@
         $('#btnNewTransfer').click(function () {
             transferModal.dialog("open");
         });
+
+
+        <c:if test="${failedTransferTransaction != null}">
+        $("#date").val("<fmt:formatDate value="${failedTransferTransaction.date}" pattern="MM/dd/yyyy" />");
+        $("#description").val("${failedTransferTransaction.description}");
+        $('#debitOfficer').val("${failedTransferTransaction.debitUser.id}");
+        $("#creditOfficer").val("${failedTransferTransaction.creditUser.id}");
+        $("#amount").val("${failedTransferTransaction.amount}");
+        $("#fundType").val("${failedTransferTransaction.fundType.id}");
+        transferModal.dialog("open");
+        </c:if>
     });
 
     $(function() {

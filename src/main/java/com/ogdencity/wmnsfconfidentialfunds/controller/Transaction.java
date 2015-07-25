@@ -1,5 +1,6 @@
 package com.ogdencity.wmnsfconfidentialfunds.controller;
 
+import com.ogdencity.wmnsfconfidentialfunds.enums.NotificationTypes;
 import com.ogdencity.wmnsfconfidentialfunds.model.FundType;
 import com.ogdencity.wmnsfconfidentialfunds.model.TransferTransaction;
 import com.ogdencity.wmnsfconfidentialfunds.model.User;
@@ -14,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -60,7 +62,7 @@ public class Transaction {
 
     @Transactional
     @RequestMapping("/NewTransferTransaction")
-    public ModelAndView NewTransferTransaction(HttpServletRequest request, Principal principal) {
+    public ModelAndView NewTransferTransaction(HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes) {
         String operatorEmail = principal.getName();
 
         TransferTransaction transferTransaction = new TransferTransaction();
@@ -90,9 +92,11 @@ public class Transaction {
 
         if (encoder.matches(debitPassword, debitOfficer.getPassword()) && encoder.matches(creditPassword, creditOfficer.getPassword())) {
             em.persist(transferTransaction);
+            redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Transfer Transaction successfully saved.");
         }
         else {
-
+            redirectAttributes.addFlashAttribute("failedTransferTransaction", transferTransaction);
+            redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), "Passwords do not match.");
         }
 
         return new ModelAndView("redirect:/Transaction");

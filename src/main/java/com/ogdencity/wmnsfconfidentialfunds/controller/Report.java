@@ -1,7 +1,7 @@
 package com.ogdencity.wmnsfconfidentialfunds.controller;
 
 import com.ogdencity.wmnsfconfidentialfunds.model.Search;
-import com.ogdencity.wmnsfconfidentialfunds.model.TransactionType;
+import com.ogdencity.wmnsfconfidentialfunds.enums.TransactionType;
 import com.ogdencity.wmnsfconfidentialfunds.model.TransferTransaction;
 import com.ogdencity.wmnsfconfidentialfunds.model.User;
 import com.ogdencity.wmnsfconfidentialfunds.repo.TransferTransactionRepo;

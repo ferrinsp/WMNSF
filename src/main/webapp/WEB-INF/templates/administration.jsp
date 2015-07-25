@@ -50,7 +50,6 @@
                                 <td>First Name</td>
                                 <td><input type="text" class="input-block-level" id="firstName" name="firstName">
                                     <input type="hidden" id="id" name="id">
-                                    <input type="hidden" id="action" name="action" value="newUser"/>
                                 </td>
                             </tr>
 
@@ -63,7 +62,7 @@
                                 <td colspan="2">
                                     <select id="permission" name="permission" multiple="multiple">
                                         <c:forEach var="permission" items="${permissions}">
-                                            <option value="${permission.getId()}">${permission.getDescription()}</option>
+                                            <option value="${permission.getId()}">${permission.getDescription().trim()}</option>
                                         </c:forEach>
                                     </select>
                                 </td>
@@ -88,13 +87,12 @@
                             <!-- Table Header Section -->
                             <thead>
                             <tr>
-                                <th></th>
+                                <th>Actions</th>
                                 <th>ID</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Permission</th>
                                 <th>E-Mail</th>
-                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -104,6 +102,7 @@
                                     <!--  Edit Button: each edit button has a unique id: userId's value -->
                                     <td>
                                         <button class="editButton" id="${user.getId()}">Edit</button>
+                                        <button class="statusButton" id="${user.getId()}" name=${user.isEnabled() ? "disable" : "enable"}>${user.isEnabled() ? "Disable" : "Enable"}</button>
                                     </td>
                                     <td>${user.getId()}</td>
                                     <td>${user.getFirstName()}</td>
@@ -114,10 +113,6 @@
                                         </c:forEach>
                                     </td>
                                     <td>${user.getEmail()}</td>
-                                    <td>
-                                        <button class="statusButton" id="${user.getEmail()}"
-                                                name=${user.isEnabled() ? "disable" : "enable"}>${user.isEnabled() ? "Disable" : "Enable"}</button>
-                                    </td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -146,13 +141,11 @@
                             <!-- Table Header Section -->
                             <thead>
                             <tr>
-                                <th></th>
+                                <th>Actions</th>
                                 <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Permission</th>
-                                <th>E-Mail</th>
-                                <th></th>
+                                <th>Description</th>
+                                <th>Effective Date</th>
+                                <th>End Date</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -170,6 +163,7 @@
 
         <script type="text/javascript">
             //jQuery
+
 
             $('#permission').multiSelect({
                 selectableHeader: "<div class='custom-header'>Available</div>",
@@ -215,7 +209,7 @@
                 $("#id").val("");
                 $("#firstName").val("");
                 $("#lastName").val("");
-                $("#permission").val('${permissions.get(0).id}');
+                $('#permission').multiSelect('deselect_all');
                 $("#email").val("");
                 $("#password").val("");
                 userModal.dialog("close");
@@ -242,13 +236,12 @@
                 $("#email").attr("readonly", "true");
                 $("#formHeader").text("Edit User");
                 $("#formAddEditUser").attr("action", "/Administration/EditUser");
-                $("#action").val("editUser");
                 userModal.dialog("open");
             });
 
             // ----------------------- Click Event handler for dynamically generated Delete buttons --------------------------------
             $(document).on('click', '.statusButton', function (event) {
-                var email = event.target.id; // get the id of the button, store in local var
+                var id = event.target.id; // get the id of the button, store in local var
                 var status = event.target.name;
 
                 var form = $('<form></form>');
@@ -260,8 +253,8 @@
                 var field = $('<input></input>');
 
                 field.attr("type", "hidden");
-                field.attr("name", "email");
-                field.attr("value", email);
+                field.attr("name", "id");
+                field.attr("value", id);
 
                 form.append(field);
 
@@ -273,14 +266,6 @@
 
                 form.append(field2);
 
-                var field3 = $('<input></input>');
-
-                field3.attr("type", "hidden");
-                field3.attr("name", "action");
-                field3.attr("value", "statusChange");
-
-                form.append(field3);
-
                 // The form needs to be a part of the document in
                 // order for us to be able to submit it.
                 $(document.body).append(form);
@@ -290,7 +275,6 @@
             function newUser(){
                 $("#formHeader").text("New User");
                 $("#formAddEditUser").attr("action", "/Administration/NewUser");
-                $("#action").val("newUser");
                 $("#email").removeAttr("readonly");
                 //$("#permission").val('2');
                 userModal.dialog("open");
@@ -298,6 +282,28 @@
 
             $(document).ready(function () {
                 $('#usersTable').DataTable();
+
+                <c:if test="${failedUser != null}">
+                $("#firstName").val("${failedUser.firstName}");
+                $("#lastName").val("${failedUser.lastName}");
+                $('#permission').multiSelect('deselect_all');
+                $("#email").val("${failedUser.email}");
+                $("#transactionType").val("${search.getTransactionType().toString()}");
+
+
+                $("#formHeader").text("New User");
+                $("#formAddEditUser").attr("action", "/Administration/NewUser");
+
+                <c:if test="${failedUser.getId() != null}">
+                $("#email").removeAttr("readonly");
+                $('#id').val("${failedUser.id}");
+                $("#formHeader").text("Edit User");
+                $("#formAddEditUser").attr("action", "/Administration/EditUser");
+                </c:if>
+
+                $("#password").val("");
+                userModal.dialog("open");
+                </c:if>
             });
         </script>
         </body>
