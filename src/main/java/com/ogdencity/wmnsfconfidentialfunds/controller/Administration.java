@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -143,6 +144,27 @@ public class Administration {
         }
 
         return new ModelAndView("redirect:/Administration");
+    }
+
+    @Transactional
+    @RequestMapping("/StatusUser")
+    public @ResponseBody boolean StatusUser(String id) {
+        long userId = Long.parseLong(id);
+
+        User user = userRepo.findById(userId);
+        user.toggleStatus();
+        em.persist(user);
+
+        return  user.isEnabled();
+    }
+
+    @RequestMapping("/GetUser")
+    public @ResponseBody User GetUser(String id) {
+        long userId = Long.parseLong(id);
+
+        User user = userRepo.findById(userId);
+
+        return user;
     }
 
     private String ValidateUser(User user, boolean newUser){

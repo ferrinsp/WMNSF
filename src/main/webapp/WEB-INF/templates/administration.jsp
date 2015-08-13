@@ -16,9 +16,6 @@
 
         <body>
 
-        <div id="notificationDiv">
-            <p id="notificationP"></p>
-        </div>
         <div class="title">
             <h2>Welcome, Administrator</h2>
         </div>
@@ -101,8 +98,8 @@
                                 <tr id="row${user.getId()}">
                                     <!--  Edit Button: each edit button has a unique id: userId's value -->
                                     <td>
-                                        <button class="editButton" id="${user.getId()}">Edit</button>
-                                        <button class="statusButton" id="${user.getId()}" name=${user.isEnabled() ? "disable" : "enable"}>${user.isEnabled() ? "Disable" : "Enable"}</button>
+                                        <button class="editButton" id="edit${user.getId()}" onclick="editUser(${user.getId()})">Edit</button>
+                                        <button class="statusButton" id="status${user.getId()}" onclick="statusUser(${user.getId()})">${user.isEnabled() ? "Disable" : "Enable"}</button>
                                     </td>
                                     <td>${user.getId()}</td>
                                     <td>${user.getFirstName()}</td>
@@ -120,7 +117,7 @@
                     </div>
                 </div>
 
-                <!---------------------------------- Add/Edit Funds Tab -------------------------------------->
+                <!---------------------------------- Add/Edit Funds Tab --------------------------------------><!---------------------------------- Needs Work -------------------------------------->
                 <div role="tabpanel" class="formContent tab-pane fade in" id="fundTypesForm">
                     <div class="buttonHolder">
                         <button class="btn btn-large btn-primary" id="btnNewFundType">New Fund Type</button>
@@ -164,31 +161,52 @@
         <script type="text/javascript">
             //jQuery
 
+            function statusUser(id){
+                $.ajax({
+                    type: "POST",
+                    url: "/Administration/StatusUser",
+                    data: ({
+                        id: id
+                    }),
+                    success: function (isEnabled) {
+                        var enabled = "Enable";
+
+                        if(isEnabled){
+                            enabled = "Disable";
+                        }
+
+                        $("#status"+id.toString()).text(enabled);
+                    }
+                });
+            }
+
+            function editUser(id){
+                $.ajax({
+                    type: "POST",
+                    url: "/Administration/GetUser",
+                    data: ({
+                        id: id
+                    }),
+                    success: function (user) {
+                        $("#id").val(user.id);
+                        $("#firstName").val(user.firstName);
+                        $("#lastName").val(user.lastName);
+                        $.each( user.permissions, function(index, permission) {
+                            $("#permission").multiSelect('select', permission.id.toString());
+                        });
+                        $("#email").val(user.email);
+                        $("#password").val("");
+                        $("#email").attr("readonly", "true");
+                        $("#formAddEditUser").attr("action", "/Administration/EditUser");
+                        userModal.dialog("open");
+                    }
+                });
+            }
 
             $('#permission').multiSelect({
                 selectableHeader: "<div class='custom-header'>Available</div>",
                 selectionHeader: "<div class='custom-header'>Selected Permissions</div>"
             });
-            window.onload = function () {
-                var notification = '${notification}';
-                if (notification) {
-                    $("#notificationP").text(notification);
-                    notificationModal.dialog("open");
-                }
-            }
-
-            notificationModal = $("#notificationDiv").dialog({
-                autoOpen: false,
-                modal: true,
-                resizable: false,
-                buttons: {
-                    "OK": closeNotification
-                }
-            });
-
-            function closeNotification() {
-                notificationModal.dialog("close");
-            }
 
             userModal = $("#formAddEditUser").dialog({
                 autoOpen: false,
@@ -215,63 +233,6 @@
                 userModal.dialog("close");
             }
 
-            // ----------------------- Click Event handler for dynamically generated Edit buttons --------------------------------
-            $(document).on('click', '.editButton', function (event) {
-                var thisID = event.target.id; // get the id of the button, store in local var
-                var rowID = 'row' + thisID; // string var holding the id (matches the id of each row in the table)
-
-                // Populate fields with data pulled from the table itself - get the row(rowID), get the cell index, and get the contents.
-                // Place contents in the relevant field on the form when the user clicks the Edit button
-                $("#id").val(thisID); // hidden field on table
-                $("#firstName").val(document.getElementById(rowID).cells[2].innerHTML);
-                $("#lastName").val(document.getElementById(rowID).cells[3].innerHTML);
-                var permissionText = document.getElementById(rowID).cells[4].innerHTML;
-                var array = permissionText.split(',');
-                for(index = 0; index < array.length; ++index){
-                    var trimmed = array[index].trim();
-                    $("#permission").multiSelect('select', trimmed);
-                }
-                $("#permission").multiSelect('refresh');
-                $("#email").val(document.getElementById(rowID).cells[5].innerHTML);
-                $("#email").attr("readonly", "true");
-                $("#formHeader").text("Edit User");
-                $("#formAddEditUser").attr("action", "/Administration/EditUser");
-                userModal.dialog("open");
-            });
-
-            // ----------------------- Click Event handler for dynamically generated Delete buttons --------------------------------
-            $(document).on('click', '.statusButton', function (event) {
-                var id = event.target.id; // get the id of the button, store in local var
-                var status = event.target.name;
-
-                var form = $('<form></form>');
-
-                form.attr("method", "post");
-                form.attr("action", "/Administration/StatusUpdate");
-
-
-                var field = $('<input></input>');
-
-                field.attr("type", "hidden");
-                field.attr("name", "id");
-                field.attr("value", id);
-
-                form.append(field);
-
-                var field2 = $('<input></input>');
-
-                field2.attr("type", "hidden");
-                field2.attr("name", "status");
-                field2.attr("value", status);
-
-                form.append(field2);
-
-                // The form needs to be a part of the document in
-                // order for us to be able to submit it.
-                $(document.body).append(form);
-                form.submit();
-            });
-
             function newUser(){
                 $("#formHeader").text("New User");
                 $("#formAddEditUser").attr("action", "/Administration/NewUser");
@@ -289,7 +250,6 @@
                 $('#permission').multiSelect('deselect_all');
                 $("#email").val("${failedUser.email}");
                 $("#transactionType").val("${search.getTransactionType().toString()}");
-
 
                 $("#formHeader").text("New User");
                 $("#formAddEditUser").attr("action", "/Administration/NewUser");
