@@ -84,7 +84,8 @@
                             <!-- Table Header Section -->
                             <thead>
                             <tr>
-                                <th>Actions</th>
+                                <th></th>
+                                <th></th>
                                 <th>ID</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
@@ -99,6 +100,8 @@
                                     <!--  Edit Button: each edit button has a unique id: userId's value -->
                                     <td>
                                         <button class="editButton" id="edit${user.getId()}" onclick="editUser(${user.getId()})">Edit</button>
+                                    </td>
+                                    <td>
                                         <button class="statusButton" id="status${user.getId()}" onclick="statusUser(${user.getId()})">${user.isEnabled() ? "Disable" : "Enable"}</button>
                                     </td>
                                     <td>${user.getId()}</td>
@@ -168,14 +171,17 @@
                     data: ({
                         id: id
                     }),
-                    success: function (isEnabled) {
-                        var enabled = "Enable";
+                    success: function (user) {
+                        var buttonString = "Enable";
+                        var notification = "Disabled";
 
-                        if(isEnabled){
-                            enabled = "Disable";
+                        if(user.enabled){
+                            notification = "Enabled";
+                            buttonString = "Disable";
                         }
 
-                        $("#status"+id.toString()).text(enabled);
+                        $("#status"+id.toString()).text(buttonString);
+                        toastr["success"](user.firstName + " " + user.lastName + " successfully " + notification);
                     }
                 });
             }

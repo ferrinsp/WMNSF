@@ -148,14 +148,14 @@ public class Administration {
 
     @Transactional
     @RequestMapping("/StatusUser")
-    public @ResponseBody boolean StatusUser(String id) {
+    public @ResponseBody User StatusUser(String id) {
         long userId = Long.parseLong(id);
 
         User user = userRepo.findById(userId);
         user.toggleStatus();
         em.persist(user);
 
-        return  user.isEnabled();
+        return  user;
     }
 
     @RequestMapping("/GetUser")
