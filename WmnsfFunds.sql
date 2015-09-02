@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `wmnsffunds` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `wmnsffunds`;
--- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
+ CREATE DATABASE  IF NOT EXISTS `WmnsfFunds` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `WmnsfFunds`;
+-- MySQL dump 10.13  Distrib 5.6.19, for osx10.7 (i386)
 --
--- Host: localhost    Database: wmnsffunds
+-- Host: 127.0.0.1    Database: WmnsfFunds
 -- ------------------------------------------------------
--- Server version	5.6.25-log
+-- Server version	5.6.23
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -17,34 +17,6 @@ USE `wmnsffunds`;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `first_name` varchar(25) DEFAULT NULL,
-  `last_name` varchar(25) DEFAULT NULL,
-  `id` int(20) NOT NULL AUTO_INCREMENT,
-  `password` varchar(255) DEFAULT NULL,
-  `email` varchar(50) NOT NULL,
-  `enabled` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('Kevin','Glines',2,'$2a$10$nzwfh5e0oDtewwwfynqHKOBxZ8jEijrqS1eaVuuie62x4cgeZXPN.','kevinglines@mail.weber.edu',0),('Yong','Zhang',4,'$2a$10$lJSRlsBEPyDhSn2dCivsTuLl7CugUPqDhHw0N912OHMHM.jvfdhGS','yongzhang@weber.edu',1),('Tyler','Evans',12,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','tyler',1),('editHibernate','testHibernate',23,'$2a$10$bK7.syct87P.ifrBr6c0yOKABpvYbiJdQiayZcCX5cDjmS0N3xJXy','testHibernate',1),('test','user',24,'$2a$10$KRs09Q1MDQkfwfL8v0O5CeaVU5UIdDd9JQpcJs3cRMJjlAdFBXiEq','test@user.com',1),('hibernate','test',25,'$2a$10$xXXs70cHWxVFQ1XVeM1BEOykgvx0dCJBSjVBiLpkmObYR/Jp6ceXq','test@another.com',0),('amy','jacobsen',26,'$2a$10$H8BnAnTnUPR1atsU.2lTXOLNFkptRDleoiPWd664lGl9dPRYddcyO','amy@awesome.com',0);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `fund_type`
@@ -72,6 +44,34 @@ INSERT INTO `fund_type` VALUES (1,'HIDTA15','2015-01-01 00:00:00','2015-12-31 23
 /*!40000 ALTER TABLE `fund_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `first_name` varchar(25) DEFAULT NULL,
+  `last_name` varchar(25) DEFAULT NULL,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `password` varchar(255) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('Kevin','Glines',2,'$2a$10$nzwfh5e0oDtewwwfynqHKOBxZ8jEijrqS1eaVuuie62x4cgeZXPN.','kevinglines@mail.weber.edu',0),('Yong','Zhang',4,'$2a$10$lJSRlsBEPyDhSn2dCivsTuLl7CugUPqDhHw0N912OHMHM.jvfdhGS','yongzhang@weber.edu',0),('Tyler','Evans',12,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','tyler',1),('editHibernate','testHibernate',23,'$2a$10$bK7.syct87P.ifrBr6c0yOKABpvYbiJdQiayZcCX5cDjmS0N3xJXy','testHibernate',1),('test','user',24,'$2a$10$KRs09Q1MDQkfwfL8v0O5CeaVU5UIdDd9JQpcJs3cRMJjlAdFBXiEq','test@user.com',0),('hibernate','test',25,'$2a$10$xXXs70cHWxVFQ1XVeM1BEOykgvx0dCJBSjVBiLpkmObYR/Jp6ceXq','test@another.com',1);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `balance`
@@ -211,6 +211,7 @@ INSERT INTO `transfer_transaction` VALUES (1,'2014-05-09','baby time',2,12,89222
 /*!40000 ALTER TABLE `transfer_transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 --
 -- Table structure for table `user_permission`
 --
@@ -234,9 +235,13 @@ CREATE TABLE `user_permission` (
 
 LOCK TABLES `user_permission` WRITE;
 /*!40000 ALTER TABLE `user_permission` DISABLE KEYS */;
-INSERT INTO `user_permission` VALUES (12,1),(12,2),(23,2),(2,2),(25,2),(4,2),(26,1),(26,2),(24,2);
+INSERT INTO `user_permission` VALUES (12,1),(12,2),(23,2),(2,2),(25,2),(4,2),(24,2);
 /*!40000 ALTER TABLE `user_permission` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'WmnsfFunds'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -247,4 +252,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-23 16:57:22
+-- Dump completed on 2015-08-31 17:30:15
