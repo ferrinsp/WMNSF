@@ -74,21 +74,21 @@
         <tr>
             <td>Check Number:</td>
             <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="checkNumber" name="checkNumber"></textarea>
+                <input type="text" class="input-block-level" id="checkNumber" name="checkNumber"/>
             </td>
         </tr>
         
         <tr>
             <td>Case Number:</td>
             <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="caseNumber" name="caseNumber"></textarea>
+                <input type="text" class="input-block-level" id="caseNumber" name="caseNumber"/>
             </td>
         </tr>
         
         <tr>
             <td>Ci Number:</td>
             <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="ciNumber" name="ciNumber"></textarea>
+                <input type="text" class="input-block-level" id="ciNumber" name="ciNumber"/>
             </td>
         </tr>
 
