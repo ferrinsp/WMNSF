@@ -7,7 +7,6 @@ import com.ogdencity.wmnsfconfidentialfunds.model.User;
 import com.ogdencity.wmnsfconfidentialfunds.repo.FundTypeRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.TransferTransactionRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.UserRepo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -68,9 +67,6 @@ public class Transaction {
 
         TransferTransaction transferTransaction = new TransferTransaction();
         String description = request.getParameter("description").trim();
-        String checkNumber = request.getParameter("checkNumber").trim();
-        String caseNumber = request.getParameter("caseNumber").trim();
-        String ciNumber = request.getParameter("ciNumber").trim();
         transferTransaction.setDescription(description);
         DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
         String stringDate = request.getParameter("date").trim();
@@ -90,22 +86,13 @@ public class Transaction {
         transferTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
         transferTransaction.setAmount(Double.parseDouble(request.getParameter("amount").trim()));
         transferTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType").trim())));
-        transferTransaction.setCheckNumber(checkNumber);
-        transferTransaction.setCaseNumber(caseNumber);
-        transferTransaction.setCiNumber(ciNumber);
-        
+
         String debitPassword = request.getParameter("debitPassword").trim();
         String creditPassword = request.getParameter("creditPassword").trim();
 
         if (encoder.matches(debitPassword, debitOfficer.getPassword()) && encoder.matches(creditPassword, creditOfficer.getPassword())) {
-        	try {
-        		em.persist(transferTransaction);
-                redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Transfer Transaction successfully saved.");
-			} catch (Exception e) {
-				System.out.println("Error committing to database");
-				e.printStackTrace();
-			}
-            
+            em.persist(transferTransaction);
+            redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Transfer Transaction successfully saved.");
         }
         else {
             redirectAttributes.addFlashAttribute("failedTransferTransaction", transferTransaction);

@@ -28,9 +28,6 @@
         <th>Amount</th>
         <th>Operator</th>
         <th>Fund Type</th>
-        <th>Check Number</th>
-        <th>Case Number</th>
-        <th>Ci Number</th>
     </tr>
     </thead>
 
@@ -44,9 +41,6 @@
     <td><fmt:formatNumber value="${transferTransaction.amount}" type="currency" /></td>
     <td>${transferTransaction.operatorUser.getFullName()}</td>
     <td>${transferTransaction.fundType.description}</td>
-    <td>${transferTransaction.getCheckNumber()}</td>
-    <td>${transferTransaction.getCaseNumber()}</td>
-    <td>${transferTransaction.getCiNumber()}</td>
     </tr>
     </c:forEach>
 </table>
@@ -68,27 +62,6 @@
             <td>Description:</td>
             <td colspan="2">
                 <textarea rows="5" class="input-block-level" id="description" name="description"></textarea>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>Check Number:</td>
-            <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="checkNumber" name="checkNumber"></textarea>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>Case Number:</td>
-            <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="caseNumber" name="caseNumber"></textarea>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>Ci Number:</td>
-            <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="ciNumber" name="ciNumber"></textarea>
             </td>
         </tr>
 
@@ -157,9 +130,6 @@
         $("#creditOfficer").val("${failedTransferTransaction.creditUser.id}");
         $("#amount").val("${failedTransferTransaction.amount}");
         $("#fundType").val("${failedTransferTransaction.fundType.id}");
-        $("#checkNumber").val("${failedTransferTransaction.checkNumber}");
-        $("#caseNumber").val("${failedTransferTransaction.caseNumber}");
-        $("#ciNumber").val("${failedTransferTransaction.ciNumber}");
         transferModal.dialog("open");
         </c:if>
     });
@@ -192,9 +162,6 @@
         $("#creditPassword").val("");
         $("#amount").val("");
         $("#fundType").val('${allActiveFundTypes.get(0).id}');
-        $("#checkNumber").val("");
-        $("#caseNumber").val("");
-        $("#ciNumber").val("");
         transferModal.dialog("close");
     }
 </script>
