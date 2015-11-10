@@ -21,6 +21,9 @@
         <script src="/static/js/dataTables.js"></script>
         <link rel="stylesheet" href="/static/multi-select/css/multi-select.css">
         <script src="/static/multi-select/js/jquery.multi-select.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.min.css">
+        <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
     </jsp:attribute>
     <jsp:body>
         <div class="formBar">
@@ -59,37 +62,60 @@
             </form>
         </div>
 
-        <br/>
-        <br/>
-
-        <table id="tblTransferTransactions">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Debit Officer</th>
-                <th>Credit Officer</th>
-                <th>Amount</th>
-                <th>Fund Type</th>
-                <th>Operator</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="transaction" items="${transactions}" >
-                <tr>
-                    <td>${transaction.getId()}</td>
-                    <td><fmt:formatDate value="${transaction.date}" pattern="MM-dd-yyyy" /></td>
-                    <td>${transaction.getDescription()}</td>
-                    <td>${transaction.debitUser.getFullName()}</td>
-                    <td>${transaction.creditUser.getFullName()}</td>
-                    <td><fmt:formatNumber value="${transaction.amount}" type="currency" /></td>
-                    <td>${transaction.fundType.description}</td>
-                    <td>${transaction.operatorUser.getFullName()}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+        <div class="table-responsive" style="padding:50px">
+        <div class="DTTT_container" style="float:left; padding-top:5px;">
+        	<label>Filter Based On Fund Type:</label>
+        <select id="fundType" name="fundType">
+        	<option id="" value="">All</option>
+            <c:forEach var="fundType" items="${fundTypes}" >
+            	<option id="${fundType.id}" value="${fundType.description}">${fundType.description}</option>
+        	</c:forEach>
+        </select>
+        </div>
+	        <table class="table table-striped" id="tblTransferTransactions">
+	            <thead>
+	            <tr>
+	                <th>ID</th>
+	                <th>Date</th>
+	                <th>Description</th>
+	                <th>Debit Officer</th>
+	                <th>Credit Officer</th>
+	                <th>Amount</th>
+	                <th>Fund Type</th>
+	                <th>Operator</th>
+	            </tr>
+	            </thead>
+	            <tbody>
+	            <c:forEach var="transaction" items="${transactions}" >
+	                <tr>
+	                    <td>${transaction.getId()}</td>
+	                    <td><fmt:formatDate value="${transaction.date}" pattern="MM-dd-yyyy" /></td>
+	                    <td>${transaction.getDescription()}</td>
+	                    <td>${transaction.debitUser.getFullName()}</td>
+	                    <td>${transaction.creditUser.getFullName()}</td>
+	                    <td><fmt:formatNumber value="${transaction.amount}" type="currency" /></td>
+	                    <td>${transaction.fundType.description}</td>
+	                    <td>${transaction.operatorUser.getFullName()}</td>
+	                </tr>
+	            </c:forEach>
+	            </tbody>
+	            
+	            <!--
+			<tfoot>
+				<tr>
+							<th>ID</th>
+			                <th>Date</th>
+			                <th>Description</th>
+			                <th>Debit Officer</th>
+			                <th>Credit Officer</th>
+			                <th>Amount</th>
+			                <th>Fund Type</th>
+			                <th>Operator</th>
+				</tr>
+			</tfoot>
+	            -->
+	        </table>
+        </div>
 
         <script>
             function searchSubmit(){
@@ -103,7 +129,55 @@
             }
 
             $(document).ready(function () {
-                $('#tblTransferTransactions').DataTable();
+            	
+            	var table = $('#tblTransferTransactions').DataTable();
+                var buttons = new $.fn.dataTable.TableTools(table, {
+                	'sSwfPath':'//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf',
+                	'aButtons':[{'sExtends':'copy', 'sButtonText':'Copy', "oSelectorOpts": {page: 'current'}}, 
+                	            {'sExtends':'pdf', 'sButtonText':'Export to PDF', "sPdfOrientation": "landscape", "oSelectorOpts": {page: 'current'}},
+                	            {'sExtends':'xls', 'sButtonText':'Save to Excel', 'sFileName':'*.xls', "oSelectorOpts": {page: 'current'}}, 
+                	            'print']
+                });
+                $(buttons.fnContainer()).insertBefore('#tblTransferTransactions_wrapper');
+                
+            	
+            	var table = $('#tblTransferTransactions').DataTable();
+            	$('#fundType').on('change', function () {
+            	    table
+            	        .columns(6)
+            	        .search(this.value)
+            	        .draw();
+            	} );
+            	
+            	
+            	/*$('#tblTransferTransactions').DataTable( {
+                    initComplete: function () {
+                        this.api().columns([6]).every( function () {
+                            var column = this;
+                            var select = $('<select><option value=""></option></select>')
+                                .appendTo( $(column.footer()).empty() )
+                                .on( 'change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+             
+                                    column
+                                        .search( val ? '^'+val+'$' : '', true, false )
+                                        .draw();
+                                } );
+             
+                            column.data().unique().sort().each( function ( d, j ) {
+                                select.append( '<option value="'+d+'">'+d+'</option>' )
+                            } );
+                        } );
+                    }
+                } );*/
+                //-----------------------------
+                
+                
+                
+                //-----------------------------
+                
 
                 var date = new Date();
                 var firstDay = new Date(date.getFullYear(), date.getMonth() -1 , 1);
