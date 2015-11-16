@@ -22,8 +22,8 @@
         <link rel="stylesheet" href="/static/multi-select/css/multi-select.css">
         <script src="/static/multi-select/js/jquery.multi-select.js"></script>
         
-        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.min.css">
-        <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/css/dataTables.tableTools.min.css">
+        <script src="/static/js/dataTables.tableTools.min.js"></script>
     </jsp:attribute>
     <jsp:body>
         <div class="formBar">
@@ -132,7 +132,7 @@
             	
             	var table = $('#tblTransferTransactions').DataTable();
                 var buttons = new $.fn.dataTable.TableTools(table, {
-                	'sSwfPath':'//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf',
+                	'sSwfPath':'/static/swf/copy_csv_xls_pdf.swf',
                 	'aButtons':[{'sExtends':'copy', 'sButtonText':'Copy', "oSelectorOpts": {page: 'current'}}, 
                 	            {'sExtends':'pdf', 'sButtonText':'Export to PDF', "sPdfOrientation": "landscape", "oSelectorOpts": {page: 'current'}},
                 	            {'sExtends':'xls', 'sButtonText':'Save to Excel', 'sFileName':'*.xls', "oSelectorOpts": {page: 'current'}}, 
@@ -150,35 +150,7 @@
             	} );
             	
             	
-            	/*$('#tblTransferTransactions').DataTable( {
-                    initComplete: function () {
-                        this.api().columns([6]).every( function () {
-                            var column = this;
-                            var select = $('<select><option value=""></option></select>')
-                                .appendTo( $(column.footer()).empty() )
-                                .on( 'change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-             
-                                    column
-                                        .search( val ? '^'+val+'$' : '', true, false )
-                                        .draw();
-                                } );
-             
-                            column.data().unique().sort().each( function ( d, j ) {
-                                select.append( '<option value="'+d+'">'+d+'</option>' )
-                            } );
-                        } );
-                    }
-                } );*/
-                //-----------------------------
-                
-                
-                
-                //-----------------------------
-                
-
+            	
                 var date = new Date();
                 var firstDay = new Date(date.getFullYear(), date.getMonth() -1 , 1);
                 var lastDay = new Date(date.getFullYear(), date.getMonth(), 0);
