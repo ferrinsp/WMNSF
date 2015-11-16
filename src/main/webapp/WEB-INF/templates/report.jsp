@@ -81,8 +81,11 @@
 	                <th>Debit Officer</th>
 	                <th>Credit Officer</th>
 	                <th>Amount</th>
-	                <th>Fund Type</th>
 	                <th>Operator</th>
+	                <th>Fund Type</th>
+	                <th>Check Number</th>
+        			<th>Case Number</th>
+        			<th>Ci Number</th>
 	            </tr>
 	            </thead>
 	            <tbody>
@@ -94,8 +97,12 @@
 	                    <td>${transaction.debitUser.getFullName()}</td>
 	                    <td>${transaction.creditUser.getFullName()}</td>
 	                    <td><fmt:formatNumber value="${transaction.amount}" type="currency" /></td>
-	                    <td>${transaction.fundType.description}</td>
 	                    <td>${transaction.operatorUser.getFullName()}</td>
+	                    <td>${transaction.fundType.description}</td>
+	                    <td>${transaction.getCheckNumber()}</td>
+    					<td>${transaction.getCaseNumber()}</td>
+    					<td>${transaction.getCiNumber()}</td>
+	                    
 	                </tr>
 	            </c:forEach>
 	            </tbody>
@@ -144,7 +151,7 @@
             	var table = $('#tblTransferTransactions').DataTable();
             	$('#fundType').on('change', function () {
             	    table
-            	        .columns(6)
+            	        .columns(7)
             	        .search(this.value)
             	        .draw();
             	} );

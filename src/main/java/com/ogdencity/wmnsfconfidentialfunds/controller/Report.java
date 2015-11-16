@@ -62,8 +62,6 @@ public class Report {
         model.addAttribute("transactions", transferTransactions);
         model.addAttribute("fundTypes", allFundTypes);
         
-        
-        
         return "report";
     }
 
