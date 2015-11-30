@@ -32,6 +32,16 @@ public class TransferTransaction implements Serializable {
 
     @OneToOne @JoinColumn(name = "fund_type_id")
     private FundType fundType;
+    
+    @Column(name = "check_number")
+    private String checkNumber;
+    
+    @Column(name = "case_number")
+    private String caseNumber;
+    
+    @Column(name = "ci_number")
+    private String ciNumber;
+
 
     public Long getId() {
         return id;
@@ -63,6 +73,30 @@ public class TransferTransaction implements Serializable {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+    
+    public String getCheckNumber() {
+        return checkNumber;
+    }
+
+    public void setCheckNumber(String checkNumber) {
+        this.checkNumber = checkNumber;
+    }
+    
+    public String getCaseNumber() {
+        return caseNumber;
+    }
+
+    public void setCaseNumber(String caseNumber) {
+        this.caseNumber = caseNumber;
+    }
+    
+    public String getCiNumber() {
+        return ciNumber;
+    }
+
+    public void setCiNumber(String ciNumber) {
+        this.ciNumber = ciNumber;
     }
 
     public User getDebitUser() {
