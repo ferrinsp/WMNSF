@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface FundTypeRepo extends JpaRepository<FundType, Long> {
     List<FundType> findByEffectiveStartBeforeAndEffectiveEndAfter(Date start, Date end);
+    FundType findById(long id);
 }

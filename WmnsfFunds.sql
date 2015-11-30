@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `fund_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fund_type` (
-  `id` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `Description` varchar(255) DEFAULT NULL,
   `effective_start` datetime DEFAULT NULL,
   `effective_end` datetime DEFAULT NULL,

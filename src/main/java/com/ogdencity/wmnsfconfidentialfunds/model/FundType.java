@@ -4,16 +4,19 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.annotations.Type;
+
 /**
  * Created by Tyler on 6/5/2015.
  */
 @Entity
-@Table(name = "fund_type")
+@Table(name="fund_type")
 public class FundType implements Serializable {
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Long id;
-
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	
     private String description;
     private Date effectiveStart;
     private Date effectiveEnd;

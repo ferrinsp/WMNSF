@@ -2,6 +2,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <tags:template pageTitle="Administration">
     <jsp:attribute name="head">
@@ -123,26 +124,44 @@
                 <!---------------------------------- Add/Edit Funds Tab --------------------------------------><!---------------------------------- Needs Work -------------------------------------->
                 <div role="tabpanel" class="formContent tab-pane fade in" id="fundTypesForm">
                     <div class="buttonHolder">
-                        <button class="btn btn-large btn-primary" id="btnNewFundType">New Fund Type</button>
+                        <button class="btn btn-large btn-primary" id="btnNewFundType" onclick="newFundType()">New Fund Type</button>
                     </div>
 
-
-                    <form style="display:none;" id="formAddEditFundType" name="formAddEditFundType" action="Admin"
-                          method="post">
-                        <h2>New/Edit Fund Type Form</h2>
+					<!-------------------------------Add/Edit Funds Form ----------------------------------------->
+                    <form id="formAddEditFundType" name="formAddEditFund" action="/Administration/NewFundType" method="post">
+                        <h2 id="formHeader2">New/Edit Fund Type Form</h2>
                         <table id="addEditFundType" class="table">
 
-                            <!-- insert form here -->
-
+                            <tr>
+                            	<td>Description:</td>
+            					<td colspan="2">
+                					<input type="text" class="input-block-level" id="description" name="description"></input>
+                					<input type="hidden" id="fundId" name="id">
+            					</td>
+            				</tr>
+            				<tr>
+            					<td>Effective Start Date</td>
+            					<td colspan="2">
+                					<input type="text" class="input-block-level" id="effectiveStart" name="effectiveStart"/>
+            					</td>
+            				</tr>
+            				<tr>
+            					<td>Effective End Date</td>
+            					<td colspan="2">
+                					<input type="text" class="input-block-level" id="effectiveEnd" name="effectiveEnd"/>
+            					</td>
+            				</tr>
                         </table>
                     </form>
+                    
+                    <!---------------------------------------------- Fund Type Table ------------------------------------------------------------>
                     <div class="table-responsive">
                         <table class="table table-striped" id="fundTypesTable">
                             <!-- Table Header Section -->
                             <thead>
                             <tr>
                                 <th>Actions</th>
-                                <th>ID</th>
+                               <!--   <th>ID</th> -->
                                 <th>Description</th>
                                 <th>Effective Date</th>
                                 <th>End Date</th>
@@ -150,6 +169,17 @@
                             </thead>
                             <tbody>
                             <!-- Insert jsp function for building table -->
+                            <c:forEach var="fundType" items="${fundTypes}">
+	                            <tr id="row${fundType.getId()}">
+	                            	    <td>
+	                                        <button class="editButton" id="edit${fundType.getId()}" onclick="editFundType(${fundType.getId()})">Edit</button>
+	                                    </td>
+	                                  <!--   <td>${fundType.getId()}</td>--> 
+	                                    <td>${fundType.getDescription()}</td>
+	                                    <td><fmt:formatDate value="${fundType.getEffectiveStart()}" pattern="MM-dd-yyyy"/></td>
+	                                    <td><fmt:formatDate value="${fundType.getEffectiveEnd()}" pattern="MM-dd-yyyy"/></td>
+	                             </tr>
+                            </c:forEach>
                             </tbody>
 
                         </table>
@@ -209,6 +239,24 @@
                 });
             }
 
+            function editFundType(id){
+                $.ajax({
+                    type: "POST",
+                    url: "/Administration/GetFundType",
+                    data: ({
+                        id: id
+                    }),
+                    success: function (fundType) {
+                        $("#fundId").val(fundType.id);
+                        $("#description").val(fundType.description);
+                        $("#effectiveStart").val("");
+                        $("#effectiveEnd").val("");
+                        $("#formAddEditFundType").attr("action", "/Administration/EditFundType");
+                       	fundModal.dialog("open");
+                    }
+                });
+            }
+
             $('#permission').multiSelect({
                 selectableHeader: "<div class='custom-header'>Available</div>",
                 selectionHeader: "<div class='custom-header'>Selected Permissions</div>"
@@ -225,8 +273,23 @@
                 }
             });
 
+            fundModal = $("#formAddEditFundType").dialog({
+                autoOpen: false,
+                modal: true,
+                resizable: false,
+                width: 'auto',
+                buttons: {
+                    "Submit": addEditFundType,
+                    Cancel: cancelFund
+                }
+            });
+
             function addEditUser() {
                 $("#formAddEditUser").submit();
+            }
+
+            function addEditFundType() {
+                $("#formAddEditFundType").submit();
             }
 
             function cancel() {
@@ -239,6 +302,15 @@
                 userModal.dialog("close");
             }
 
+            function cancelFund() {
+                $("#id").val("");
+                $("description").val("");
+                $("effectiveStart").val("");
+                $("effectiveEnd").val("");
+                fundModal.dialog("close");
+            }
+            
+
             function newUser(){
                 $("#formHeader").text("New User");
                 $("#formAddEditUser").attr("action", "/Administration/NewUser");
@@ -247,8 +319,24 @@
                 userModal.dialog("open");
             }
 
+            function newFundType(){
+				$("#formHeader2").text("New Fund Type");
+				$("#formAddEditFundType").attr("action", "/Administration/NewFundType");
+				fundModal.dialog("open");
+                }
+
+            $(function() {
+                $( "#effectiveStart" ).datepicker();
+            });
+
+            $(function() {
+                $( "#effectiveEnd" ).datepicker();
+            });
+
+            
             $(document).ready(function () {
                 $('#usersTable').DataTable();
+                $('#fundTypesTable').DataTable();
 
                 <c:if test="${failedUser != null}">
                 $("#firstName").val("${failedUser.firstName}");
@@ -259,7 +347,7 @@
 
                 $("#formHeader").text("New User");
                 $("#formAddEditUser").attr("action", "/Administration/NewUser");
-
+                
                 <c:if test="${failedUser.getId() != null}">
                 $("#email").removeAttr("readonly");
                 $('#id').val("${failedUser.id}");

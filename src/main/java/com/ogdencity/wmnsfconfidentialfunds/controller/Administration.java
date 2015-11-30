@@ -1,8 +1,10 @@
 package com.ogdencity.wmnsfconfidentialfunds.controller;
 
 import com.ogdencity.wmnsfconfidentialfunds.enums.NotificationTypes;
+import com.ogdencity.wmnsfconfidentialfunds.model.FundType;
 import com.ogdencity.wmnsfconfidentialfunds.model.Permission;
 import com.ogdencity.wmnsfconfidentialfunds.model.User;
+import com.ogdencity.wmnsfconfidentialfunds.repo.FundTypeRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.PermissionRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by tyler on 5/16/15.
@@ -36,6 +44,8 @@ public class Administration {
     private PermissionRepo permissionRepo;
     @Autowired
     PasswordEncoder encoder;
+    @Autowired
+    private FundTypeRepo fundTypeRepo;
     @PersistenceContext
     EntityManager em;
 
@@ -50,6 +60,12 @@ public class Administration {
 
         List<Permission> permissions = permissionRepo.findAll();
         model.addAttribute("permissions", permissions);
+        
+        List<Sort.Order> order2 = new ArrayList<>();
+        order2.add(new Sort.Order(Sort.Direction.DESC, "effectiveStart"));//added by Dylan 11/15/2015
+        
+        List<FundType> fundTypes = fundTypeRepo.findAll(new Sort(order2));//added by Dylan 11/15/2015
+        model.addAttribute("fundTypes", fundTypes);
 
         return "administration";
     }
@@ -90,6 +106,42 @@ public class Administration {
         }
 
         return new ModelAndView("redirect:/Administration");
+    }
+    
+    @Transactional
+    @RequestMapping("/NewFundType")//Built but not fully working
+    public ModelAndView NewFundType(HttpServletRequest request, RedirectAttributes redirectAttributes){
+    	
+    	String description = request.getParameter("description").trim();
+    	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH); //hours minutes and second included on database
+    	String effectiveStart = request.getParameter("effectiveStart").trim();
+    	
+    	String effectiveEnd = request.getParameter("effectiveEnd").trim();
+    	
+    	FundType fundType = new FundType();
+    	fundType.setDescription(description);
+    	try {
+            fundType.setEffectiveStart(format.parse(effectiveStart));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    	
+    	try {
+            fundType.setEffectiveEnd(format.parse(effectiveEnd));
+        } catch (ParseException a) {
+            a.printStackTrace();
+        }
+    	
+    	String errorMessage = ValidateFundType(fundType, true);
+    	if(errorMessage.equals("")) {
+    		em.persist(fundType);
+    		redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Fund Type " + fundType.getDescription() + " has been successfully added.");
+    	}else {
+    		redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
+    		redirectAttributes.addFlashAttribute("failedFundType", fundType);
+    	}
+    	
+    	return new ModelAndView("redirect:/Administration");
     }
 
     @Transactional
@@ -145,7 +197,43 @@ public class Administration {
 
         return new ModelAndView("redirect:/Administration");
     }
-
+    
+    @Transactional
+    @RequestMapping("/EditFundType")//NEED TO TEST
+    public ModelAndView EditFundType(HttpServletRequest request, RedirectAttributes redirectAttributes){
+    	long id = Long.parseLong(request.getParameter("id"));
+    	String description = request.getParameter("description").trim();
+    	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH); //hours minutes seconds removed from database.
+    	String effectiveStart = request.getParameter("effectiveStart").trim();
+    	String effectiveEnd = request.getParameter("effectiveEnd").trim();
+    	
+    	FundType fundType = fundTypeRepo.findById(id);
+    	fundType.setDescription(description);
+    	
+    	try {
+            fundType.setEffectiveStart(format.parse(effectiveStart));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    	
+    	try {
+            fundType.setEffectiveEnd(format.parse(effectiveEnd));
+        } catch (ParseException a) {
+            a.printStackTrace();
+        }
+    	
+    	String errorMessage = ValidateFundType(fundType, true);
+    	if(errorMessage.equals("")) {
+    		em.persist(fundType);
+    		redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Fund Type " + fundType.getDescription() + " has been successfully added.");
+    	}else {
+    		redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
+    		redirectAttributes.addFlashAttribute("failedFundType", fundType);
+    	}
+    	
+    	return new ModelAndView("redirect:/Administration");
+    	
+    }
     @Transactional
     @RequestMapping("/StatusUser")
     public @ResponseBody User StatusUser(String id) {
@@ -166,7 +254,23 @@ public class Administration {
 
         return user;
     }
-
+    
+    @RequestMapping("/GetFundType")//NEED TO FIX DATE FORMATTING, currently set to be blank as ajax call creates a non date output
+    public @ResponseBody FundType GetFundType(String id) {
+    	long fundTypeId = Long.parseLong(id);
+    	
+    	FundType fundType = fundTypeRepo.findById(fundTypeId);
+    	
+    	//Date effectiveStart = fundType.getEffectiveStart();
+    	//Date effectiveEnd = fundType.getEffectiveEnd();
+    	
+    	//DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+    	
+    	//fundType.setEffectiveStart(date.format(effectiveStart));
+    	
+    	return fundType;
+    }
+    
     private String ValidateUser(User user, boolean newUser){
 
         if(user.getFirstName().length() == 0){
@@ -182,5 +286,15 @@ public class Administration {
         }
 
         return "";
+    }
+    
+    private String ValidateFundType(FundType fundType, boolean newFundType)
+    {
+    	if(fundType.getDescription().length() == 0){
+    		return "Fund Type must have a description.";
+    	}
+    	
+    
+    	return "";
     }
 }
