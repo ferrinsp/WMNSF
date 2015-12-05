@@ -7,3 +7,11 @@ ADD COLUMN `case_number` VARCHAR(45) NULL COMMENT '' AFTER `check_number`,
 ADD COLUMN `ci_number` VARCHAR(45) NULL COMMENT '' AFTER `case_number`;
 
 
+ALTER TABLE `wmnsffunds`.`transfer_transaction` 
+ADD COLUMN `transaction_type` VARCHAR(45) NULL COMMENT '' AFTER `ci_number`;
+
+ALTER TABLE `wmnsffunds`.`user` 
+ADD COLUMN `balance` DOUBLE NULL COMMENT '' AFTER `enabled`;
+
+UPDATE `wmnsffunds`.`user` 
+SET `balance` = 0.0;

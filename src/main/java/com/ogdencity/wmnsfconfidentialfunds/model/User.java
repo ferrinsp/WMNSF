@@ -24,6 +24,7 @@ public class User implements Serializable{
     private String firstName;
     private String lastName;
     private String password;
+    private Double balance;
 
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
@@ -70,6 +71,14 @@ public class User implements Serializable{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
     public boolean isEnabled() {
