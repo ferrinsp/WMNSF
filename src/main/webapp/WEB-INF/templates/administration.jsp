@@ -129,7 +129,7 @@
 
 					<!-------------------------------Add/Edit Funds Form ----------------------------------------->
                     <form id="formAddEditFundType" name="formAddEditFund" action="/Administration/NewFundType" method="post">
-                        <h2 id="formHeader2">New/Edit Fund Type Form</h2>
+                        <h2 id="formHeader2">New/Edit Fund Type</h2>
                         <table id="addEditFundType" class="table">
 
                             <tr>
