@@ -2,11 +2,16 @@ package com.ogdencity.wmnsfconfidentialfunds.controller;
 
 import com.ogdencity.wmnsfconfidentialfunds.model.Search;
 import com.ogdencity.wmnsfconfidentialfunds.enums.TransactionType;
+import com.ogdencity.wmnsfconfidentialfunds.model.FundType;
 import com.ogdencity.wmnsfconfidentialfunds.model.TransferTransaction;
 import com.ogdencity.wmnsfconfidentialfunds.model.User;
+import com.ogdencity.wmnsfconfidentialfunds.repo.FundTypeRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.TransferTransactionRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.UserRepo;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -24,9 +30,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by tyler on 5/16/15.
- */
 @Controller
 @RequestMapping("/Reports")
 public class Report {
@@ -34,11 +37,18 @@ public class Report {
     private UserRepo userRepo;
     @Autowired
     private TransferTransactionRepo transferTransactionRepo;
+    @Autowired
+    private FundTypeRepo fundTypeRepo;
 
     @RequestMapping(method = RequestMethod.GET)
     public String Report(ModelMap model, Principal principal){
         User operator = userRepo.findByEmail(principal.getName()).get(0);
         List<User> allEnabledUsers = new ArrayList<>();
+        
+        
+        List<TransferTransaction> transferTransactions = transferTransactionRepo.findAll();
+        Date now = new Date();
+        List<FundType> allFundTypes = fundTypeRepo.findAll();
 
         if(operator.isAdmin()) {
              allEnabledUsers.addAll(userRepo.findByEnabledTrue());
@@ -46,9 +56,12 @@ public class Report {
         else{
             allEnabledUsers.add(operator);
         }
-
+        
         model.addAttribute("transactionTypes", TransactionType.values());
         model.addAttribute("users", allEnabledUsers);
+        model.addAttribute("transactions", transferTransactions);
+        model.addAttribute("fundTypes", allFundTypes);
+        
         return "report";
     }
 

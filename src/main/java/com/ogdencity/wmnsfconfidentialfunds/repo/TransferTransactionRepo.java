@@ -14,6 +14,9 @@ import java.util.List;
  */
 public interface TransferTransactionRepo extends JpaRepository<TransferTransaction, Long> {
     List<TransferTransaction> findByCreditUserIdOrDebitUserId(long creditId, long debitId);
+    
+    @Query("select t FROM TransferTransaction t ORDER BY t.date")
+    List<TransferTransaction> getAllTransactions();
 
     @Query("select t FROM TransferTransaction t WHERE t.debitUser = :user AND t.date BETWEEN :startDate AND :endDate")
     List<TransferTransaction> getDebitUserBetween(@Param("startDate") Date startDate,@Param("endDate") Date endDate,@Param("user") User user);

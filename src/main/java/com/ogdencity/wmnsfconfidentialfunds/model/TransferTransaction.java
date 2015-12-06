@@ -1,6 +1,8 @@
 package com.ogdencity.wmnsfconfidentialfunds.model;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Date;
@@ -19,9 +21,11 @@ public class TransferTransaction implements Serializable {
 
     private Date date;
     private String description;
+    @Column(name = "transaction_type")
+    private String transactionType;
     private double amount;
 
-    @OneToOne @JoinColumn(name="debit_user_id")
+    @Nullable @OneToOne @JoinColumn(name="debit_user_id")
     private User debitUser;
 
     @OneToOne @JoinColumn(name = "credit_user_id")
@@ -65,6 +69,14 @@ public class TransferTransaction implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
     }
 
     public double getAmount() {

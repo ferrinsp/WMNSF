@@ -53,7 +53,7 @@ public class Transaction {
         Date now = new Date();
         List<FundType> allActiveFundTypes = fundTypeRepo.findByEffectiveStartBeforeAndEffectiveEndAfter(now, now);
 
-        List<TransferTransaction> transferTransactions = transferTransactionRepo.findByCreditUserIdOrDebitUserId(operator.getId(), operator.getId());
+        List<TransferTransaction> transferTransactions = transferTransactionRepo.getAllTransactions();
 
         model.addAttribute("allEnabledUsers", allEnabledUsers);
         model.addAttribute("allActiveFundTypes", allActiveFundTypes);
@@ -67,6 +67,7 @@ public class Transaction {
         String operatorEmail = principal.getName();
 
         TransferTransaction transferTransaction = new TransferTransaction();
+        transferTransaction.setTransactionType("Transfer");
         String description = request.getParameter("description").trim();
         String checkNumber = request.getParameter("checkNumber").trim();
         String caseNumber = request.getParameter("caseNumber").trim();
@@ -83,7 +84,9 @@ public class Transaction {
         String creditOfficerId = request.getParameter("creditOfficer").trim();
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
+        debitOfficer.setBalance(debitOfficer.getBalance() - Double.parseDouble(request.getParameter("amount").trim()));
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
+        creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount").trim()));
 
         transferTransaction.setDebitUser(debitOfficer);
         transferTransaction.setCreditUser(creditOfficer);
@@ -100,6 +103,62 @@ public class Transaction {
         if (encoder.matches(debitPassword, debitOfficer.getPassword()) && encoder.matches(creditPassword, creditOfficer.getPassword())) {
         	try {
         		em.persist(transferTransaction);
+        		em.merge(debitOfficer);
+        		em.merge(creditOfficer);
+                redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Transfer Transaction successfully saved.");
+			} catch (Exception e) {
+				System.out.println("Error committing to database");
+				e.printStackTrace();
+			}
+            
+        }
+        else {
+            redirectAttributes.addFlashAttribute("failedTransferTransaction", transferTransaction);
+            redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), "Passwords do not match.");
+        }
+
+        return new ModelAndView("redirect:/Transaction");
+    }
+    
+    @Transactional
+    @RequestMapping("/NewDepositTransaction")
+    public ModelAndView NewDepositTransaction(HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes) {
+        String operatorEmail = principal.getName();
+
+        TransferTransaction transferTransaction = new TransferTransaction();
+        transferTransaction.setTransactionType("Deposit");
+        String description = request.getParameter("description").trim();
+        String checkNumber = request.getParameter("checkNumber").trim();
+        String caseNumber = request.getParameter("caseNumber").trim();
+        String ciNumber = request.getParameter("ciNumber").trim();
+        transferTransaction.setDescription(description);
+        DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        String stringDate = request.getParameter("date").trim();
+        try {
+            transferTransaction.setDate(format.parse(stringDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String creditOfficerId = request.getParameter("creditOfficer").trim();
+
+        User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
+        creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount").trim()));
+        
+        transferTransaction.setDebitUser(null);
+        transferTransaction.setCreditUser(creditOfficer);
+        transferTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
+        transferTransaction.setAmount(Double.parseDouble(request.getParameter("amount").trim()));
+        transferTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType").trim())));
+        transferTransaction.setCheckNumber(checkNumber);
+        transferTransaction.setCaseNumber(caseNumber);
+        transferTransaction.setCiNumber(ciNumber);
+        
+        String creditPassword = request.getParameter("creditPassword").trim();
+
+        if (encoder.matches(creditPassword, creditOfficer.getPassword())) {
+        	try {
+        		em.persist(transferTransaction);
+        		em.merge(creditOfficer);
                 redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Transfer Transaction successfully saved.");
 			} catch (Exception e) {
 				System.out.println("Error committing to database");
