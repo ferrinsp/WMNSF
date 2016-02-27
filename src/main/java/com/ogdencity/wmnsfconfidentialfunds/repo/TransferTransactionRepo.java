@@ -9,9 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Tyler on 6/4/2015.
- */
+/*Created by Tyler on 6/4/2015.*/
 public interface TransferTransactionRepo extends JpaRepository<TransferTransaction, Long> {
     List<TransferTransaction> findByCreditUserIdOrDebitUserId(long creditId, long debitId);
     

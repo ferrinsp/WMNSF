@@ -1,17 +1,20 @@
 package com.ogdencity.wmnsfconfidentialfunds.model;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by tyler on 5/16/15.
- */
+/*Created by tyler on 5/16/15.*/
 @Entity
 @Table(name="user")
 public class User implements Serializable{
@@ -20,9 +23,18 @@ public class User implements Serializable{
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Email(message = "Please enter a valid email") 
+    @NotBlank(message = "Please enter a valid email")
     private String email;
+    @Size(min = 2, max = 30, message = "First name must be between {min} and {max}") 
+    @Pattern(regexp = "{A-Za-z}*", message = "Invalid first name, letters only") 
+    @NotBlank(message = "First name can not be blank")
     private String firstName;
+    @Size(min = 2, max = 30, message = "Last name must be between {min} and {max}")
+    @Pattern(regexp = "{A-Za-z}*", message = "Invalid last name, letters only") 
+    @NotBlank(message = "Last name can not be blank")
     private String lastName;
+    @NotBlank @Size(min = 8, max = 20, message = "Password can not be blank")
     private String password;
     private Double balance;
 
@@ -104,7 +116,6 @@ public class User implements Serializable{
             if(permission.getId() == 1)
                 result = true;
         }
-
         return  result;
     }
 
@@ -117,8 +128,6 @@ public class User implements Serializable{
     }
 
     public void toggleStatus(){
-
         enabled = !enabled;
-
     }
 }

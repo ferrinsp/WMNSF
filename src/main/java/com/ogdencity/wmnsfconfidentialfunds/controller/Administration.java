@@ -7,6 +7,8 @@ import com.ogdencity.wmnsfconfidentialfunds.model.User;
 import com.ogdencity.wmnsfconfidentialfunds.repo.FundTypeRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.PermissionRepo;
 import com.ogdencity.wmnsfconfidentialfunds.repo.UserRepo;
+
+import org.apache.naming.java.javaURLContextFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -104,7 +106,6 @@ public class Administration {
             redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
             redirectAttributes.addFlashAttribute("failedUser", user);
         }
-
         return new ModelAndView("redirect:/Administration");
     }
     
@@ -139,8 +140,7 @@ public class Administration {
     	}else {
     		redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
     		redirectAttributes.addFlashAttribute("failedFundType", fundType);
-    	}
-    	
+    	}	
     	return new ModelAndView("redirect:/Administration");
     }
 
@@ -194,7 +194,6 @@ public class Administration {
             redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
             redirectAttributes.addFlashAttribute("failedUser", user);
         }
-
         return new ModelAndView("redirect:/Administration");
     }
     
@@ -230,28 +229,22 @@ public class Administration {
     		redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
     		redirectAttributes.addFlashAttribute("failedFundType", fundType);
     	}
-    	
-    	return new ModelAndView("redirect:/Administration");
-    	
+    	return new ModelAndView("redirect:/Administration");   	
     }
     @Transactional
     @RequestMapping("/StatusUser")
     public @ResponseBody User StatusUser(String id) {
         long userId = Long.parseLong(id);
-
         User user = userRepo.findById(userId);
         user.toggleStatus();
         em.persist(user);
-
         return  user;
     }
 
     @RequestMapping("/GetUser")
     public @ResponseBody User GetUser(String id) {
         long userId = Long.parseLong(id);
-
         User user = userRepo.findById(userId);
-
         return user;
     }
     
@@ -267,7 +260,7 @@ public class Administration {
     	//DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
     	
     	//fundType.setEffectiveStart(date.format(effectiveStart));
-    	
+ 
     	return fundType;
     }
     
@@ -276,15 +269,12 @@ public class Administration {
         if(user.getFirstName().length() == 0){
             return  "User must have a first name.";
         }
-
         if(user.getLastName().length() == 0){
             return  "User must have a last name.";
         }
-
         if((newUser && user.getPassword().length() <= 8) || (!newUser && user.getPassword().length() != 0 && user.getPassword().length() <= 8)){
             return "Password must be at least 8 characters long.";
         }
-
         return "";
     }
     
@@ -293,8 +283,6 @@ public class Administration {
     	if(fundType.getDescription().length() == 0){
     		return "Fund Type must have a description.";
     	}
-    	
-    
     	return "";
     }
 }

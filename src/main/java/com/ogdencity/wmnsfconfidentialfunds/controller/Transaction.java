@@ -27,9 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * Created by tyler on 5/16/15.
- */
+/*Created by tyler on 5/16/15.*/
 @Controller
 @RequestMapping("/Transaction")
 public class Transaction {
@@ -48,11 +46,9 @@ public class Transaction {
     @RequestMapping(method = RequestMethod.GET)
     public String Transaction(ModelMap model, Principal principal){
         User operator = userRepo.findByEmail(principal.getName()).get(0);
-
         List<User> allEnabledUsers = userRepo.findByEnabledTrue();
         Date now = new Date();
         List<FundType> allActiveFundTypes = fundTypeRepo.findByEffectiveStartBeforeAndEffectiveEndAfter(now, now);
-
         List<TransferTransaction> transferTransactions = transferTransactionRepo.getAllTransactions();
 
         model.addAttribute("allEnabledUsers", allEnabledUsers);
@@ -110,7 +106,6 @@ public class Transaction {
 				System.out.println("Error committing to database");
 				e.printStackTrace();
 			}
-            
         }
         else {
             redirectAttributes.addFlashAttribute("failedTransferTransaction", transferTransaction);
@@ -164,13 +159,11 @@ public class Transaction {
 				System.out.println("Error committing to database");
 				e.printStackTrace();
 			}
-            
         }
         else {
             redirectAttributes.addFlashAttribute("failedTransferTransaction", transferTransaction);
             redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), "Passwords do not match.");
         }
-
         return new ModelAndView("redirect:/Transaction");
     }
 }
