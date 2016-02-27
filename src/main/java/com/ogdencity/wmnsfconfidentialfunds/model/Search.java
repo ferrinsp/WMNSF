@@ -4,13 +4,21 @@ import com.ogdencity.wmnsfconfidentialfunds.enums.TransactionType;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * Created by Tyler on 7/24/2015.
  */
 public class Search {
     long userId;
+    @NotBlank(message = "Must have transaction type")
+    @Pattern(regexp = "{A-Za-z}", message = "Invalid input")
     TransactionType transactionType;
+    @NotBlank
     Date startDate;
+    @NotBlank
     Date endDate;
     boolean credit;
     boolean debit;

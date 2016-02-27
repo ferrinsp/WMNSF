@@ -2,6 +2,11 @@ package com.ogdencity.wmnsfconfidentialfunds.model;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -18,11 +23,15 @@ public class TransferTransaction implements Serializable {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
+    @NotBlank(message = "Transaction must have a date")
     private Date date;
+    @NotBlank(message = "Please enter a description")
     private String description;
     @Column(name = "transaction_type")
+    @NotBlank(message = "Must have transaction type")
+    @Pattern(regexp = "{A-Za-z}*", message = "Invalid input, letters only")
     private String transactionType;
+    @DecimalMin("-999999999.99") @DecimalMax("999999999.99")
     private double amount;
 
     @Nullable @OneToOne @JoinColumn(name="debit_user_id")
@@ -35,15 +44,19 @@ public class TransferTransaction implements Serializable {
     private User operatorUser;
 
     @OneToOne @JoinColumn(name = "fund_type_id")
+    @NotBlank(message = "Must have a fund type")
     private FundType fundType;
     
     @Column(name = "check_number")
+    @NotBlank(message = "Must have a check number")
     private String checkNumber;
     
     @Column(name = "case_number")
+    @NotBlank(message = "Must have a case number")
     private String caseNumber;
     
     @Column(name = "ci_number")
+    @NotBlank(message = "Must have a ci number")
     private String ciNumber;
 
 
