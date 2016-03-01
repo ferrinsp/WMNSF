@@ -248,16 +248,7 @@ public class Administration {
     @RequestMapping("/GetFundType")//NEED TO FIX DATE FORMATTING, currently set to be blank as ajax call creates a non date output
     public @ResponseBody FundType GetFundType(String id) {
     	long fundTypeId = Long.parseLong(id);
-    	
     	FundType fundType = fundTypeRepo.findById(fundTypeId);
-    	
-    	//Date effectiveStart = fundType.getEffectiveStart();
-    	//Date effectiveEnd = fundType.getEffectiveEnd();
-    	
-    	//DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
-    	
-    	//fundType.setEffectiveStart(date.format(effectiveStart));
- 
     	return fundType;
     }
     

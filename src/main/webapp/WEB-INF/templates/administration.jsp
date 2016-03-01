@@ -249,8 +249,8 @@
                     success: function (fundType) {
                         $("#fundId").val(fundType.id);
                         $("#description").val(fundType.description);
-                        $("#effectiveStart").val("");
-                        $("#effectiveEnd").val("");
+                        $("#effectiveStart").val(fundType.effectiveStart);
+                        $("#effectiveEnd").val(fundType.effectiveEnd);
                         $("#formAddEditFundType").attr("action", "/Administration/EditFundType");
                        	fundModal.dialog("open");
                     }
