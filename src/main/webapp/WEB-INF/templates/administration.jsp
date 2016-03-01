@@ -133,7 +133,7 @@
                         <table id="addEditFundType" class="table">
 
                             <tr>
-                            	<td>Description:</td>
+                            	<td>Fund Type Name:</td>
             					<td colspan="2">
                 					<input type="text" class="input-block-level" id="description" name="description"></input>
                 					<input type="hidden" id="fundId" name="id">
@@ -162,7 +162,7 @@
                             <tr>
                                 <th>Actions</th>
                                <!--   <th>ID</th> -->
-                                <th>Description</th>
+                                <th>Fund Type Name</th>
                                 <th>Effective Date</th>
                                 <th>End Date</th>
                             </tr>
