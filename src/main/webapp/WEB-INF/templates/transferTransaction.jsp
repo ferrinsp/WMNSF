@@ -135,12 +135,13 @@
                     </c:forEach>
                 </select>
             </td>
-        </tr>
+        </tr>		
         <tr>
             <td>
-                <input id="transferSubmit" type="submit" value="submit">
+                <input id="transferSubmit" type="submit" value="submit" style="display:none;">
             </td>
         </tr>
+		
     </table>
 </form>
 
@@ -212,9 +213,9 @@
                 </select>
             </td>
         </tr>
-        <tr>
+		<tr>
             <td>
-                <input id="depositSubmit" type="submit" value="submit">
+                <input id="depositSubmit" type="submit" value="submit" style="display:none;">
             </td>
         </tr>
     </table>
