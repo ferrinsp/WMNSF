@@ -27,7 +27,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/*Created by tyler on 5/16/15.*/
 @Controller
 @RequestMapping("/Transaction")
 public class Transaction {

@@ -2,9 +2,6 @@ package com.ogdencity.wmnsfconfidentialfunds.model;
 
 import javax.persistence.*;
 
-/**
- * Created by tyler on 5/16/15.
- */
 @Entity
 public class Permission {
 

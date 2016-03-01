@@ -1,6 +1,5 @@
 package com.ogdencity.wmnsfconfidentialfunds.enums;
 
-/*Created by Tyler on 7/24/2015.*/
 public enum TransactionType {
     EXPENDITURE {public String toString(){
         return "EXPENDITURE";

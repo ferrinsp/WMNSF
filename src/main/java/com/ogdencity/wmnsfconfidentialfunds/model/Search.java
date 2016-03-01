@@ -8,9 +8,6 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-/**
- * Created by Tyler on 7/24/2015.
- */
 public class Search {
     long userId;
     @NotBlank(message = "Must have transaction type")

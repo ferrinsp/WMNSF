@@ -6,9 +6,6 @@ import java.util.Date;
 
 import org.hibernate.annotations.Type;
 
-/**
- * Created by Tyler on 6/5/2015.
- */
 @Entity
 @Table(name="fund_type")
 public class FundType implements Serializable {

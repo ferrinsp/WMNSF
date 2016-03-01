@@ -14,7 +14,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Created by tyler on 5/16/15.*/
 @Entity
 @Table(name="user")
 public class User implements Serializable{

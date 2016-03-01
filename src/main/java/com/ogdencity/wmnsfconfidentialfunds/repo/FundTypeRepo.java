@@ -10,9 +10,6 @@ import javax.persistence.JoinTable;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Tyler on 6/5/2015.
- */
 public interface FundTypeRepo extends JpaRepository<FundType, Long> {
     List<FundType> findByEffectiveStartBeforeAndEffectiveEndAfter(Date start, Date end);
     FundType findById(long id);

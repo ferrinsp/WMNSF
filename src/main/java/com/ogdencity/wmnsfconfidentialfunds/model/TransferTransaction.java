@@ -12,9 +12,6 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Date;
 
-/**
- * Created by Tyler on 6/4/2015.
- */
 @Entity
 @Table(name="transfer_transaction")
 public class TransferTransaction implements Serializable {

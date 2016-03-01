@@ -5,9 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-/**
- * Created by tyler on 5/17/15.
- */
 public interface PermissionRepo extends JpaRepository<Permission, Long> {
     Permission findById(long id);
 }

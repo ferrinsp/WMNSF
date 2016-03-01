@@ -33,9 +33,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by tyler on 5/16/15.
- */
 @Controller
 @RequestMapping("/Administration")
 public class Administration {
