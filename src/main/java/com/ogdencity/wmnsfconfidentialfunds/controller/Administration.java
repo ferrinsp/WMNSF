@@ -72,11 +72,11 @@ public class Administration {
     @Transactional
     @RequestMapping("/NewUser")
     public ModelAndView NewUser(HttpServletRequest request, RedirectAttributes redirectAttributes){
-        String firstName = request.getParameter("firstName").trim();
-        String lastName = request.getParameter("lastName").trim();
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
         String permissions[] = request.getParameterValues("permission");
-        String email = request.getParameter("email").trim();
-        String password = request.getParameter("password").trim();
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
 
         User user = new User();
         user.setFirstName(firstName);
@@ -110,11 +110,11 @@ public class Administration {
     @RequestMapping("/NewFundType")//Built but not fully working
     public ModelAndView NewFundType(HttpServletRequest request, RedirectAttributes redirectAttributes){
     	
-    	String description = request.getParameter("description").trim();
+    	String description = request.getParameter("description");
     	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH); //hours minutes and second included on database
-    	String effectiveStart = request.getParameter("effectiveStart").trim();
+    	String effectiveStart = request.getParameter("effectiveStart");
     	
-    	String effectiveEnd = request.getParameter("effectiveEnd").trim();
+    	String effectiveEnd = request.getParameter("effectiveEnd");
     	
     	FundType fundType = new FundType();
     	fundType.setDescription(description);
@@ -161,10 +161,10 @@ public class Administration {
     @RequestMapping("/EditUser")
     public ModelAndView EditUser(HttpServletRequest request, RedirectAttributes redirectAttributes){
         long id = Long.parseLong(request.getParameter("id"));
-        String firstName = request.getParameter("firstName").trim();
-        String lastName = request.getParameter("lastName").trim();
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
         String permissions[] = request.getParameterValues("permission");
-        String password = request.getParameter("password").trim();
+        String password = request.getParameter("password");
 
         User user = userRepo.findById(id);
         user.setFirstName(firstName);
@@ -198,10 +198,10 @@ public class Administration {
     @RequestMapping("/EditFundType")//NEED TO TEST
     public ModelAndView EditFundType(HttpServletRequest request, RedirectAttributes redirectAttributes){
     	long id = Long.parseLong(request.getParameter("id"));
-    	String description = request.getParameter("description").trim();
+    	String description = request.getParameter("description");
     	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH); //hours minutes seconds removed from database.
-    	String effectiveStart = request.getParameter("effectiveStart").trim();
-    	String effectiveEnd = request.getParameter("effectiveEnd").trim();
+    	String effectiveStart = request.getParameter("effectiveStart");
+    	String effectiveEnd = request.getParameter("effectiveEnd");
     	
     	FundType fundType = fundTypeRepo.findById(id);
     	fundType.setDescription(description);

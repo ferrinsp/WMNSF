@@ -42,6 +42,7 @@ public class Report {
 
     @RequestMapping(method = RequestMethod.GET)
     public String Report(ModelMap model, Principal principal){
+    	if(userRepo.findByEmail(principal.getName()).isEmpty()) return "report"; // SAFETY
         User operator = userRepo.findByEmail(principal.getName()).get(0);
         List<User> allEnabledUsers = new ArrayList<>();
         
@@ -70,14 +71,14 @@ public class Report {
         long userId = Long.parseLong(request.getParameter("users"));
         List<TransferTransaction> transferTransactions = new ArrayList<>();
         User user = userRepo.findById(userId);
-        String stringEnd = request.getParameter("endDate").trim();
-        String stringStart = request.getParameter("startDate").trim();
+        String stringEnd = request.getParameter("endDate");
+        String stringStart = request.getParameter("startDate");
 
         Search search = new Search();
 
-        search.setCredit(request.getParameter("cbCredit").trim().equals("true"));
-        search.setDebit(request.getParameter("cbDebit").trim().equals("true"));
-        search.setOperator(request.getParameter("cbOperator").trim().equals("true"));
+        search.setCredit(request.getParameter("cbCredit").equals("true"));
+        search.setDebit(request.getParameter("cbDebit").equals("true"));
+        search.setOperator(request.getParameter("cbOperator").equals("true"));
 
         Date startDate;
         Date endDate;

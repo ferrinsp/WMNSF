@@ -44,6 +44,8 @@ public class Transaction {
 
     @RequestMapping(method = RequestMethod.GET)
     public String Transaction(ModelMap model, Principal principal){
+    	if(userRepo.findByEmail(principal.getName()).isEmpty()) return "transaction"; // SAFETY
+    	
         User operator = userRepo.findByEmail(principal.getName()).get(0);
         List<User> allEnabledUsers = userRepo.findByEnabledTrue();
         Date now = new Date();
@@ -63,37 +65,38 @@ public class Transaction {
 
         TransferTransaction transferTransaction = new TransferTransaction();
         transferTransaction.setTransactionType("Transfer");
-        String description = request.getParameter("description").trim();
-        String checkNumber = request.getParameter("checkNumber").trim();
-        String caseNumber = request.getParameter("caseNumber").trim();
-        String ciNumber = request.getParameter("ciNumber").trim();
+        String description = request.getParameter("description");
+        String checkNumber = request.getParameter("checkNumber");
+        String caseNumber = request.getParameter("caseNumber");
+        String ciNumber = request.getParameter("ciNumber");
         transferTransaction.setDescription(description);
         DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-        String stringDate = request.getParameter("date").trim();
+        String stringDate = request.getParameter("date");
         try {
             transferTransaction.setDate(format.parse(stringDate));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String debitOfficerId = request.getParameter("debitOfficer").trim();
-        String creditOfficerId = request.getParameter("creditOfficer").trim();
+        String debitOfficerId = request.getParameter("debitOfficer");
+        String creditOfficerId = request.getParameter("creditOfficer");
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
-        debitOfficer.setBalance(debitOfficer.getBalance() - Double.parseDouble(request.getParameter("amount").trim()));
+        debitOfficer.setBalance(debitOfficer.getBalance() - Double.parseDouble(request.getParameter("amount")));
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
-        creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount").trim()));
+        creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount")));
 
         transferTransaction.setDebitUser(debitOfficer);
         transferTransaction.setCreditUser(creditOfficer);
+        if(userRepo.findByEmail(operatorEmail).isEmpty()) return new ModelAndView("redirect:/Transaction"); // SAFETY
         transferTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
-        transferTransaction.setAmount(Double.parseDouble(request.getParameter("amount").trim()));
-        transferTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType").trim())));
+        transferTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
+        transferTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
         transferTransaction.setCheckNumber(checkNumber);
         transferTransaction.setCaseNumber(caseNumber);
         transferTransaction.setCiNumber(ciNumber);
         
-        String debitPassword = request.getParameter("debitPassword").trim();
-        String creditPassword = request.getParameter("creditPassword").trim();
+        String debitPassword = request.getParameter("debitPassword");
+        String creditPassword = request.getParameter("creditPassword");
 
         if (encoder.matches(debitPassword, debitOfficer.getPassword()) && encoder.matches(creditPassword, creditOfficer.getPassword())) {
         	try {
@@ -121,33 +124,34 @@ public class Transaction {
 
         TransferTransaction transferTransaction = new TransferTransaction();
         transferTransaction.setTransactionType("Deposit");
-        String description = request.getParameter("description").trim();
-        String checkNumber = request.getParameter("checkNumber").trim();
-        String caseNumber = request.getParameter("caseNumber").trim();
-        String ciNumber = request.getParameter("ciNumber").trim();
+        String description = request.getParameter("description");
+        String checkNumber = request.getParameter("checkNumber");
+        String caseNumber = request.getParameter("caseNumber");
+        String ciNumber = request.getParameter("ciNumber");
         transferTransaction.setDescription(description);
         DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-        String stringDate = request.getParameter("date").trim();
+        String stringDate = request.getParameter("date");
         try {
             transferTransaction.setDate(format.parse(stringDate));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String creditOfficerId = request.getParameter("creditOfficer").trim();
+        String creditOfficerId = request.getParameter("creditOfficer");
 
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
-        creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount").trim()));
+        creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount")));
         
         transferTransaction.setDebitUser(null);
         transferTransaction.setCreditUser(creditOfficer);
+        if(userRepo.findByEmail(operatorEmail).isEmpty()) return new ModelAndView("redirect:/Transaction"); // SAFETY
         transferTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
-        transferTransaction.setAmount(Double.parseDouble(request.getParameter("amount").trim()));
-        transferTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType").trim())));
+        transferTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
+        transferTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
         transferTransaction.setCheckNumber(checkNumber);
         transferTransaction.setCaseNumber(caseNumber);
         transferTransaction.setCiNumber(ciNumber);
         
-        String creditPassword = request.getParameter("creditPassword").trim();
+        String creditPassword = request.getParameter("creditPassword");
 
         if (encoder.matches(creditPassword, creditOfficer.getPassword())) {
         	try {
