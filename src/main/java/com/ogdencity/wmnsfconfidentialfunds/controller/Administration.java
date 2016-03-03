@@ -24,6 +24,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/Administration")
@@ -77,15 +82,17 @@ public class Administration {
         String permissions[] = request.getParameterValues("permission");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
+        
         User user = new User();
+        
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
-        user.setEnabled(true);
+        
 
         password = encoder.encode(password);
         user.setPassword(password);
+        user.setEnabled(true);
 
         List<Permission> givenPermissions = new ArrayList<>();
         for(String permission : permissions)

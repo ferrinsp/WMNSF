@@ -10,3 +10,6 @@
         <li><a class="btn btn-success" href="/LogOut">Log Off</a></li>
     </ul>
 </div>  
+<script>
+
+</script>

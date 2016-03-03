@@ -21,19 +21,18 @@ public class User implements Serializable{
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Email(message = "Please enter a valid email") 
     @NotBlank(message = "Please enter a valid email")
     private String email;
     @Size(min = 2, max = 30, message = "First name must be between {min} and {max}") 
-    @Pattern(regexp = "{A-Za-z}*", message = "Invalid first name, letters only") 
+    @Pattern(regexp = "^[A-Za-z]*$", message = "Invalid first name, letters only") 
     @NotBlank(message = "First name can not be blank")
     private String firstName;
     @Size(min = 2, max = 30, message = "Last name must be between {min} and {max}")
-    @Pattern(regexp = "{A-Za-z}*", message = "Invalid last name, letters only") 
+    @Pattern(regexp = "^[A-Za-z]*$*", message = "Invalid last name, letters only") 
     @NotBlank(message = "Last name can not be blank")
     private String lastName;
-    @NotBlank @Size(min = 8, max = 20, message = "Password can not be blank")
+    @NotBlank @Size(min = 8, max = 20, message = "Password cannot be blank")
     private String password;
     private Double balance;
 
