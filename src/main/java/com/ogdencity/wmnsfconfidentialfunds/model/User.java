@@ -32,7 +32,7 @@ public class User implements Serializable{
     @Pattern(regexp = "^[A-Za-z]*$*", message = "Invalid last name, letters only") 
     @NotBlank(message = "Last name can not be blank")
     private String lastName;
-    @NotBlank @Size(min = 8, max = 20, message = "Password cannot be blank")
+    @NotBlank(message = "Password cannot be blank")
     private String password;
     private Double balance;
 
