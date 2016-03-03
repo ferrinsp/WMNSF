@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Search {
     long userId;
     @NotBlank(message = "Must have transaction type")
-    @Pattern(regexp = "{A-Za-z}", message = "Invalid input")
+    @Pattern(regexp = "^[A-Za-z]*$", message = "Invalid input")
     TransactionType transactionType;
     @NotBlank
     Date startDate;

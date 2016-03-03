@@ -88,7 +88,6 @@ public class Administration {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
-        
 
         password = encoder.encode(password);
         user.setPassword(password);

@@ -26,10 +26,10 @@ public class TransferTransaction implements Serializable {
     private String description;
     @Column(name = "transaction_type")
     @NotBlank(message = "Must have transaction type")
-    @Pattern(regexp = "{A-Za-z}*", message = "Invalid input, letters only")
+    @Pattern(regexp = "^[A-Za-z]*$", message = "Invalid input, letters only")
     private String transactionType;
     @DecimalMin("-999999999.99") @DecimalMax("999999999.99")
-    private double amount;
+    private Double amount;
 
     @Nullable @OneToOne @JoinColumn(name="debit_user_id")
     private User debitUser;
@@ -89,11 +89,11 @@ public class TransferTransaction implements Serializable {
         this.transactionType = transactionType;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
     
