@@ -63,14 +63,14 @@
         <tr>
             <td>Date:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="date" name="date"/>
+                <input type="text" class="input-block-level" id="date" name="date" placeholder="MM/DD/YYYY"/>
             </td>
         </tr>
 
         <tr>
             <td>Description:</td>
             <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="description" name="description"></textarea>
+                <textarea rows="5" class="input-block-level" id="description" name="description" placeholder="Description of transaction"></textarea>
             </td>
         </tr>
         
@@ -105,7 +105,7 @@
                 </select>
             </td>
             <td>
-                <input type="password" class="input-block-level" id="debitPassword" name="debitPassword"/>
+                <input type="password" class="input-block-level" id="debitPassword" name="debitPassword"placeholder="Password"/>
             </td>
         </tr>
 
@@ -119,7 +119,7 @@
                 </select>
             </td>
             <td>
-                <input type="password" class="input-block-level" id="creditPassword" name="creditPassword"/>
+                <input type="password" class="input-block-level" id="creditPassword" name="creditPassword" placeholder="Password"/>
             </td>
         </tr>
 
@@ -154,14 +154,14 @@
         <tr>
             <td>Date:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="date" name="date"/>
+                <input type="text" class="input-block-level" id="date" name="date" placeholder="MM/DD/YYYY"/>
             </td>
         </tr>
 
         <tr>
             <td>Description:</td>
             <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="description" name="description"></textarea>
+                <textarea rows="5" class="input-block-level" id="description" name="description"placeholder="Description of transaction"></textarea>
             </td>
         </tr>
         
@@ -196,7 +196,7 @@
                 </select>
             </td>
             <td>
-                <input type="password" class="input-block-level" id="creditPassword" name="creditPassword"/>
+                <input type="password" class="input-block-level" id="creditPassword" name="creditPassword" placeholder="Password"/>
             </td>
         </tr>
 
@@ -262,9 +262,9 @@
         </c:if>
     });
 
-    $(function() {
+    (function() {
         $( "#date" ).datepicker();
-    });
+    })();
 
     transferModal = $("#formAddTransferTransaction").dialog({
         autoOpen: false,
@@ -276,7 +276,9 @@
             Cancel: cancel
         }
     });
-    
+    (function() {
+        $( "#date" ).datepicker();
+    })();
     depositModal = $("#formAddDepositTransaction").dialog({
         autoOpen: false,
         modal: true,

@@ -22,10 +22,10 @@
       	<div class="formDiv">
 	        <h2 class="form-signin-heading">Please Login</h2>
 	        <label class="loginLabel">Email:</label>
-	        <input type="text" class="input-block-level" name="username" id="username" autofocus>
+	        <input type="text" class="input-block-level" name="username" placeholder="Yourname@mail.com"id="username" autofocus>
 
 	        <label class="loginLabel">Password:</label>
-	        <input type="password" class="input-block-level" id="password" name="password">
+	        <input type="password" class="input-block-level" id="password" name="password" placeholder="Password">
 
 	        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
         </div>
