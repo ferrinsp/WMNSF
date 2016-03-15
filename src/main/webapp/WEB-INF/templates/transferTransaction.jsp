@@ -77,21 +77,21 @@
         <tr>
             <td>Check Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="checkNumber" name="checkNumber"/>
+                <input type="text" class="input-block-level" id="checkNumber" name="checkNumber" placeholder="Check Number"/>
             </td>
         </tr>
         
         <tr>
             <td>Case Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="caseNumber" name="caseNumber"/>
+                <input type="text" class="input-block-level" id="caseNumber" name="caseNumber" placeholder="Case Number"/>
             </td>
         </tr>
         
         <tr>
             <td>Ci Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="ciNumber" name="ciNumber"/>
+                <input type="text" class="input-block-level" id="ciNumber" name="ciNumber" placeholder="Ci Number"/>
             </td>
         </tr>
 
@@ -105,7 +105,7 @@
                 </select>
             </td>
             <td>
-                <input type="password" class="input-block-level" id="debitPassword" name="debitPassword"placeholder="Password"/>
+                <input type="password" class="input-block-level" id="debitPassword" name="debitPassword" placeholder="Password"/>
             </td>
         </tr>
 
@@ -126,7 +126,7 @@
         <tr>
             <td>Fund Amount & Type:</td>
             <td>
-                <input type="number" step="0.01" class="input-block-level" id="amount" name="amount"/>
+                <input type="number" step="0.01" class="input-block-level" id="amount" name="amount" placeholder="Fund Amount"/>
             </td>
             <td>
                 <select id="fundType" name="fundType">
@@ -168,21 +168,21 @@
         <tr>
             <td>Check Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="checkNumber" name="checkNumber"/>
+                <input type="text" class="input-block-level" id="checkNumber" name="checkNumber" placeholder="Check Number"/>
             </td>
         </tr>
         
         <tr>
             <td>Case Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="caseNumber" name="caseNumber"/>
+                <input type="text" class="input-block-level" id="caseNumber" name="caseNumber" placeholder="Case Number"/>
             </td>
         </tr>
         
         <tr>
             <td>Ci Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="ciNumber" name="ciNumber"/>
+                <input type="text" class="input-block-level" id="ciNumber" name="ciNumber" placeholder="Ci Number"/>
             </td>
         </tr>
 
@@ -203,7 +203,7 @@
         <tr>
             <td>Fund Amount & Type:</td>
             <td>
-                <input type="number" step="0.01" class="input-block-level" id="amount" name="amount"/>
+                <input type="number" step="0.01" class="input-block-level" id="amount" name="amount" placeholder="Fund Amount"/>
             </td>
             <td>
                 <select id="fundType" name="fundType">

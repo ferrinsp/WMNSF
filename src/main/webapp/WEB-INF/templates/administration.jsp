@@ -46,14 +46,14 @@
 
                             <tr>
                                 <td>First Name</td>
-                                <td><input type="text" class="input-block-level" id="firstName" name="firstName">
+                                <td><input type="text" class="input-block-level" id="firstName" name="firstName" placeholder="First Name">
                                     <input type="hidden" id="id" name="id">
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>Last Name</td>
-                                <td><input type="text" class="input-block-level" id="lastName" name="lastName"></td>
+                                <td><input type="text" class="input-block-level" id="lastName" name="lastName" placeholder="Last Name"></td>
                             </tr>
 
                             <tr>
@@ -68,13 +68,13 @@
 
                             <tr>
                                 <td>E-Mail</td>
-                                <td><input type="text" class="input-block-level" id="email"
+                                <td><input type="text" class="input-block-level" id="email" placeholder="Email"
                                            name="email" required></td>
                             </tr>
 
                             <tr>
                                 <td>Password</td>
-                                <td><input type="password" class="input-block-level"
+                                <td><input type="password" class="input-block-level" placeholder="Password"
                                            id="password" name="password"></td>
                             </tr>
                         </table>
@@ -135,20 +135,20 @@
                             <tr>
                             	<td>Fund Type Name:</td>
             					<td colspan="2">
-                					<input type="text" class="input-block-level" id="description" name="description"></input>
+                					<input type="text" class="input-block-level" id="description" name="description" placeholder="Fund Type Name"></input>
                 					<input type="hidden" id="fundId" name="id">
             					</td>
             				</tr>
             				<tr>
             					<td>Effective Start Date</td>
             					<td colspan="2">
-                					<input type="text" class="input-block-level" id="effectiveStart" name="effectiveStart"/>
+                					<input type="text" class="input-block-level" id="effectiveStart" name="effectiveStart" placeholder="Effective Date"/>
             					</td>
             				</tr>
             				<tr>
             					<td>Effective End Date</td>
             					<td colspan="2">
-                					<input type="text" class="input-block-level" id="effectiveEnd" name="effectiveEnd"/>
+                					<input type="text" class="input-block-level" id="effectiveEnd" name="effectiveEnd" placeholder="End Date"/>
             					</td>
             				</tr>
                         </table>
@@ -181,14 +181,10 @@
 	                             </tr>
                             </c:forEach>
                             </tbody>
-
                         </table>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
 
         <script type="text/javascript">

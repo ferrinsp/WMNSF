@@ -13,7 +13,6 @@
                 height: 45px;
                 padding-top: 5px;
             }
-
         </style>
 
         <link rel="stylesheet" href="/static/css/nav-tabs.css">
@@ -28,8 +27,6 @@
     <jsp:body>
         <div class="formBar">
             <form action="/Reports/Search" name="filter" method="post" id="reportFilter">
-
-                
 				<label style="color: white">Filter Based On Fund Type:</label>
         		<select id="fundType" name="fundType">
 		        	<option id="" value="">All</option>
@@ -77,12 +74,10 @@
 	                    <td>${transaction.fundType.description}</td>
 	                    <td>${transaction.getCheckNumber()}</td>
     					<td>${transaction.getCaseNumber()}</td>
-    					<td>${transaction.getCiNumber()}</td>
-	                    
+    					<td>${transaction.getCiNumber()}</td>	                    
 	                </tr>
 	            </c:forEach>
 	            </tbody>
-	            
 			<tfoot>
 				<tr>
 					<th></th>
@@ -97,11 +92,9 @@
         			<th></th>
         			<th></th>
 				</tr>
-			</tfoot>
-	            
+			</tfoot>	            
 	        </table>
-        </div>
-        
+        </div>        
         <script>
         
         	$.fn.dataTable.ext.search.push(
@@ -133,7 +126,7 @@
                     initComplete: function () {
                         this.api().columns([3,4,6]).every( function () {
                             var column = this;
-                            var select = $('<select><option value=""></option></select>')
+                            var select = $('<select><option value="">Filter by:</option></select>')
                                 .appendTo( $(column.footer()).empty() )
                                 .on( 'change', function () {
                                     var val = $.fn.dataTable.util.escapeRegex(
@@ -187,7 +180,6 @@
                 $("#dateTo").val("<fmt:formatDate value="${search.endDate}" pattern="MM/dd/yyyy" />");
                 $("#dateFrom").val("<fmt:formatDate value="${search.startDate}" pattern="MM/dd/yyyy" />");
                 </c:if>
-                
             });
             
             function reset() {
@@ -204,9 +196,7 @@
             	
             	table.columns([3,4,6,7]).search('');
             	table.draw();
-            	
             }
-            
         </script>
     </jsp:body>
 </tags:template>
