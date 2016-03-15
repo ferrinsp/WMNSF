@@ -100,7 +100,7 @@
             <td>
                 <select id="debitOfficer" name="debitOfficer">
                     <c:forEach var="user" items="${allEnabledUsers}" >
-                    <option value="${user.id}">${user.getFullName()}</option>
+                    <option value="${user.id}">${user.getEmail()}</option>
                     </c:forEach>
                 </select>
             </td>
@@ -114,7 +114,7 @@
             <td>
                 <select id="creditOfficer" name="creditOfficer">
                     <c:forEach var="user" items="${allEnabledUsers}" >
-                        <option value="${user.id}">${user.getFullName()}</option>
+                        <option value="${user.id}">${user.getEmail()}</option>
                     </c:forEach>
                 </select>
             </td>
@@ -191,7 +191,7 @@
             <td>
                 <select id="creditOfficer" name="creditOfficer">
                     <c:forEach var="user" items="${allEnabledUsers}" >
-                        <option value="${user.id}">${user.getFullName()}</option>
+                        <option value="${user.id}">${user.getEmail()}</option>
                     </c:forEach>
                 </select>
             </td>
