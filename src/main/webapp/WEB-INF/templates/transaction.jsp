@@ -11,7 +11,7 @@
         <body>
 
         <div role="tabpanel" class="formTabPane">
-            <div class="tabs">
+            <div class="tabs" style="display:none;">
                 <ul role="tablist" class="nav nav-tabs formSelect">
                     <li role="presentation" id="transferTab" class="active">
                         <a href="#transferPage" aria-controls="transferPage" role="tab" data-toggle="tab">Transfer</a>
