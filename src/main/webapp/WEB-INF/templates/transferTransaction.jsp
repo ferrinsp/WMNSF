@@ -12,8 +12,9 @@
 </head>
 
 <div class="buttonHolder">
-    <button class="btn btn-large btn-primary" id="btnNewTransfer">New Transfer Transaction</button>
-    <button class="btn btn-large btn-primary" id="btnNewDeposit">New Deposit Transaction</button>
+    <button class="btn btn-large btn-primary" id="btnNewTransfer">New Transfer</button>
+    <button class="btn btn-large btn-primary" id="btnNewDeposit">New Deposit</button>
+    <button class="btn btn-large btn-primary" id="btnNewExpenditure">New Expenditure</button>
 </div>
 <br/>
 <br/>
@@ -24,12 +25,12 @@
         <th>ID</th>
         <th>Date</th>
         <th>Type</th>
+        <th>Amount</th>
         <th>Description</th>
         <th>Debit Officer</th>
         <th>Credit Officer</th>
-        <th>Amount</th>
-        <th>Operator</th>
         <th>Fund Type</th>
+        <th>Operator</th>
         <th>Check Number</th>
         <th>Case Number</th>
         <th>Ci Number</th>
@@ -41,12 +42,12 @@
     <td>${transferTransaction.getId()}</td>
     <td><fmt:formatDate value="${transferTransaction.date}" pattern="MM-dd-yyyy" /></td>
     <td>${transferTransaction.getTransactionType()}</td>
+    <td><fmt:formatNumber value="${transferTransaction.amount}" type="currency" /></td>
     <td>${transferTransaction.getDescription()}</td>
     <td>${transferTransaction.debitUser.getFullName()}</td>
     <td>${transferTransaction.creditUser.getFullName()}</td>
-    <td><fmt:formatNumber value="${transferTransaction.amount}" type="currency" /></td>
-    <td>${transferTransaction.operatorUser.getFullName()}</td>
     <td>${transferTransaction.fundType.description}</td>
+    <td>${transferTransaction.operatorUser.getFullName()}</td>
     <td>${transferTransaction.getCheckNumber()}</td>
     <td>${transferTransaction.getCaseNumber()}</td>
     <td>${transferTransaction.getCiNumber()}</td>
@@ -57,7 +58,7 @@
 <!---------------------------------------- add transfer transaction ------------------------------------------->
 
 <form id="formAddTransferTransaction" name="addTransferTransaction" action="/Transaction/NewTransferTransaction" method="post">
-    <h2 id="formHeader">Add Transfer Transaction</h2>
+    <h2 id="formHeader">Add Transfer</h2>
     <table id="tblAddTransferTransaction" class="table">
 
         <tr>
@@ -148,7 +149,7 @@
 <!---------------------------------------- add deposit transaction ------------------------------------------->
 
 <form id="formAddDepositTransaction" name="addDepositTransaction" action="/Transaction/NewDepositTransaction" method="post">
-    <h2 id="formHeader">Add Deposit Transaction</h2>
+    <h2 id="formHeader">Add Deposit</h2>
     <table id="tblAddDepositTransaction" class="table">
 
         <tr>
@@ -221,6 +222,30 @@
     </table>
 </form>
 
+<!---------------------------------------- add expenditure transaction------------------------------------------->
+
+<form id="formAddExpenditure" name="addExpenditure" action="/Transaction/NewExpenditure" method="post">
+    <h2 id="formHeader">Add Expenditure</h2>
+    <table id="tblAddExpenditure" class="table">
+        <tr>
+            <td>Date:</td>
+            <td colspan="2">
+                <input type="text" class="input-block-level" id="date" name="date" placeholder="MM/DD/YYYY"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td colspan="2">
+                <textarea rows="5" class="input-block-level" id="description" name="description"placeholder="Description of expediture"></textarea>
+            </td>
+        </tr>
+		<tr>
+            <td>
+                <input id="expenditureSubmit" type="submit" value="submit" style="display:none;">
+            </td>
+        </tr>
+    </table>
+</form>
 
 <script>
     $(document).ready(function () {
@@ -231,9 +256,11 @@
         $('#btnNewTransfer').click(function () {
             transferModal.dialog("open");
         });
-        
         $('#btnNewDeposit').click(function () {
             depositModal.dialog("open");
+        });
+        $('#btnNewExpenditure').click(function () {
+            expenditureModal.dialog("open");
         });
 
         <c:if test="${failedTransferTransaction != null}">
@@ -260,12 +287,23 @@
         $("#ciNumber").val("${failedDepositTransaction.ciNumber}");
         depositModal.dialog("open");
         </c:if>
+        
+        <c:if test="${failedExpediture != null}">
+        $("#date").val("<fmt:formatDate value="${failedExpediture.date}" pattern="MM/dd/yyyy" />");
+        $("#description").val("${failedExpediture.description}");
+        $("#creditOfficer").val("${failedExpediture.creditUser.id}");
+        $("#amount").val("${failedExpediture.amount}");
+        $("#fundType").val("${failedExpediture.fundType.id}");
+        $("#checkNumber").val("${failedExpediture.checkNumber}");
+        $("#caseNumber").val("${failedExpediture.caseNumber}");
+        $("#ciNumber").val("${failedExpediture.ciNumber}");
+        expenditureModal.dialog("open");
+        </c:if>
     });
 
     (function() {
         $( "#date" ).datepicker();
     })();
-
     transferModal = $("#formAddTransferTransaction").dialog({
         autoOpen: false,
         modal: true,
@@ -276,6 +314,7 @@
             Cancel: cancel
         }
     });
+    
     (function() {
         $( "#date" ).datepicker();
     })();
@@ -289,6 +328,20 @@
             Cancel: cancel
         }
     });
+    
+    (function() {
+        $( "#date" ).datepicker();
+    })();
+    expenditureModal = $("#formAddExpenditure").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 'auto',
+        buttons: {
+            "Submit": addExpenditure,
+            Cancel: cancel
+        }
+    });
 
     function addTransfer() {
         document.getElementById("transferSubmit").click();
@@ -296,6 +349,10 @@
     
     function addDeposit() {
         document.getElementById("depositSubmit").click();
+    }
+    
+    function addExpediture() {
+        document.getElementById("expeditureSubmit").click();
     }
 
     function cancel() {
@@ -312,5 +369,6 @@
         $("#ciNumber").val("");
         transferModal.dialog("close");
         depositModal.dialog("close");
+        expenditureModal.dialog("close");
     }
 </script>

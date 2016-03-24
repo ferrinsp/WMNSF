@@ -5,7 +5,7 @@
 <tags:template pageTitle="Home">
     <jsp:body>
         <body>
-        <h4 align=center>Current Cash on hand: $</h4>
+        <h4 align=center></h4>
         </body>
     </jsp:body>
 </tags:template>
