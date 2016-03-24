@@ -1,6 +1,7 @@
-
 <header class="header">
-	<p align="right" style="color:white;"><a class="buttonHolder" href="/LogOut">Log Off</a></p>
+	<p align="right" style="margin-right:10px">
+		<a class="buttonHolder" href="/LogOut"><font color="white">Log Off</font></a>
+	</p>
 	<div align="center">
 	    <img class="divLogoContainer" src="/static/images/OgdenCityPD.png" alt="OgdenCityPDLogo"/>
 	</div>

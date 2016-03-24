@@ -11,16 +11,6 @@
         <body>
 
         <div role="tabpanel" class="formTabPane">
-            <div class="tabs" style="display:none;">
-                <ul role="tablist" class="nav nav-tabs formSelect">
-                    <li role="presentation" id="transferTab" class="active">
-                        <a href="#transferPage" aria-controls="transferPage" role="tab" data-toggle="tab">Transfer</a>
-                    </li>
-                    <li role="presentation" id="expendTab">
-                        <a href="#expendPage" aria-controls="expendPage" role="tab" data-toggle="tab">Expenditure</a>
-                    </li>
-                </ul>
-            </div>
             <div class="formHolder tab-content">
                 <div role="tabpanel" class="formContent tab-pane fade in active" id="transferPage">
                     <!-- beginning of include -->

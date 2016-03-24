@@ -169,4 +169,57 @@ public class Transaction {
         }
         return new ModelAndView("redirect:/Transaction");
     }
+
+    @Transactional
+    @RequestMapping("/NewExpenditureTransaction")
+    public ModelAndView NewExpenditureTransaction(HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes) {
+        String operatorEmail = principal.getName();
+
+        TransferTransaction expenditureTransaction = new TransferTransaction();
+        expenditureTransaction.setTransactionType("Deposit");
+        String description = request.getParameter("description");
+        String checkNumber = request.getParameter("checkNumber");
+        String caseNumber = request.getParameter("caseNumber");
+        String ciNumber = request.getParameter("ciNumber");
+        expenditureTransaction.setDescription(description);
+        DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        String stringDate = request.getParameter("date");
+        try {
+            expenditureTransaction.setDate(format.parse(stringDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String creditOfficerId = request.getParameter("creditOfficer");
+
+        User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
+        creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount")));
+        
+        expenditureTransaction.setDebitUser(null);
+        expenditureTransaction.setCreditUser(creditOfficer);
+        if(userRepo.findByEmail(operatorEmail).isEmpty()) return new ModelAndView("redirect:/Transaction"); // SAFETY
+        expenditureTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
+        expenditureTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
+        expenditureTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
+        expenditureTransaction.setCheckNumber(checkNumber);
+        expenditureTransaction.setCaseNumber(caseNumber);
+        expenditureTransaction.setCiNumber(ciNumber);
+        
+        String creditPassword = request.getParameter("creditPassword");
+
+        if (encoder.matches(creditPassword, creditOfficer.getPassword())) {
+        	try {
+        		em.persist(expenditureTransaction);
+        		em.merge(creditOfficer);
+                redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Expenditure successfully saved.");
+			} catch (Exception e) {
+				System.out.println("Error committing to database");
+				e.printStackTrace();
+			}
+        }
+        else {
+            redirectAttributes.addFlashAttribute("failedExpenditureTransaction", expenditureTransaction);
+            redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), "Passwords do not match.");
+        }
+        return new ModelAndView("redirect:/Transaction");
+    }
 }

@@ -233,15 +233,65 @@
                 <input type="text" class="input-block-level" id="date" name="date" placeholder="MM/DD/YYYY"/>
             </td>
         </tr>
+
         <tr>
             <td>Description:</td>
             <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="description" name="description"placeholder="Description of expediture"></textarea>
+                <textarea rows="5" class="input-block-level" id="description" name="description"placeholder="Description of transaction"></textarea>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>Check Number:</td>
+            <td colspan="2">
+                <input type="text" class="input-block-level" id="checkNumber" name="checkNumber" placeholder="Check Number"/>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>Case Number:</td>
+            <td colspan="2">
+                <input type="text" class="input-block-level" id="caseNumber" name="caseNumber" placeholder="Case Number"/>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>Ci Number:</td>
+            <td colspan="2">
+                <input type="text" class="input-block-level" id="ciNumber" name="ciNumber" placeholder="Ci Number"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Credit Officer:</td>
+            <td>
+                <select id="creditOfficer" name="creditOfficer">
+                    <c:forEach var="user" items="${allEnabledUsers}" >
+                        <option value="${user.id}">${user.getEmail()}</option>
+                    </c:forEach>
+                </select>
+            </td>
+            <td>
+                <input type="password" class="input-block-level" id="creditPassword" name="creditPassword" placeholder="Password"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Fund Amount & Type:</td>
+            <td>
+                <input type="number" step="0.01" class="input-block-level" id="amount" name="amount" placeholder="Fund Amount"/>
+            </td>
+            <td>
+                <select id="fundType" name="fundType">
+                    <c:forEach var="fundType" items="${allActiveFundTypes}" >
+                        <option value="${fundType.id}">${fundType.description}</option>
+                    </c:forEach>
+                </select>
             </td>
         </tr>
 		<tr>
             <td>
-                <input id="expenditureSubmit" type="submit" value="submit" style="display:none;">
+                <input id="depositSubmit" type="submit" value="submit" style="display:none;">
             </td>
         </tr>
     </table>
@@ -338,7 +388,7 @@
         resizable: false,
         width: 'auto',
         buttons: {
-            "Submit": addExpenditure,
+            "Submit": addDeposit,
             Cancel: cancel
         }
     });
