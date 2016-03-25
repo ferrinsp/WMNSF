@@ -46,14 +46,14 @@
 
                             <tr>
                                 <td>First Name</td>
-                                <td><input type="text" class="input-block-level" id="firstName" name="firstName" placeholder="First Name">
+                                <td><input type="text" class="input-block-level" id="firstName" name="firstName" required pattern="[A-Za-z]{2,20}" title="Between 2 and 20 alphabetic characters" placeholder="First Name">
                                     <input type="hidden" id="id" name="id">
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>Last Name</td>
-                                <td><input type="text" class="input-block-level" id="lastName" name="lastName" placeholder="Last Name"></td>
+                                <td><input type="text" class="input-block-level" id="lastName" name="lastName" required pattern="[A-Za-z]{2,20}" title="Between 2 and 20 alphabetic characters" placeholder="Last Name"></td>
                             </tr>
 
                             <tr>
@@ -68,7 +68,7 @@
 
                             <tr>
                                 <td>E-Mail</td>
-                                <td><input type="text" class="input-block-level" id="email" placeholder="Email"
+                                <td><input type="email" class="input-block-level" id="email" placeholder="Email"
                                            name="email" required></td>
                             </tr>
 
@@ -78,6 +78,8 @@
                                            id="password" name="password"></td>
                             </tr>
                         </table>
+                        <input type="submit" value="Submit">
+                        <input type="button" onclick="cancel()" value="Cancel">
                     </form>
                     <!---------------------------------- User Information Table -------------------------------------->
                     <div class="table-responsive">
@@ -263,10 +265,10 @@
                 modal: true,
                 resizable: false,
                 width: 'auto',
-                buttons: {
+               /* buttons: {
                     "Submit": addEditUser,
                     Cancel: cancel
-                }
+                }*/
             });
 
             fundModal = $("#formAddEditFundType").dialog({
@@ -280,9 +282,9 @@
                 }
             });
 
-            function addEditUser() {
+           /* function addEditUser() {
                 $("#formAddEditUser").submit();
-            }
+            }*/
 
             function addEditFundType() {
                 $("#formAddEditFundType").submit();

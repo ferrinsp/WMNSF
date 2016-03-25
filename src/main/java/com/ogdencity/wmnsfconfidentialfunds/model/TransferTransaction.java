@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -20,7 +21,7 @@ public class TransferTransaction implements Serializable {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @NotBlank(message = "Transaction must have a date")
+    @NotNull(message = "Transaction must have a date")
     private Date date;
     @NotBlank(message = "Please enter a description")
     private String description;
@@ -41,7 +42,7 @@ public class TransferTransaction implements Serializable {
     private User operatorUser;
 
     @OneToOne @JoinColumn(name = "fund_type_id")
-    @NotBlank(message = "Must have a fund type")
+    @NotNull(message = "Must have a fund type")
     private FundType fundType;
     
     @Column(name = "check_number")
