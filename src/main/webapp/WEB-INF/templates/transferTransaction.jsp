@@ -237,7 +237,7 @@
         <tr>
             <td>Description:</td>
             <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="description" name="description"placeholder="Description of transaction"></textarea>
+                <textarea rows="5" class="input-block-level" id="description" name="description"placeholder="Description of expenditure"></textarea>
             </td>
         </tr>
         
@@ -277,7 +277,7 @@
         </tr>
 
         <tr>
-            <td>Fund Amount & Type:</td>
+            <td>Expenditure Amount & Type:</td>
             <td>
                 <input type="number" step="0.01" class="input-block-level" id="amount" name="amount" required placeholder="Fund Amount"/>
             </td>
