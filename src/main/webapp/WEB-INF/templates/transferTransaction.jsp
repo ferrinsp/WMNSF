@@ -19,7 +19,7 @@
 <br/>
 <br/>
 <br/>
-<table ID="tblTransferTransactions">
+<table class="table table-striped" ID="tblTransferTransactions">
     <thead>
     <tr>
         <th>ID</th>
@@ -155,7 +155,7 @@
         <tr>
             <td>Date:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="date" name="date" required title="Transaction Date" placeholder="MM/DD/YYYY"/>
+                <input type="text" class="input-block-level" id="date" name="date" placeholder="MM/DD/YYYY" required title="Deposit Date"/>
             </td>
         </tr>
 
@@ -230,7 +230,7 @@
         <tr>
             <td>Date:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="date" name="date" required title="Transaction Date" placeholder="MM/DD/YYYY"/>
+                <input type="text" class="input-block-level" id="date" name="date" placeholder="MM/DD/YYYY" required title="Expenditure Date"/>
             </td>
         </tr>
 
@@ -277,7 +277,7 @@
         </tr>
 
         <tr>
-            <td>Expenditure Amount & Type:</td>
+            <td>Fund Amount & Type:</td>
             <td>
                 <input type="number" step="0.01" class="input-block-level" id="amount" name="amount" required placeholder="Fund Amount"/>
             </td>

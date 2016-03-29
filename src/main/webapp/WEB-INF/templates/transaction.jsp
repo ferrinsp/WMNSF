@@ -6,6 +6,7 @@
 <tags:template pageTitle="Transfer">
     <jsp:attribute name="head">
         <link rel="stylesheet" href="/static/css/nav-tabs.css">
+        <link rel="stylesheet" href="/static/css/dataTables.css">
     </jsp:attribute>
     <jsp:body>
         <body>
