@@ -44,7 +44,7 @@
         </div>
 		
 		
-        <div class="table-responsive" style="padding:50px">
+        <div class="table-responsive" style="padding:15px">
 	        <table class="table table-striped" id="tblTransferTransactions">
 	            <thead>
 	            <tr>

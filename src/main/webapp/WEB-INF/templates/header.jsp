@@ -1,5 +1,5 @@
 <header class="header">
-	<p align="right" style="margin-right:10px">
+	<p align="right" style="margin-right:10px;">
 		<a class="buttonHolder" href="/LogOut"><font color="white">Log Off</font></a>
 	</p>
 	<div align="center">

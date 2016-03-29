@@ -17,8 +17,7 @@
     <button class="btn btn-large btn-primary" id="btnNewExpenditure">New Expenditure</button>
 </div>
 <br/>
-<br/>
-<br/>
+
 <table class="table table-striped" ID="tblTransferTransactions">
     <thead>
     <tr>
@@ -155,7 +154,7 @@
         <tr>
             <td>Date:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="date" name="date" placeholder="MM/DD/YYYY" required title="Deposit Date"/>
+                <input type="text" class="input-block-level" id="date" name="date" required title="Transaction Date" placeholder="MM/DD/YYYY"/>
             </td>
         </tr>
 
@@ -230,7 +229,7 @@
         <tr>
             <td>Date:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="date" name="date" placeholder="MM/DD/YYYY" required title="Expenditure Date"/>
+                <input type="text" class="input-block-level" id="date" name="date" required title="Transaction Date" placeholder="MM/DD/YYYY"/>
             </td>
         </tr>
 
