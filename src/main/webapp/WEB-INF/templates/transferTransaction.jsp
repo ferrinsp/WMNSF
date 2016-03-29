@@ -290,7 +290,7 @@
         </tr>
 		<tr>
             <td>
-                <input id="depositSubmit" type="submit" value="submit" style="display:none;">
+                <input id="expenditureSubmit" type="submit" value="submit" style="display:none;">
             </td>
         </tr>
     </table>
@@ -388,7 +388,7 @@
         resizable: false,
         width: 'auto',
         buttons: {
-            "Submit": addDeposit,
+            "Submit": addExpenditure,
             Cancel: cancel
         }
     });
@@ -401,8 +401,8 @@
         document.getElementById("depositSubmit").click();
     }
     
-    function addExpediture() {
-        document.getElementById("expeditureSubmit").click();
+    function addExpenditure() {
+        document.getElementById("expenditureSubmit").click();
     }
 
     function cancel() {
