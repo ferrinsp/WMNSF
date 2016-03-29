@@ -154,7 +154,7 @@
         <tr>
             <td>Date:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="date" name="date" required title="Transaction Date" placeholder="MM/DD/YYYY"/>
+                <input type="text" class="input-block-level" id="date1" name="date" required title="Transaction Date" placeholder="MM/DD/YYYY"/>
             </td>
         </tr>
 
@@ -229,7 +229,7 @@
         <tr>
             <td>Date:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="date" name="date" required title="Transaction Date" placeholder="MM/DD/YYYY"/>
+                <input type="text" class="input-block-level" id="date2" name="date" required title="Transaction Date" placeholder="MM/DD/YYYY"/>
             </td>
         </tr>
 
@@ -313,7 +313,7 @@
         });
 
         <c:if test="${failedTransferTransaction != null}">
-        $("#date").val("<fmt:formatDate value="${failedTransferTransaction.date}" pattern="MM/dd/yyyy" />");
+        $("#date1").val("<fmt:formatDate value="${failedTransferTransaction.date}" pattern="MM/dd/yyyy" />");
         $("#description").val("${failedTransferTransaction.description}");
         $('#debitOfficer').val("${failedTransferTransaction.debitUser.id}");
         $("#creditOfficer").val("${failedTransferTransaction.creditUser.id}");
@@ -326,7 +326,7 @@
         </c:if>
         
         <c:if test="${failedDepositTransaction != null}">
-        $("#date").val("<fmt:formatDate value="${failedDepositTransaction.date}" pattern="MM/dd/yyyy" />");
+        $("#date2").val("<fmt:formatDate value="${failedDepositTransaction.date}" pattern="MM/dd/yyyy" />");
         $("#description").val("${failedDepositTransaction.description}");
         $("#creditOfficer").val("${failedDepositTransaction.creditUser.id}");
         $("#amount").val("${failedDepositTransaction.amount}");
@@ -351,7 +351,7 @@
     });
 
     (function() {
-        $( "#date" ).datepicker();
+        $( "#date" ).datepicker({ minDate: -365, maxDate: +1 });
     })();
     transferModal = $("#formAddTransferTransaction").dialog({
         autoOpen: false,
@@ -363,10 +363,11 @@
             Cancel: cancel
         }
     });
-    
     (function() {
-        $( "#date" ).datepicker();
+        $( "#date1" ).datepicker({ minDate: -365, maxDate: +1 });
     })();
+    
+    
     depositModal = $("#formAddDepositTransaction").dialog({
         autoOpen: false,
         modal: true,
@@ -379,7 +380,7 @@
     });
     
     (function() {
-        $( "#date" ).datepicker();
+        $("#date2" ).datepicker({ minDate: -365, maxDate: +1 });
     })();
     expenditureModal = $("#formAddExpenditure").dialog({
         autoOpen: false,
