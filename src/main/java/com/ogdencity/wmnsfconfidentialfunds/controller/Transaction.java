@@ -103,7 +103,7 @@ public class Transaction {
         		em.persist(transferTransaction);
         		em.merge(debitOfficer);
         		em.merge(creditOfficer);
-                redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Transfer Transaction successfully saved.");
+                redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Transfer successfully saved.");
 			} catch (Exception e) {
 				System.out.println("Error committing to database");
 				e.printStackTrace();
@@ -122,17 +122,17 @@ public class Transaction {
     public ModelAndView NewDepositTransaction(HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes) {
         String operatorEmail = principal.getName();
 
-        TransferTransaction transferTransaction = new TransferTransaction();
-        transferTransaction.setTransactionType("Deposit");
+        TransferTransaction depositTransaction = new TransferTransaction();
+        depositTransaction.setTransactionType("Deposit");
         String description = request.getParameter("description");
         String checkNumber = request.getParameter("checkNumber");
         String caseNumber = request.getParameter("caseNumber");
         String ciNumber = request.getParameter("ciNumber");
-        transferTransaction.setDescription(description);
+        depositTransaction.setDescription(description);
         DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
         String stringDate = request.getParameter("date");
         try {
-            transferTransaction.setDate(format.parse(stringDate));
+        	depositTransaction.setDate(format.parse(stringDate));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -141,42 +141,42 @@ public class Transaction {
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
         creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount")));
         
-        transferTransaction.setDebitUser(null);
-        transferTransaction.setCreditUser(creditOfficer);
+        depositTransaction.setDebitUser(null);
+        depositTransaction.setCreditUser(creditOfficer);
         if(userRepo.findByEmail(operatorEmail).isEmpty()) return new ModelAndView("redirect:/Transaction"); // SAFETY
-        transferTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
-        transferTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
-        transferTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
-        transferTransaction.setCheckNumber(checkNumber);
-        transferTransaction.setCaseNumber(caseNumber);
-        transferTransaction.setCiNumber(ciNumber);
+        depositTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
+        depositTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
+        depositTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
+        depositTransaction.setCheckNumber(checkNumber);
+        depositTransaction.setCaseNumber(caseNumber);
+        depositTransaction.setCiNumber(ciNumber);
         
         String creditPassword = request.getParameter("creditPassword");
 
         if (encoder.matches(creditPassword, creditOfficer.getPassword())) {
         	try {
-        		em.persist(transferTransaction);
+        		em.persist(depositTransaction);
         		em.merge(creditOfficer);
-                redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Transfer Transaction successfully saved.");
+                redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Deposit successfully saved.");
 			} catch (Exception e) {
 				System.out.println("Error committing to database");
 				e.printStackTrace();
 			}
         }
         else {
-            redirectAttributes.addFlashAttribute("failedTransferTransaction", transferTransaction);
+            redirectAttributes.addFlashAttribute("failedTransferTransaction", depositTransaction);
             redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), "Passwords do not match.");
         }
         return new ModelAndView("redirect:/Transaction");
     }
 
     @Transactional
-    @RequestMapping("/NewExpenditureTransaction")
-    public ModelAndView NewExpenditureTransaction(HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes) {
+    @RequestMapping("/NewExpenditure")
+    public ModelAndView NewExpenditure(HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes) {
         String operatorEmail = principal.getName();
 
         TransferTransaction expenditureTransaction = new TransferTransaction();
-        expenditureTransaction.setTransactionType("Deposit");
+        expenditureTransaction.setTransactionType("Expenditure");
         String description = request.getParameter("description");
         String checkNumber = request.getParameter("checkNumber");
         String caseNumber = request.getParameter("caseNumber");
