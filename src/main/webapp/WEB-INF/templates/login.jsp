@@ -47,22 +47,3 @@
 </script>
 </body>
 </html>
-
-<%--
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<tags:template pageTitle="Application">
-    <jsp:attribute name="head">
-        I'm header content!
-    </jsp:attribute>
-    <jsp:attribute name="footer">
-        I'm footer content!
-    </jsp:attribute>
-    <jsp:body>
-        <body>
-        <h1>Hello world!</h1>
-        </body>
-    </jsp:body>
-</tags:template>
---%>

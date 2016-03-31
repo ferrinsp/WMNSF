@@ -8,7 +8,9 @@
 </header>
 <div class="menu">
     <ul class="nav btn-group">
+    	<% if (request.isUserInRole("ADMIN")) {%>
         <li style="padding:5px"><a class="btn btn-success" href="/Administration">Administration</a></li>
+        <%}%>
         <li style="padding:5px"><a class="btn btn-success" href="/Reports">Report</a></li>
         <li style="padding:5px"><a class="btn btn-success" href="/Transaction">Transaction</a></li>
     </ul>
