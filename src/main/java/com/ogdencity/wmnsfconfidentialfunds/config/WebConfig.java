@@ -15,7 +15,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 .addResourceHandler("/static/**")
                 .addResourceLocations("/WEB-INF/static/")
                 .setCachePeriod(0);
-
-
     }
 }

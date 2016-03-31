@@ -4,6 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<% if (request.isUserInRole("USER")) {%>
+		<c:redirect url="/Transaction"/>
+<%}%>
+    
 <tags:template pageTitle="Administration">
     <jsp:attribute name="head">
         <link rel="stylesheet" href="/static/css/administration.css">
@@ -14,9 +18,7 @@
         <script src="/static/multi-select/js/jquery.multi-select.js"></script>
     </jsp:attribute>
     <jsp:body>
-
         <body>
-
         <div class="title">
             <h2>Welcome, Administrator</h2>
         </div>
