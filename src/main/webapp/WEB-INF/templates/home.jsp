@@ -2,6 +2,9 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:redirect url="/Transaction"/>
+
 <tags:template pageTitle="Home">
     <jsp:body>
         <body>
