@@ -46,15 +46,15 @@ public class TransferTransaction implements Serializable {
     private FundType fundType;
     
     @Column(name = "check_number")
-    @NotBlank(message = "Must have a check number")
+    //@NotBlank(message = "Must have a check number")
     private String checkNumber;
     
     @Column(name = "case_number")
-    @NotBlank(message = "Must have a case number")
+    //@NotBlank(message = "Must have a case number")
     private String caseNumber;
     
     @Column(name = "ci_number")
-    @NotBlank(message = "Must have a ci number")
+    //@NotBlank(message = "Must have a ci number")
     private String ciNumber;
 
 

@@ -189,13 +189,13 @@ public class Transaction {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String creditOfficerId = request.getParameter("creditOfficer");
+        String debitOfficerId = request.getParameter("debitOfficer");
 
-        User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
-        creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount")));
+        User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
+        debitOfficer.setBalance(debitOfficer.getBalance() + Double.parseDouble(request.getParameter("amount")));
         
-        expenditureTransaction.setDebitUser(null);
-        expenditureTransaction.setCreditUser(creditOfficer);
+        expenditureTransaction.setDebitUser(debitOfficer);
+        expenditureTransaction.setCreditUser(null);
         if(userRepo.findByEmail(operatorEmail).isEmpty()) return new ModelAndView("redirect:/Transaction"); // SAFETY
         expenditureTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
         expenditureTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
@@ -206,10 +206,10 @@ public class Transaction {
         
         String creditPassword = request.getParameter("creditPassword");
 
-        if (encoder.matches(creditPassword, creditOfficer.getPassword())) {
+        if (encoder.matches(creditPassword, debitOfficer.getPassword())) {
         	try {
         		em.persist(expenditureTransaction);
-        		em.merge(creditOfficer);
+        		em.merge(debitOfficer);
                 redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Expenditure successfully saved.");
 			} catch (Exception e) {
 				System.out.println("Error committing to database");

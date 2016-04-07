@@ -262,16 +262,16 @@
         </tr>
 
         <tr>
-            <td>Credit Officer:</td>
+            <td>Debit Officer:</td>
             <td>
-                <select id="creditOfficer" name="creditOfficer">
+                <select id="debitOfficer" name="debitOfficer">
                     <c:forEach var="user" items="${allEnabledUsers}" >
                         <option value="${user.id}">${user.getEmail()}</option>
                     </c:forEach>
                 </select>
             </td>
             <td>
-                <input type="password" class="input-block-level" id="creditPassword" name="creditPassword" required placeholder="Password"/>
+                <input type="password" class="input-block-level" id="debitPassword" name="debitPassword" required placeholder="Password"/>
             </td>
         </tr>
 
