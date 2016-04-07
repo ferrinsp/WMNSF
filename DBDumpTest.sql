@@ -190,13 +190,13 @@ INSERT INTO `transfer_transaction` VALUES (1,'2014-05-09','Test Description',2,1
 (5,'2015-03-24','TestDB',12,23,100.00,12,2,321,'1116','WC-1116','Deposit'),
 (6,'2015-04-14','Test transaction',24,2,150.00,2,2,NULL,'1113','WC-1113','Expenditure'),
 (7,'2015-04-14','Test transaction at office',4,12,200.00,2,2,NULL,'1113','WC-1113','Expenditure'),
-(8,'2015-04-16','testDate',23,24,1.00,2,1,NULL,NULL,NULL,NULL),
-(9,'2015-04-18','testType 2',2,4,2.00,2,1,NULL,NULL,NULL,NULL),
-(10,'2015-04-18','testtype 3',12,23,15.00,2,2,NULL,NULL,NULL,NULL),
-(11,'2015-06-01','test insert from sql',12,12,100.00,12,2,NULL,NULL,NULL,NULL),
-(12,'2015-06-28','End of month transfer',4,12,100.00,12,1,NULL,NULL,NULL,NULL),
-(13,'2015-06-30','True end of month, please delete entry on 06/28',4,12,100.00,12,1,NULL,NULL,NULL,NULL),
-(14,'2015-06-29','testing transaction password',4,12,250.00,12,1,NULL,NULL,NULL,NULL),
+(8,'2015-04-16','testDate',23,24,1.00,2,1,NULL,NULL,NULL,'Expenditure'),
+(9,'2015-04-18','testType 2',2,4,2.00,2,1,NULL,NULL,NULL,'Deposit'),
+(10,'2015-04-18','testtype 3',12,23,15.00,2,2,NULL,NULL,NULL,'Expenditure'),
+(11,'2015-06-01','test insert from sql',12,12,100.00,12,2,NULL,NULL,NULL,'Deposit'),
+(12,'2015-06-28','End of month transfer',4,12,100.00,12,1,NULL,NULL,NULL,'Expenditure'),
+(13,'2015-06-30','True end of month, please delete entry on 06/28',4,12,100.00,12,1,NULL,NULL,NULL,'Transfer'),
+(14,'2015-06-29','testing transaction password',4,12,250.00,12,1,NULL,NULL,NULL,'Transfer'),
 (15,'2015-12-07','test 1',12,23,50.00,23,1,12345,'543210','55','Transfer'),
 (16,'2015-10-19','test 2',NULL,12,55.00,23,1,123456,'6543210','testHibernate','Deposit');
 /*!40000 ALTER TABLE `transfer_transaction` ENABLE KEYS */;
@@ -232,7 +232,7 @@ INSERT INTO `user` VALUES ('Tate','Taylor',2,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZ
 	('Yong','Zhang',4,'$2a$10$lJSRlsBEPyDhSn2dCivsTuLl7CugUPqDhHw0N912OHMHM.jvfdhGS','yongzhang@weber.edu',0,0),
 	('Caleb','New',12,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','calebnew@mail.com',1,5),
 	('Spencer','Ferrin',23,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','ferrinsp@mail.com',1,50),
-	('test','user',24,'$2a$10$KRs09Q1MDQkfwfL8v0O5CeaVU5UIdDd9JQpcJs3cRMJjlAdFBXiEq','test@user.com',0,0),
+	('test','user',24,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','test@user.com',0,0),
 	('Steven','Hoffman',25,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','stevenhoffman@mail.com',1,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
