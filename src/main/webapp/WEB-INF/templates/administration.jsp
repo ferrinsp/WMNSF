@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<% if (request.isUserInRole("USER")) {%>
+<% if (!request.isUserInRole("ADMIN")) {%>
 		<c:redirect url="/Transaction"/>
 <%}%>
     
@@ -77,7 +77,7 @@
                             <tr>
                                 <td>Password</td>
                                 <td><input type="password" class="input-block-level" placeholder="Password"
-                                           id="password" name="password"></td>
+                                           id="password" name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" maxlength="20" required></td>
                             </tr>
                         </table>
                         <input type="submit" value="Submit">
@@ -312,7 +312,6 @@
             
 
             function newUser(){
-                $("#formHeader").text("New User");
                 $("#formAddEditUser").attr("action", "/Administration/NewUser");
                 $("#email").removeAttr("readonly");
                 //$("#permission").val('2');

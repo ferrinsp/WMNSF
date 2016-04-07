@@ -100,15 +100,8 @@ public class Administration {
         }
         user.setPermissions(givenPermissions);
 
-        String errorMessage = ValidateUser(user, true);
-        if(errorMessage.equals("")) {
-            em.persist(user);
-            redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "User " + user.getFullName() + " has been successfully added.");
-        }
-        else {
-            redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
-            redirectAttributes.addFlashAttribute("failedUser", user);
-        }
+        em.persist(user);
+        redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "User " + user.getFullName() + " has been successfully added.");
         return new ModelAndView("redirect:/Administration");
     }
     
@@ -135,16 +128,9 @@ public class Administration {
         } catch (ParseException a) {
             a.printStackTrace();
         }
-    	
-    	String errorMessage = ValidateFundType(fundType, true);
-    	if(errorMessage.equals("")) {
-    		em.persist(fundType);
-    		redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Fund Type " + fundType.getDescription() + " has been successfully added.");
-    	}else {
-    		redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
-    		redirectAttributes.addFlashAttribute("failedFundType", fundType);
-    	}	
-    	return new ModelAndView("redirect:/Administration");
+		em.persist(fundType);
+		redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Fund Type " + fundType.getDescription() + " has been successfully added.");
+		return new ModelAndView("redirect:/Administration");
     }
 
     @Transactional
@@ -185,18 +171,6 @@ public class Administration {
                 givenPermissions.add(permissionRepo.findById(Long.parseLong(permission)));
             }
         user.setPermissions(givenPermissions);
-
-        String errorMessage = ValidateUser(user, false);
-        if(errorMessage.equals("")) {
-            password = encoder.encode(password);
-            user.setPassword(password);
-            em.persist(user);
-            redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "User " + user.getFullName() + " has been successfully modified.");
-        }
-        else {
-            redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
-            redirectAttributes.addFlashAttribute("failedUser", user);
-        }
         return new ModelAndView("redirect:/Administration");
     }
     
@@ -223,16 +197,9 @@ public class Administration {
         } catch (ParseException a) {
             a.printStackTrace();
         }
-    	
-    	String errorMessage = ValidateFundType(fundType, true);
-    	if(errorMessage.equals("")) {
-    		em.persist(fundType);
-    		redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Fund Type " + fundType.getDescription() + " has been successfully added.");
-    	}else {
-    		redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), errorMessage);
-    		redirectAttributes.addFlashAttribute("failedFundType", fundType);
-    	}
-    	return new ModelAndView("redirect:/Administration");   	
+		em.persist(fundType);
+		redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Fund Type " + fundType.getDescription() + " has been successfully added.");
+		return new ModelAndView("redirect:/Administration");   	
     }
     @Transactional
     @RequestMapping("/StatusUser")
@@ -256,27 +223,5 @@ public class Administration {
     	long fundTypeId = Long.parseLong(id);
     	FundType fundType = fundTypeRepo.findById(fundTypeId);
     	return fundType;
-    }
-    
-    private String ValidateUser(User user, boolean newUser){
-
-        if(user.getFirstName().length() == 0){
-            return  "User must have a first name.";
-        }
-        if(user.getLastName().length() == 0){
-            return  "User must have a last name.";
-        }
-        if((newUser && user.getPassword().length() <= 8) || (!newUser && user.getPassword().length() != 0 && user.getPassword().length() <= 8)){
-            return "Password must be at least 8 characters long.";
-        }
-        return "";
-    }
-    
-    private String ValidateFundType(FundType fundType, boolean newFundType)
-    {
-    	if(fundType.getDescription().length() == 0){
-    		return "Fund Type must have a description.";
-    	}
-    	return "";
     }
 }

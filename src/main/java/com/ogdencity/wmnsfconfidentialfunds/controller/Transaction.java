@@ -204,9 +204,9 @@ public class Transaction {
         expenditureTransaction.setCaseNumber(caseNumber);
         expenditureTransaction.setCiNumber(ciNumber);
         
-        String creditPassword = request.getParameter("creditPassword");
+        String debitPassword = request.getParameter("debitPassword");
 
-        if (encoder.matches(creditPassword, debitOfficer.getPassword())) {
+        if (encoder.matches(debitPassword, debitOfficer.getPassword())) {
         	try {
         		em.persist(expenditureTransaction);
         		em.merge(debitOfficer);
