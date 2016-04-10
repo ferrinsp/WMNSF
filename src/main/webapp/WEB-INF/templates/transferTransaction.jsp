@@ -26,8 +26,8 @@
         <th>Type</th>
         <th>Amount</th>
         <th>Description</th>
-        <th>Debit Officer</th>
-        <th>Credit Officer</th>
+        <th>Funds From</th>
+        <th>Funds To</th>
         <th>Fund Type</th>
         <th>Operator</th>
         <th>Check Number</th>
@@ -298,6 +298,7 @@
 
 <script>
     $(document).ready(function () {
+ 
         $('#tblTransferTransactions').DataTable();
         
         $("#creditOfficer").val('${allEnabledUsers.get(1).id}');
@@ -351,7 +352,7 @@
     });
 
     (function() {
-        $( "#date" ).datepicker({ minDate: -365, maxDate: +1 });
+        $( "#date" ).datepicker({ minDate: -60, maxDate: +0 });
     })();
     transferModal = $("#formAddTransferTransaction").dialog({
         autoOpen: false,
@@ -364,7 +365,7 @@
         }
     });
     (function() {
-        $( "#date1" ).datepicker({ minDate: -365, maxDate: +1 });
+        $( "#date1" ).datepicker({ minDate: -60, maxDate: +0});
     })();
     
     
@@ -380,7 +381,7 @@
     });
     
     (function() {
-        $("#date2" ).datepicker({ minDate: -365, maxDate: +1 });
+        $("#date2" ).datepicker({ minDate: -60, maxDate: +0});
     })();
     expenditureModal = $("#formAddExpenditure").dialog({
         autoOpen: false,

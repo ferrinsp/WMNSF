@@ -91,7 +91,7 @@
                             <tr>
                                 <th></th>
                                 <th></th>
-                                <th>ID</th>
+                                <th>Password Reset</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Permission</th>
@@ -100,7 +100,7 @@
                             </thead>
                             <tbody>
                             <c:forEach var="user" items="${users}">
-                                <!-- Assign ids to the rows. "row" + id. (row1, row2, ...) -->
+                                <!-- Assign id to the rows. "row" + id. (row1, row2, ...) -->
                                 <tr id="row${user.getId()}">
                                     <!--  Edit Button: each edit button has a unique id: userId's value -->
                                     <td>
@@ -109,7 +109,9 @@
                                     <td>
                                         <button class="statusButton" id="status${user.getId()}" onclick="statusUser(${user.getId()})">${user.isEnabled() ? "Disable" : "Enable"}</button>
                                     </td>
-                                    <td>${user.getId()}</td>
+                                    <td>
+                                    	<button class="resetPassword" id="reset${user.getId()}" onclick="resetPassword(${user.getId()})">Password</button>
+                                    </td>
                                     <td>${user.getFirstName()}</td>
                                     <td>${user.getLastName()}</td>
                                     <td>
@@ -255,6 +257,12 @@
                        	fundModal.dialog("open");
                     }
                 });
+            }
+            function resetPassword(id){
+            	//TODO: Build functionality to reset user password
+            	//Generate random password
+            	//Email to email address provided on the website
+            	console.log("Reseting password")
             }
 
             $('#permission').multiSelect({

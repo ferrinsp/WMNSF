@@ -1,6 +1,9 @@
 <header class="header">
-	<p align="right" style="margin-right:10px;">
-		<a class="buttonHolder" href="/LogOut"><font color="white">Log Off</font></a>
+	<p id="info" align="right">Balance:  &nbsp;
+		<span id="info">User balance&nbsp;
+			<a class="buttonHolder" href="/Password">Reset Password?&nbsp;&nbsp;</a>
+			<a class="buttonHolder" href="/LogOut">Log Off</a>
+		</span>
 	</p>
 	<div align="center">
 	    <img class="divLogoContainer" src="/static/images/OgdenCityPD.png" alt="OgdenCityPDLogo"/>

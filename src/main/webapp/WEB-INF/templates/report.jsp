@@ -44,15 +44,14 @@
         </div>
 		
 		
-        <div class="table-responsive" style="padding:15px">
+        <div class="table-responsive" style="padding:10px">
 	        <table class="table table-striped" id="tblTransferTransactions">
 	            <thead>
 	            <tr>
-	                <th>ID</th>
 	                <th>Date</th>
 	                <th>Description</th>
-	                <th>Debit Officer</th>
-	                <th>Credit Officer</th>
+	                <th>Funds From</th>
+	                <th>Funds To</th>
 	                <th>Amount</th>
 	                <th>Operator</th>
 	                <th>Fund Type</th>
@@ -64,7 +63,6 @@
 	            <tbody>
 	            <c:forEach var="transaction" items="${transactions}" >
 	                <tr>
-	                    <td>${transaction.getId()}</td>
 	                    <td><fmt:formatDate value="${transaction.date}" pattern="MM/dd/yyyy" /></td>
 	                    <td>${transaction.getDescription()}</td>
 	                    <td>${transaction.debitUser.getFullName()}</td>
@@ -80,14 +78,13 @@
 	            </tbody>
 			<tfoot>
 				<tr>
-					<th></th>
 	                <th></th>
 	                <th></th>
-	                <th>Debit Officer</th>
-	                <th>Credit Officer</th>
+	                <th>Funds From</th>
+	                <th>Funds To</th>
 	                <th></th>
 	                <th>Operator</th>
-	                <th></th>
+	                <th>Fund Type</th>
 	                <th></th>
         			<th></th>
         			<th></th>
@@ -124,7 +121,7 @@
             	
             	$('#tblTransferTransactions').DataTable( {
                     initComplete: function () {
-                        this.api().columns([3,4,6]).every( function () {
+                        this.api().columns([2,3,5,6]).every( function () {
                             var column = this;
                             var select = $('<select><option value="">Filter by:</option></select>')
                                 .appendTo( $(column.footer()).empty() )

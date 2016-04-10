@@ -62,3 +62,8 @@ body {
 	top: 70px;
 	margin-right: 25px;
 }
+#info {
+	margin-right:10px;
+	font-size:15px;
+	color:white;
+}
