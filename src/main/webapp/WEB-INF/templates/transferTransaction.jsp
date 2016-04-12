@@ -31,7 +31,6 @@
         <th>Funds From</th>
         <th>Funds To</th>
         <th>Fund Type</th>
-        <th>Operator</th>
         <th>Check Number</th>
         <th>Case Number</th>
         <th>Ci Number</th>
@@ -47,7 +46,6 @@
     <td>${transferTransaction.debitUser.getFullName()}</td>
     <td>${transferTransaction.creditUser.getFullName()}</td>
     <td>${transferTransaction.fundType.description}</td>
-    <td>${transferTransaction.operatorUser.getFullName()}</td>
     <td>${transferTransaction.getCheckNumber()}</td>
     <td>${transferTransaction.getCaseNumber()}</td>
     <td>${transferTransaction.getCiNumber()}</td>
@@ -353,8 +351,14 @@
     });
 
     (function() {
-        $( "#date" ).datepicker({ minDate: -60, maxDate: +0 });
-    })();
+    	  $("#date").datepicker({ minDate: -60, maxDate: +0, dateFormat: "mm/dd/yy"
+    	    }).datepicker("setDate", "0");
+    	  $("#date1").datepicker({ minDate: -60, maxDate: +0,
+    	        dateFormat: "mm/dd/yy"
+    	    }).datepicker("setDate", "0");
+    	  $("#date2").datepicker({ minDate: -60, maxDate: +0, dateFormat: "mm/dd/yy"
+    	    }).datepicker("setDate", "0");
+    	    })();
     transferModal = $("#formAddTransferTransaction").dialog({
         autoOpen: false,
         modal: true,
@@ -365,10 +369,6 @@
             Cancel: cancel
         }
     });
-    (function() {
-        $( "#date1" ).datepicker({ minDate: -60, maxDate: +0});
-    })();
-    
     
     depositModal = $("#formAddDepositTransaction").dialog({
         autoOpen: false,
@@ -380,10 +380,7 @@
             Cancel: cancel
         }
     });
-    
-    (function() {
-        $("#date2" ).datepicker({ minDate: -60, maxDate: +0});
-    })();
+  
     expenditureModal = $("#formAddExpenditure").dialog({
         autoOpen: false,
         modal: true,

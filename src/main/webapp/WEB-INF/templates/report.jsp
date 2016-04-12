@@ -53,7 +53,6 @@
 	                <th>Funds From</th>
 	                <th>Funds To</th>
 	                <th>Amount</th>
-	                <th>Operator</th>
 	                <th>Fund Type</th>
 	                <th>Check Number</th>
         			<th>Case Number</th>
@@ -68,7 +67,6 @@
 	                    <td>${transaction.debitUser.getFullName()}</td>
 	                    <td>${transaction.creditUser.getFullName()}</td>
 	                    <td><fmt:formatNumber value="${transaction.amount}" type="currency" /></td>
-	                    <td>${transaction.operatorUser.getFullName()}</td>
 	                    <td>${transaction.fundType.description}</td>
 	                    <td>${transaction.getCheckNumber()}</td>
     					<td>${transaction.getCaseNumber()}</td>
@@ -83,7 +81,6 @@
 	                <th>Funds From</th>
 	                <th>Funds To</th>
 	                <th></th>
-	                <th>Operator</th>
 	                <th>Fund Type</th>
 	                <th></th>
         			<th></th>
@@ -121,7 +118,7 @@
             	
             	$('#tblTransferTransactions').DataTable( {
                     initComplete: function () {
-                        this.api().columns([2,3,5,6]).every( function () {
+                        this.api().columns([2,3,5,5]).every( function () {
                             var column = this;
                             var select = $('<select><option value="">Filter by:</option></select>')
                                 .appendTo( $(column.footer()).empty() )
