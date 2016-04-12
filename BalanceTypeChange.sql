@@ -8,7 +8,7 @@ USE `wmnsffunds`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNbalanceECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `balance`;
 CREATE TABLE `balance` (
   `user_id` int(11) NOT NULL,
   `fund_type_id` int(11) NOT NULL,
-  `balance` decimal(12,2) NOT NULL,
+  `balance` int(12) NOT NULL,
   KEY `user_id` (`user_id`),
   KEY `fund_type_id` (`fund_type_id`),
   CONSTRAINT `balance_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
@@ -216,7 +216,7 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '0',
-  `balance` int(20) NOT NULL DEFAULT '0',
+  `balance` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;

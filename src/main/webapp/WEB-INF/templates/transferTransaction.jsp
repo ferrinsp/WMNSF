@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<% if (!request.isUserInRole("USER")) {%>
+		<c:redirect url="/Reports"/>
+<%}%>
 
 <head>
     <link rel="stylesheet" href="/static/css/transferTransaction.css">
@@ -21,7 +24,6 @@
 <table class="table table-striped" ID="tblTransferTransactions">
     <thead>
     <tr>
-        <th>ID</th>
         <th>Date</th>
         <th>Type</th>
         <th>Amount</th>
@@ -38,7 +40,6 @@
 
     <c:forEach var="transferTransaction" items="${transferTransactions}" >
     <tr>
-    <td>${transferTransaction.getId()}</td>
     <td><fmt:formatDate value="${transferTransaction.date}" pattern="MM-dd-yyyy" /></td>
     <td>${transferTransaction.getTransactionType()}</td>
     <td><fmt:formatNumber value="${transferTransaction.amount}" type="currency" /></td>
@@ -126,7 +127,7 @@
         <tr>
             <td>Fund Amount & Type:</td>
             <td>
-                <input type="number" step="0.01" class="input-block-level" id="amount" name="amount" required placeholder="Fund Amount"/>
+                <input type="number" class="input-block-level" id="amount" name="amount" required placeholder="Fund Amount"/>
             </td>
             <td>
                 <select id="fundType" name="fundType">
@@ -180,7 +181,7 @@
         </tr>
         
         <tr>
-            <td>Ci Number:</td>
+            <td>CI Number:</td>
             <td colspan="2">
                 <input type="text" class="input-block-level" id="ciNumber" name="ciNumber" required placeholder="Ci Number"/>
             </td>
@@ -203,7 +204,7 @@
         <tr>
             <td>Fund Amount & Type:</td>
             <td>
-                <input type="number" step="0.01" class="input-block-level" id="amount" required name="amount" placeholder="Fund Amount"/>
+                <input type="number" class="input-block-level" id="amount" required name="amount" placeholder="Fund Amount"/>
             </td>
             <td>
                 <select id="fundType" name="fundType">
@@ -255,7 +256,7 @@
         </tr>
         
         <tr>
-            <td>Ci Number:</td>
+            <td>CI Number:</td>
             <td colspan="2">
                 <input type="text" class="input-block-level" id="ciNumber" name="ciNumber" required placeholder="Ci Number"/>
             </td>
@@ -278,7 +279,7 @@
         <tr>
             <td>Fund Amount & Type:</td>
             <td>
-                <input type="number" step="0.01" class="input-block-level" id="amount" name="amount" required placeholder="Fund Amount"/>
+                <input type="number" class="input-block-level" id="amount" name="amount" required placeholder="Fund Amount"/>
             </td>
             <td>
                 <select id="fundType" name="fundType">

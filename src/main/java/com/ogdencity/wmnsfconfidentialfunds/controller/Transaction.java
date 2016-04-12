@@ -81,9 +81,9 @@ public class Transaction {
         String creditOfficerId = request.getParameter("creditOfficer");
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
-        debitOfficer.setBalance(debitOfficer.getBalance() - Double.parseDouble(request.getParameter("amount")));
+        debitOfficer.setBalance(debitOfficer.getBalance() - Integer.parseInt(request.getParameter("amount")));
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
-        creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount")));
+        creditOfficer.setBalance(creditOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
 
         transferTransaction.setDebitUser(debitOfficer);
         transferTransaction.setCreditUser(creditOfficer);
@@ -139,7 +139,7 @@ public class Transaction {
         String creditOfficerId = request.getParameter("creditOfficer");
 
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
-        creditOfficer.setBalance(creditOfficer.getBalance() + Double.parseDouble(request.getParameter("amount")));
+        creditOfficer.setBalance(creditOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
         
         depositTransaction.setDebitUser(null);
         depositTransaction.setCreditUser(creditOfficer);
@@ -192,7 +192,7 @@ public class Transaction {
         String debitOfficerId = request.getParameter("debitOfficer");
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
-        debitOfficer.setBalance(debitOfficer.getBalance() + Double.parseDouble(request.getParameter("amount")));
+        debitOfficer.setBalance(debitOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
         
         expenditureTransaction.setDebitUser(debitOfficer);
         expenditureTransaction.setCreditUser(null);

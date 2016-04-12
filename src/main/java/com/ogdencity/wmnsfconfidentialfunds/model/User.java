@@ -34,7 +34,7 @@ public class User implements Serializable{
     private String lastName;
     @NotBlank(message = "Password cannot be blank")
     private String password;
-    private Double balance;
+    private int balance = 0;
 
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
@@ -83,11 +83,11 @@ public class User implements Serializable{
         this.email = email;
     }
     
-    public Double getBalance() {
+    public int getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
 

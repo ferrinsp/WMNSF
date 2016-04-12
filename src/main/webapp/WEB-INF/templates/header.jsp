@@ -15,6 +15,7 @@
         	<li style="padding:5px"><a class="btn btn-success" href="/Administration">Administration</a></li>
         <%}%>
         <li style="padding:5px"><a class="btn btn-success" href="/Reports">Report</a></li>
+        
         <% if (request.isUserInRole("USER")) {%>
         	<li style="padding:5px"><a class="btn btn-success" href="/Transaction">Transaction</a></li>
         <%}%>

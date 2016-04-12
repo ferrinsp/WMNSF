@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .loginProcessingUrl("/doLogin")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/Transaction", true)
+                .defaultSuccessUrl("/Reports", true)
                 .permitAll()
                 .and()
                 .logout()
@@ -47,8 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .permitAll()
                 .and()
                 .csrf().disable();
-
-
     }
 
     @Autowired
