@@ -69,7 +69,7 @@
         <tr>
             <td>Description:</td>
             <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="description" name="description" placeholder="Description of transaction"></textarea>
+                <textarea rows="5" class="input-block-level" id="description" name="description" required placeholder="Description of transaction"></textarea>
             </td>
         </tr>
         
@@ -95,9 +95,9 @@
         </tr>
 
         <tr>
-            <td>Debit Officer:</td>
+            <td>Money from:</td>
             <td>
-                <select id="debitOfficer" name="debitOfficer">
+                <select id="moneyFrom" name="moneyFrom">
                     <c:forEach var="user" items="${allEnabledUsers}" >
                     <option value="${user.id}">${user.getEmail()}</option>
                     </c:forEach>
@@ -109,9 +109,9 @@
         </tr>
 
         <tr>
-            <td>Credit Officer:</td>
+            <td>Money To:</td>
             <td>
-                <select id="creditOfficer" name="creditOfficer">
+                <select id="moneyTo" name="moneyTo">
                     <c:forEach var="user" items="${allEnabledUsers}" >
                         <option value="${user.id}">${user.getEmail()}</option>
                     </c:forEach>
@@ -160,7 +160,7 @@
         <tr>
             <td>Description:</td>
             <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="description" name="description" placeholder="Description of transaction"></textarea>
+                <textarea rows="5" class="input-block-level" id="description" name="description" required placeholder="Description of transaction"></textarea>
             </td>
         </tr>
         
@@ -186,9 +186,9 @@
         </tr>
 
         <tr>
-            <td>Credit Officer:</td>
+            <td>Money to:</td>
             <td>
-                <select id="creditOfficer" name="creditOfficer">
+                <select id="moneyTo" name="moneyTo">
                     <c:forEach var="user" items="${allEnabledUsers}" >
                         <option value="${user.id}">${user.getEmail()}</option>
                     </c:forEach>
@@ -235,7 +235,7 @@
         <tr>
             <td>Description:</td>
             <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="description" name="description"placeholder="Description of expenditure"></textarea>
+                <textarea rows="5" class="input-block-level" id="description" name="description" required placeholder="Description of expenditure"></textarea>
             </td>
         </tr>
         
@@ -261,9 +261,9 @@
         </tr>
 
         <tr>
-            <td>Debit Officer:</td>
+            <td>Money from:</td>
             <td>
-                <select id="debitOfficer" name="debitOfficer">
+                <select id="moneyFrom" name="moneyFrom">
                     <c:forEach var="user" items="${allEnabledUsers}" >
                         <option value="${user.id}">${user.getEmail()}</option>
                     </c:forEach>
@@ -300,7 +300,7 @@
  
         $('#tblTransferTransactions').DataTable();
         
-        $("#creditOfficer").val('${allEnabledUsers.get(1).id}');
+        $("#moneyTo").val('${allEnabledUsers.get(1).id}');
         
         $('#btnNewTransfer').click(function () {
             transferModal.dialog("open");
@@ -315,8 +315,8 @@
         <c:if test="${failedTransferTransaction != null}">
         $("#date1").val("<fmt:formatDate value="${failedTransferTransaction.date}" pattern="MM/dd/yyyy" />");
         $("#description").val("${failedTransferTransaction.description}");
-        $('#debitOfficer').val("${failedTransferTransaction.debitUser.id}");
-        $("#creditOfficer").val("${failedTransferTransaction.creditUser.id}");
+        $('#moneyFrom').val("${failedTransferTransaction.debitUser.id}");
+        $("#moneyTo").val("${failedTransferTransaction.creditUser.id}");
         $("#amount").val("${failedTransferTransaction.amount}");
         $("#fundType").val("${failedTransferTransaction.fundType.id}");
         $("#checkNumber").val("${failedTransferTransaction.checkNumber}");
@@ -328,7 +328,7 @@
         <c:if test="${failedDepositTransaction != null}">
         $("#date2").val("<fmt:formatDate value="${failedDepositTransaction.date}" pattern="MM/dd/yyyy" />");
         $("#description").val("${failedDepositTransaction.description}");
-        $("#creditOfficer").val("${failedDepositTransaction.creditUser.id}");
+        $("#moneyTo").val("${failedDepositTransaction.creditUser.id}");
         $("#amount").val("${failedDepositTransaction.amount}");
         $("#fundType").val("${failedDepositTransaction.fundType.id}");
         $("#checkNumber").val("${failedDepositTransaction.checkNumber}");
@@ -340,7 +340,7 @@
         <c:if test="${failedExpediture != null}">
         $("#date").val("<fmt:formatDate value="${failedExpediture.date}" pattern="MM/dd/yyyy" />");
         $("#description").val("${failedExpediture.description}");
-        $("#creditOfficer").val("${failedExpediture.creditUser.id}");
+        $("#moneyTo").val("${failedExpediture.creditUser.id}");
         $("#amount").val("${failedExpediture.amount}");
         $("#fundType").val("${failedExpediture.fundType.id}");
         $("#checkNumber").val("${failedExpediture.checkNumber}");
@@ -407,9 +407,9 @@
     function cancel() {
         $("#date").val("");
         $("#description").val("");
-        $("#debitOfficer").val('${allEnabledUsers.get(0).id}');
+        $("#moneyFrom").val('${allEnabledUsers.get(0).id}');
         $("#debitPassword").val("");
-        $("#creditOfficer").val('${allEnabledUsers.get(1).id}');
+        $("#moneyTo").val('${allEnabledUsers.get(1).id}');
         $("#creditPassword").val("");
         $("#amount").val("");
         $("#fundType").val('${allActiveFundTypes.get(0).id}');

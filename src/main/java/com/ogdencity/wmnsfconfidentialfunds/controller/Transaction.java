@@ -77,8 +77,8 @@ public class Transaction {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String debitOfficerId = request.getParameter("debitOfficer");
-        String creditOfficerId = request.getParameter("creditOfficer");
+        String debitOfficerId = request.getParameter("moneyFrom");
+        String creditOfficerId = request.getParameter("moneyTo");
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
         debitOfficer.setBalance(debitOfficer.getBalance() - Integer.parseInt(request.getParameter("amount")));
@@ -189,7 +189,7 @@ public class Transaction {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String debitOfficerId = request.getParameter("debitOfficer");
+        String debitOfficerId = request.getParameter("moneyFrom");
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
         debitOfficer.setBalance(debitOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
