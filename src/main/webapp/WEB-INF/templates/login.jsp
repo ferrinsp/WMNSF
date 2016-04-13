@@ -13,7 +13,7 @@
 	</head>
 <body>
 	<header class="header">
-		<img class="logo" src= "/static/images/OgdenCityPD.png" alt= "OgdenCityPDLogo"/>
+		<img class="logo" src= "/static/images/WMNSF.jpg" alt= "WMNSFLogo"/>
 	</header>
 	
     <div class="container">
@@ -34,7 +34,7 @@
       </form>
 
     </div> <!-- /container -->
-    <div class="footer">&copy;Ogden City Police Department</div>
+    <div class="footer">&copy; Weber - Morgan Narcotics Strike Force</div>
 	<%  
 		 response.setHeader("Pragma","no-cache");  
 		 response.setHeader("Cache-Control","no-store");  

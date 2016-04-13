@@ -6,7 +6,7 @@
 		</span>
 	</p>
 	<div align="center">
-	    <img class="divLogoContainer" src="/static/images/OgdenCityPD.png" alt="OgdenCityPDLogo"/>
+	    <img class="divLogoContainer" src="/static/images/WMNSF.jpg" alt="WMNSFLogo"/>
 	</div>
 </header>
 <div class="menu">
