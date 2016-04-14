@@ -11,15 +11,15 @@
 			<%} else if(request.isUserInRole("USER")){%>
 				User
 			<%} %>	  
-			Balance:  &nbsp;
-			User balance&nbsp;
-			<a class="buttonHolder" href="/Password">Reset Password&nbsp;&nbsp;</a>
-			<a class="buttonHolder" href="/LogOut">Log Off</a>
+			&nbsp;&nbsp;Balance:  &nbsp;&nbsp;
+			&nbsp;&nbsp;User balance &nbsp;&nbsp;
+			<a class="buttonHolder" href="/Password">&nbsp;Reset Password&nbsp;&nbsp;</a>
+			<a class="buttonHolder" href="/LogOut">&nbsp;Log Off</a>
 		</span>
 	</p>
 	<!--align="center"-->
 	<div id="center">
-	    <img class="divLogoContainer" src="/static/images/WMNSF.png" alt="WMNSFLogo"/>
+	    <img class="logo" src="/static/images/WMNSF.png" alt="WMNSFLogo"/>
 	</div>
 	
 </header>
