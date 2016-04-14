@@ -1,13 +1,27 @@
 <header class="header">
-	<p id="info" align="right">Balance:  &nbsp;
-		<span id="info">User balance&nbsp;
-			<a class="buttonHolder" href="/Password">Reset Password?&nbsp;&nbsp;</a>
+	<p id="info" align="right">
+		<span id="info">
+			<% String name = request.getRemoteUser();%>
+			<%=name %>
+			logged in as: 
+			<% if (request.isUserInRole("ADMIN") && request.isUserInRole("USER")) {%>
+				Administrator/User
+			<%} else if(request.isUserInRole("ADMIN")){%>
+				Administrator
+			<%} else if(request.isUserInRole("USER")){%>
+				User
+			<%} %>	  
+			Balance:  &nbsp;
+			User balance&nbsp;
+			<a class="buttonHolder" href="/Password">Reset Password&nbsp;&nbsp;</a>
 			<a class="buttonHolder" href="/LogOut">Log Off</a>
 		</span>
 	</p>
-	<div align="center">
+	<!--align="center"-->
+	<div id="center">
 	    <img class="divLogoContainer" src="/static/images/WMNSF.png" alt="WMNSFLogo"/>
 	</div>
+	
 </header>
 <div class="menu">
     <ul class="nav btn-group">
