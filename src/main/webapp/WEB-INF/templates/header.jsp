@@ -6,7 +6,7 @@
 		</span>
 	</p>
 	<div align="center">
-	    <img class="divLogoContainer" src="/static/images/WMNSF.jpg" alt="WMNSFLogo"/>
+	    <img class="divLogoContainer" src="/static/images/WMNSF.png" alt="WMNSFLogo"/>
 	</div>
 </header>
 <div class="menu">

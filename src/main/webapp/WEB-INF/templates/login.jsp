@@ -13,7 +13,7 @@
 	</head>
 <body>
 	<header class="header">
-		<img class="logo" src= "/static/images/WMNSF.jpg" alt= "WMNSFLogo"/>
+		<img class="logo" src= "/static/images/WMNSF.png" alt= "WMNSFLogo"/>
 	</header>
 	
     <div class="container">
