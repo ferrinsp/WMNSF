@@ -76,21 +76,21 @@
         <tr>
             <td>Check Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="checkNumber" name="checkNumber" required placeholder="Check Number"/>
+                <input type="number" class="input-block-level" id="checkNumber" name="checkNumber" required placeholder="Check Number"/>
             </td>
         </tr>
         
         <tr>
             <td>Case Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="caseNumber" name="caseNumber" required placeholder="Case Number"/>
+                <input type="text" class="input-block-level" id="caseNumber" pattern="[0-9]{2}n-[0-9]{5}" name="caseNumber" required placeholder="Case Number"/>
             </td>
         </tr>
         
         <tr>
             <td>Ci Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="ciNumber" name="ciNumber" required placeholder="Ci Number"/>
+                <input type="number" class="input-block-level" id="ciNumber" name="ciNumber" required placeholder="Ci Number"/>
             </td>
         </tr>
 
@@ -167,21 +167,21 @@
         <tr>
             <td>Check Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="checkNumber" name="checkNumber" required placeholder="Check Number"/>
+                <input type="number" class="input-block-level" id="checkNumber" name="checkNumber" required placeholder="Check Number"/>
             </td>
         </tr>
         
         <tr>
             <td>Case Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="caseNumber" name="caseNumber" required placeholder="Case Number"/>
+                <input type="test" class="input-block-level" id="caseNumber" pattern="[0-9]{2}n-[0-9]{5}" name="caseNumber" required placeholder="Case Number"/>
             </td>
         </tr>
         
         <tr>
             <td>CI Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="ciNumber" name="ciNumber" required placeholder="Ci Number"/>
+                <input type="number" class="input-block-level" id="ciNumber" name="ciNumber" required placeholder="Ci Number"/>
             </td>
         </tr>
 
@@ -242,21 +242,21 @@
         <tr>
             <td>Check Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="checkNumber" name="checkNumber" required placeholder="Check Number"/>
+                <input type="number" class="input-block-level" id="checkNumber" name="checkNumber" required placeholder="Check Number"/>
             </td>
         </tr>
         
         <tr>
             <td>Case Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="caseNumber" name="caseNumber" required placeholder="Case Number"/>
+                <input type="text" class="input-block-level" id="caseNumber" pattern="[0-9]{2}n-[0-9]{5}" name="caseNumber" required placeholder="Case Number"/>
             </td>
         </tr>
         
         <tr>
             <td>CI Number:</td>
             <td colspan="2">
-                <input type="text" class="input-block-level" id="ciNumber" name="ciNumber" required placeholder="Ci Number"/>
+                <input type="number" class="input-block-level" id="ciNumber" name="ciNumber" required placeholder="Ci Number"/>
             </td>
         </tr>
 
