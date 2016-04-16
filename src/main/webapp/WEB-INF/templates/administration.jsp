@@ -159,6 +159,10 @@
             				</tr>
             				<tr>
             					<td>Fund Total</td>
+            					<td colspan="2">
+                					<input type="text" class="input-block-level" id="fundTotal" name="fundTotal" placeholder="Amount"/>
+            					</td>
+           					</tr>
                         </table>
                     </form>
                     
@@ -169,7 +173,6 @@
                             <thead>
                             <tr>
                                 <th>Actions</th>
-                               <!--   <th>ID</th> -->
                                 <th>Fund Type Name</th>
                                 <th>Effective Date</th>
                                 <th>End Date</th>
@@ -182,7 +185,6 @@
 	                            	    <td>
 	                                        <button class="editButton" id="edit${fundType.getId()}" onclick="editFundType(${fundType.getId()})">Edit</button>
 	                                    </td>
-	                                  <!--   <td>${fundType.getId()}</td>--> 
 	                                    <td>${fundType.getDescription()}</td>
 	                                    <td><fmt:formatDate value="${fundType.getEffectiveStart()}" pattern="MM-dd-yyyy"/></td>
 	                                    <td><fmt:formatDate value="${fundType.getEffectiveEnd()}" pattern="MM-dd-yyyy"/></td>
@@ -317,6 +319,8 @@
                 $("description").val("");
                 $("effectiveStart").val("");
                 $("effectiveEnd").val("");
+                $("effectiveEnd").val("");
+                $("fundTotal").val("")
                 fundModal.dialog("close");
             }
             
@@ -329,7 +333,7 @@
             }
 
             function newFundType(){
-				$("#formHeader2").text("New Fund Type");
+				$("#formHeader2").text("New/Edit Fund Type");
 				$("#formAddEditFundType").attr("action", "/Administration/NewFundType");
 				fundModal.dialog("open");
                 }

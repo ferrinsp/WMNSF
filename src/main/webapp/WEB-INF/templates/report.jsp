@@ -19,8 +19,7 @@
         <link rel="stylesheet" href="/static/css/dataTables.css">
         <script src="/static/js/dataTables.js"></script>
         <link rel="stylesheet" href="/static/multi-select/css/multi-select.css">
-        <script src="/static/multi-select/js/jquery.multi-select.js"></script>
-        
+        <script src="/static/multi-select/js/jquery.multi-select.js"></script>       
         <link rel="stylesheet" type="text/css" href="/static/css/dataTables.tableTools.min.css">
         <script src="/static/js/dataTables.tableTools.min.js"></script>
     </jsp:attribute>
@@ -90,6 +89,12 @@
         </div>        
         <script>
             $(document).ready(function () {
+            	(function() {
+              	  $("#dateFrom").datepicker({ maxDate: +0, dateFormat: "mm/dd/yy"
+              	    });
+              	  $("#dateTo").datepicker({maxDate: +0, dateFormat: "mm/dd/yy"
+              	    }).datepicker("setDate", "0");
+              	    })();
             	$('#tblTransferTransactions').DataTable( {
                     initComplete: function () {
                         this.api().columns([2,3,5]).every( function () {
@@ -128,6 +133,7 @@
                     maxDate: +0,
                     onClose: function (selectedDate) {
                     	$("#dateFrom").datePicker("option", "minDate", selectedDate);
+                    }
                 });
 
                 $("#dateTo").datepicker({
