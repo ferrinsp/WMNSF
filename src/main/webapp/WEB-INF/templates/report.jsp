@@ -43,7 +43,6 @@
             </form>
         </div>
 		
-		
         <div class="table-responsive" style="padding:10px">
 	        <table class="table table-striped" id="tblTransferTransactions">
 	            <thead>
@@ -56,7 +55,7 @@
 	                <th>Fund Type</th>
 	                <th>Check Number</th>
         			<th>Case Number</th>
-        			<th>Ci Number</th>
+        			<th>CI Number</th>
 	            </tr>
 	            </thead>
 	            <tbody>
@@ -90,35 +89,10 @@
 	        </table>
         </div>        
         <script>
-        
-        	$.fn.dataTable.ext.search.push(
-    			function( settings, data, dataIndex ) {
- 					
-			        var min = new Date($('#dateFrom').val());
-			        var max = new Date($('#dateTo').val());
-			        var age = Date.parse(data[1])  || 1;
-			        
-			        if ( ( isNaN( min ) && isNaN( max ) ) ||
-			             ( isNaN( min ) && age <= max ) ||
-			             ( min <= age   && isNaN( max ) ) ||
-			             ( min <= age   && age <= max ) )
-			        {
-			            return true;
-			        }
-			        return false;
-    			}
-			);			
-
             $(document).ready(function () {
-            	
-                // Event listener to the two range filtering inputs to redraw on input
-                $('#dateFrom, #dateTo').on('change', function() {
-                    table.draw();
-                } );
-            	
             	$('#tblTransferTransactions').DataTable( {
                     initComplete: function () {
-                        this.api().columns([2,3,5,5]).every( function () {
+                        this.api().columns([2,3,5]).every( function () {
                             var column = this;
                             var select = $('<select><option value="">Filter by:</option></select>')
                                 .appendTo( $(column.footer()).empty() )
@@ -126,9 +100,7 @@
                                     var val = $.fn.dataTable.util.escapeRegex(
                                         $(this).val()
                                     );
-                                    column
-                                        .search( val ? '^'+val+'$' : '', true, false )
-                                        .draw();
+                                    column.search( val ? '^'+val+'$' : '', true, false).draw();
                                 } );
              
                             column.data().unique().sort().each( function ( d, j ) {
@@ -141,8 +113,7 @@
             	var table = $('#tblTransferTransactions').DataTable();
                 var buttons = new $.fn.dataTable.TableTools(table, {
                 	'sSwfPath':'/static/swf/copy_csv_xls_pdf.swf',
-                	'aButtons':[{'sExtends':'copy', 'sButtonText':'Copy', "bFooter": false, "oSelectorOpts": {page: 'current'}}, 
-                	            {'sExtends':'pdf', 'sButtonText':'Export to PDF', "sPdfOrientation": "landscape", "bFooter": false, "oSelectorOpts": {page: 'current'}},
+                	'aButtons':[{'sExtends':'pdf', 'sButtonText':'Export to PDF', "sPdfOrientation": "landscape", "bFooter": true, "oSelectorOpts": {page: 'current'}},
                 	            {'sExtends':'xls', 'sButtonText':'Save to Excel', 'sFileName':'*.xls', "bFooter": false, "oSelectorOpts": {page: 'current'}}, 
                 	            'print']
                 });
@@ -150,25 +121,25 @@
                 
             	var table = $('#tblTransferTransactions').DataTable();
             	$('#fundType').on('change', function () {
-            	    table
-            	        .columns(7)
-            	        .search(this.value)
-            	        .draw();
-            	} );
+            	    table.columns(5).search(this.value).draw();
+            	});
             	
                 $("#dateFrom").datepicker({
                     maxDate: +0,
                     onClose: function (selectedDate) {
-                        $("#dateTo").datepicker("option", "minDate", selectedDate);
-                    }
+                    	$("#dateFrom").datePicker("option", "minDate", selectedDate);
                 });
 
                 $("#dateTo").datepicker({
-                    maxDate: +0,
+                	maxDate: +0,
                     onClose: function (selectedDate) {
-                        $("#dateFrom").datePicker("option", "maxDate", selectedDate);
+                    	$("#dateFrom").datePicker("option", "maxDate", selectedDate);
                     }
                 });
+             // Event listener to the two range filtering inputs to redraw on input
+                $('#dateFrom, #dateTo').on('change', function() {
+                    table.draw();
+                } );
 
                 <c:if test="${search != null}">
                 $("#dateTo").val("<fmt:formatDate value="${search.endDate}" pattern="MM/dd/yyyy" />");
@@ -177,7 +148,6 @@
             });
             
             function reset() {
-            	
             	$('input').val('');
             	
             	var len = document.getElementsByTagName("select").length;
@@ -187,10 +157,27 @@
             	
             	var table = $('#tblTransferTransactions').DataTable();
             	table.search('');
-            	
-            	table.columns([3,4,6,7]).search('');
+            	table.columns([2,3,5]).search('');
             	table.draw();
             }
+            $.fn.dataTable.ext.search.push(
+        			function( settings, data, dataIndex ) {
+     					var min = new Date($('#dateFrom').val());
+    			        var max = new Date($('#dateTo').val());
+    			        var age = Date.parse(data[0])  || 1;
+    			        console.log("Min: "+min);
+    			        console.log("Max: "+max);
+    			        console.log("Age: "+age);
+    			        if ( ( isNaN( min ) && isNaN( max ) ) ||
+    			             ( isNaN( min ) && age <= max ) ||
+    			             ( min <= age   && isNaN( max ) ) ||
+    			             ( min <= age   && age <= max ) )
+    			        {
+    			            return true;
+    			        }
+    			        return false;
+        			}
+    			);
         </script>
     </jsp:body>
 </tags:template>

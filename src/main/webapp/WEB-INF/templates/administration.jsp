@@ -157,6 +157,8 @@
                 					<input type="text" class="input-block-level" id="effectiveEnd" name="effectiveEnd" placeholder="End Date"/>
             					</td>
             				</tr>
+            				<tr>
+            					<td>Fund Total</td>
                         </table>
                     </form>
                     
@@ -334,13 +336,9 @@
 
             $(function() {
                 $( "#effectiveStart" ).datepicker();
-            });
-
-            $(function() {
                 $( "#effectiveEnd" ).datepicker();
             });
-
-            
+        
             $(document).ready(function () {
                 $('#usersTable').DataTable();
                 $('#fundTypesTable').DataTable();
