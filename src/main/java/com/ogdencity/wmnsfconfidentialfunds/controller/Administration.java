@@ -21,6 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +36,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +44,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
+import java.util.Random;
 import java.util.Set;
 
 @Controller
@@ -100,11 +110,62 @@ public class Administration {
         }
         user.setPermissions(givenPermissions);
 
+        resetPassword(user);
         em.persist(user);
         redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "User " + user.getFullName() + " has been successfully added.");
         return new ModelAndView("redirect:/Administration");
     }
     
+    public String resetPassword(User user) {
+    	    	
+    		Random r = new Random();
+    		int randomNo = r.nextInt(10);
+    	
+    		String email = user.getEmail();
+    		final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    		SecureRandom rnd = new SecureRandom();
+
+    		StringBuilder sb = new StringBuilder(9);
+    		for( int i = 0; i < 9; i++ ) 
+    		   sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
+    		
+    		String userPassword = sb.toString();
+    		System.out.println(userPassword);
+
+    		final String username = "weber.narcotics.strike.force@gmail.com";
+    		final String password = "wmnstrike4ce";
+    		
+    		Properties props = new Properties();
+    		props.put("mail.smtp.auth", "true");
+    		props.put("mail.smtp.starttls.enable", "true");
+    		props.put("mail.smtp.host", "smtp.gmail.com");
+    		props.put("mail.smtp.port", "587");
+
+    		Session session = Session.getInstance(props,
+    		  new javax.mail.Authenticator() {
+    			protected PasswordAuthentication getPasswordAuthentication() {
+    				return new PasswordAuthentication(username, password);
+    			}
+    		  });
+
+    		try {
+
+    			Message message = new MimeMessage(session);
+    			message.setFrom(new InternetAddress("weber.narcotics.strike.force@gmail.com"));
+    			message.setRecipients(Message.RecipientType.TO,
+    				InternetAddress.parse(email));
+    			message.setSubject("Password Reset Request");
+    			message.setText("Your Password has been reset to "+userPassword);
+
+    			Transport.send(message);
+
+    		} catch (MessagingException e) {
+    			throw new RuntimeException(e);
+    		}
+    		String encodedPassword = encoder.encode(userPassword);
+            user.setPassword(encodedPassword);
+    		return userPassword;
+    	}
     @Transactional
     @RequestMapping("/NewFundType")//Built but not fully working
     public ModelAndView NewFundType(HttpServletRequest request, RedirectAttributes redirectAttributes){

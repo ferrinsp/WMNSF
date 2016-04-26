@@ -12,7 +12,7 @@
 				User
 			<%} %>	  
 			&nbsp;&nbsp;Balance:  &nbsp;&nbsp;
-			&nbsp;&nbsp;User balance &nbsp;&nbsp;
+			&nbsp;&nbsp;$0 &nbsp;&nbsp;
 			<a class="buttonHolder" href="/Password">&nbsp;Reset Password&nbsp;&nbsp;</a>
 			<a class="buttonHolder" href="/LogOut">&nbsp;Log Off</a>
 		</span>
