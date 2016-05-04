@@ -38,7 +38,7 @@
                 <input class="input-block-level" id="dateFrom" name="startDate" style="vertical-align: middle; height: 20px;">
                 <label style="padding: 5px; color: white;">To:</label>
                 <input class="input-block-level" id="dateTo" name="endDate" style="vertical-align: middle; height: 20px;">
-                <div class="btn btn-large btn-primary" onClick="reset()"><span>Reset</span></div>
+                <div style="background-color:darkred;" class="btn btn-large btn-primary" onClick="reset()"><span>Reset</span></div>
             </form>
         </div>
 		

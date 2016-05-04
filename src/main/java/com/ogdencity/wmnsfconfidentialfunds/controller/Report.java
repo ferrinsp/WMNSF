@@ -49,7 +49,6 @@ public class Report {
         
         List<TransferTransaction> transferTransactions = transferTransactionRepo.findAll();
         
-        System.out.println(operator.getEmail());
         if(!operator.isAdmin()){
 	        for(Iterator<TransferTransaction> iterator = transferTransactions.iterator(); iterator.hasNext();){
 	        	TransferTransaction tt = iterator.next();
@@ -57,9 +56,6 @@ public class Report {
 	        		iterator.remove();
 	        	}
 	        }	
-        }
-        for(TransferTransaction tt: transferTransactions){
-        	System.out.println(tt.getTransactionType());
         }
 
         Date now = new Date();

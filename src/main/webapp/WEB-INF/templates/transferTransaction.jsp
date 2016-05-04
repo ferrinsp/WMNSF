@@ -15,9 +15,9 @@
 </head>
 
 <div class="buttonHolder">
-    <button class="btn btn-large btn-primary" id="btnNewTransfer">New Transfer</button>
-    <button class="btn btn-large btn-primary" id="btnNewDeposit">New Deposit</button>
-    <button class="btn btn-large btn-primary" id="btnNewExpenditure">New Expenditure</button>
+    <button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnNewTransfer">New Transfer</button>
+    <button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnNewDeposit">New Deposit</button>
+    <button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnNewExpenditure">New Expenditure</button>
 </div>
 <br/>
 
@@ -38,18 +38,18 @@
     </thead>
 
     <c:forEach var="transferTransaction" items="${transferTransactions}" >
-    <tr>
-    <td><fmt:formatDate value="${transferTransaction.date}" pattern="MM-dd-yyyy" /></td>
-    <td>${transferTransaction.getTransactionType()}</td>
-    <td><fmt:formatNumber value="${transferTransaction.amount}" type="currency" /></td>
-    <td>${transferTransaction.getDescription()}</td>
-    <td>${transferTransaction.debitUser.getFullName()}</td>
-    <td>${transferTransaction.creditUser.getFullName()}</td>
-    <td>${transferTransaction.fundType.description}</td>
-    <td>${transferTransaction.getCheckNumber()}</td>
-    <td>${transferTransaction.getCaseNumber()}</td>
-    <td>${transferTransaction.getCiNumber()}</td>
-    </tr>
+	    <tr>
+		    <td><fmt:formatDate value="${transferTransaction.date}" pattern="MM-dd-yyyy" /></td>
+		    <td>${transferTransaction.getTransactionType()}</td>
+		    <td><fmt:formatNumber value="${transferTransaction.amount}" type="currency" /></td>
+		    <td>${transferTransaction.getDescription()}</td>
+		    <td>${transferTransaction.debitUser.getFullName()}</td>
+		    <td>${transferTransaction.creditUser.getFullName()}</td>
+		    <td>${transferTransaction.fundType.description}</td>
+		    <td>${transferTransaction.getCheckNumber()}</td>
+		    <td>${transferTransaction.getCaseNumber()}</td>
+		    <td>${transferTransaction.getCiNumber()}</td>
+	    </tr>
     </c:forEach>
 </table>
 
@@ -269,26 +269,20 @@
 
         <c:if test="${failedTransferTransaction != null}">
         $("#date1").val("<fmt:formatDate value="${failedTransferTransaction.date}" pattern="MM/dd/yyyy" />");
-        $("#description").val("${failedTransferTransaction.description}");
         $('#moneyFrom').val("${failedTransferTransaction.debitUser.id}");
         $("#moneyTo").val("${failedTransferTransaction.creditUser.id}");
         $("#amount").val("${failedTransferTransaction.amount}");
         $("#fundType").val("${failedTransferTransaction.fundType.id}");
-        $("#checkNumber").val("${failedTransferTransaction.checkNumber}");
-        $("#caseNumber").val("${failedTransferTransaction.caseNumber}");
-        $("#ciNumber").val("${failedTransferTransaction.ciNumber}");
         transferModal.dialog("open");
         </c:if>
         
         <c:if test="${failedDepositTransaction != null}">
         $("#date2").val("<fmt:formatDate value="${failedDepositTransaction.date}" pattern="MM/dd/yyyy" />");
-        $("#description").val("${failedDepositTransaction.description}");
         $("#moneyTo").val("${failedDepositTransaction.creditUser.id}");
         $("#amount").val("${failedDepositTransaction.amount}");
         $("#fundType").val("${failedDepositTransaction.fundType.id}");
         $("#checkNumber").val("${failedDepositTransaction.checkNumber}");
         $("#caseNumber").val("${failedDepositTransaction.caseNumber}");
-        $("#ciNumber").val("${failedDepositTransaction.ciNumber}");
         depositModal.dialog("open");
         </c:if>
         

@@ -41,7 +41,7 @@ public class Transaction {
     EntityManager em;
     @Autowired
     PasswordEncoder encoder;
-
+    
     @RequestMapping(method = RequestMethod.GET)
     public String Transaction(ModelMap model, Principal principal){
     	if(userRepo.findByEmail(principal.getName()).isEmpty()) return "transaction"; // SAFETY
@@ -52,6 +52,16 @@ public class Transaction {
         List<FundType> allActiveFundTypes = fundTypeRepo.findByEffectiveStartBeforeAndEffectiveEndAfter(now, now);
         List<TransferTransaction> transferTransactions = transferTransactionRepo.getAllTransactions();
 
+        System.out.println(operator.getEmail());
+        if(!operator.isAdmin()){
+	        for(Iterator<TransferTransaction> iterator = transferTransactions.iterator(); iterator.hasNext();){
+	        	TransferTransaction tt = iterator.next();
+	        	if(!tt.ownedBy(operator)){
+	        		iterator.remove();
+	        	}
+	        }	
+        }
+        
         model.addAttribute("allEnabledUsers", allEnabledUsers);
         model.addAttribute("allActiveFundTypes", allActiveFundTypes);
         model.addAttribute("transferTransactions", transferTransactions);
