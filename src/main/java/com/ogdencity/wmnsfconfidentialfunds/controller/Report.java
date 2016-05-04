@@ -27,6 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,12 +47,25 @@ public class Report {
         User operator = userRepo.findByEmail(principal.getName()).get(0);
         List<User> allEnabledUsers = new ArrayList<>();
         
-        
         List<TransferTransaction> transferTransactions = transferTransactionRepo.findAll();
+        
+        System.out.println(operator.getEmail());
+        if(!operator.isAdmin()){
+	        for(Iterator<TransferTransaction> iterator = transferTransactions.iterator(); iterator.hasNext();){
+	        	TransferTransaction tt = iterator.next();
+	        	if(!tt.ownedBy(operator)){
+	        		iterator.remove();
+	        	}
+	        }	
+        }
+        for(TransferTransaction tt: transferTransactions){
+        	System.out.println(tt.getTransactionType());
+        }
+
         Date now = new Date();
         List<FundType> allFundTypes = fundTypeRepo.findAll();
 
-        if(operator.isAdmin()) {
+        if(operator.isAdmin()){
              allEnabledUsers.addAll(userRepo.findByEnabledTrue());
         }
         else{

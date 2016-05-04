@@ -13,8 +13,12 @@
 			<%} %>	  
 			&nbsp;&nbsp;Balance:  &nbsp;&nbsp;
 			&nbsp;&nbsp;$0 &nbsp;&nbsp;
-			<a class="buttonHolder" href="/Password">&nbsp;Reset Password&nbsp;&nbsp;</a>
-			<a class="buttonHolder" href="/LogOut">&nbsp;Log Off</a>
+			<a style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/Password">&nbsp;&nbsp;&nbsp;
+				<button style="background-color:darkgreen;" label="Reset Password">Reset Password</button>
+			</a>
+			<a style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/LogOut">&nbsp;
+				<button style="background-color:darkred;" label="Log Off">Log Off</button>
+			</a>
 		</span>
 	</p>
 	<!--align="center"-->
@@ -26,12 +30,12 @@
 <div class="menu">
     <ul class="nav btn-group">
     	<% if (request.isUserInRole("ADMIN")) {%>
-        	<li style="padding:5px"><a class="btn btn-success" href="/Administration">Administration</a></li>
+        	<li style="padding:5px"><a class="btn btn-success" style="background-color:darkgreen;" href="/Administration">Administration</a></li>
         <%}%>
-        <li style="padding:5px"><a class="btn btn-success" href="/Reports">Report</a></li>
+        <li style="padding:5px"><a class="btn btn-success" style="background-color:darkgreen;" href="/Reports">Report</a></li>
         
         <% if (request.isUserInRole("USER")) {%>
-        	<li style="padding:5px"><a class="btn btn-success" href="/Transaction">Transaction</a></li>
+        	<li style="padding:5px"><a class="btn btn-success" style="background-color:darkgreen;" href="/Transaction">Transaction</a></li>
         <%}%>
     </ul>
 </div>  

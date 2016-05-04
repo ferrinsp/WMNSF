@@ -65,39 +65,11 @@
                 <input type="text" class="input-block-level" id="date" name="date" placeholder="MM/DD/YYYY" required title="Transaction Date"/>
             </td>
         </tr>
-
-        <tr>
-            <td>Description:</td>
-            <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="description" name="description" required placeholder="Description of transaction"></textarea>
-            </td>
-        </tr>
         
-        <tr>
-            <td>Check Number:</td>
-            <td colspan="2">
-                <input type="number" class="input-block-level" id="checkNumber" name="checkNumber" required placeholder="Check Number"/>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>Case Number:</td>
-            <td colspan="2">
-                <input type="text" class="input-block-level" id="caseNumber" pattern="[0-9]{2}n-[0-9]{5}" name="caseNumber" required placeholder="Case Number"/>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>Ci Number:</td>
-            <td colspan="2">
-                <input type="number" class="input-block-level" id="ciNumber" name="ciNumber" required placeholder="Ci Number"/>
-            </td>
-        </tr>
-
         <tr>
             <td>Money from:</td>
             <td>
-                <select id="moneyFrom" name="moneyFrom">
+                <select id="moneyFrom" name="moneyFrom" autofocus>
                     <c:forEach var="user" items="${allEnabledUsers}" >
                     <option value="${user.id}">${user.getEmail()}</option>
                     </c:forEach>
@@ -134,13 +106,13 @@
                     </c:forEach>
                 </select>
             </td>
-        </tr>		
+        </tr>
+        		
         <tr>
             <td>
                 <input id="transferSubmit" type="submit" value="submit" style="display:none;">
             </td>
         </tr>
-		
     </table>
 </form>
 
@@ -156,18 +128,11 @@
                 <input type="text" class="input-block-level" id="date1" name="date" required title="Transaction Date" placeholder="MM/DD/YYYY"/>
             </td>
         </tr>
-
-        <tr>
-            <td>Description:</td>
-            <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="description" name="description" required placeholder="Description of transaction"></textarea>
-            </td>
-        </tr>
         
         <tr>
             <td>Check Number:</td>
             <td colspan="2">
-                <input type="number" class="input-block-level" id="checkNumber" name="checkNumber" required placeholder="Check Number"/>
+                <input type="number" class="input-block-level" id="checkNumber" name="checkNumber" autofocus required placeholder="Check Number"/>
             </td>
         </tr>
         
@@ -178,13 +143,6 @@
             </td>
         </tr>
         
-        <tr>
-            <td>CI Number:</td>
-            <td colspan="2">
-                <input type="number" class="input-block-level" id="ciNumber" name="ciNumber" required placeholder="Ci Number"/>
-            </td>
-        </tr>
-
         <tr>
             <td>Money to:</td>
             <td>
@@ -212,6 +170,7 @@
                 </select>
             </td>
         </tr>
+        
 		<tr>
             <td>
                 <input id="depositSubmit" type="submit" value="submit" style="display:none;">
@@ -234,15 +193,11 @@
 
         <tr>
             <td>Description:</td>
-            <td colspan="2">
-                <textarea rows="5" class="input-block-level" id="description" name="description" required placeholder="Description of expenditure"></textarea>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>Check Number:</td>
-            <td colspan="2">
-                <input type="number" class="input-block-level" id="checkNumber" name="checkNumber" required placeholder="Check Number"/>
+            <td>
+            	<select id="description" name="description" autofocus required placeholder="Payment for...">
+					<option value="PI">PI-Payment for Information</option>
+					<option value = "PE">PE-Payment for Evidence</option>
+                </select>
             </td>
         </tr>
         
@@ -353,9 +308,10 @@
     (function() {
     	  $("#date").datepicker({ minDate: -60, maxDate: +0, dateFormat: "mm/dd/yy"
     	    }).datepicker("setDate", "0");
-    	  $("#date1").datepicker({ minDate: -60, maxDate: +0,
-    	        dateFormat: "mm/dd/yy"
+          
+    	  $("#date1").datepicker({ minDate: -60, maxDate: +0, dateFormat: "mm/dd/yy"
     	    }).datepicker("setDate", "0");
+          	
     	  $("#date2").datepicker({ minDate: -60, maxDate: +0, dateFormat: "mm/dd/yy"
     	    }).datepicker("setDate", "0");
     	    })();
@@ -405,7 +361,6 @@
     }
 
     function cancel() {
-        $("#date").val("");
         $("#description").val("");
         $("#moneyFrom").val('${allEnabledUsers.get(0).id}');
         $("#debitPassword").val("");
