@@ -75,11 +75,11 @@ public class Transaction {
 
         TransferTransaction transferTransaction = new TransferTransaction();
         transferTransaction.setTransactionType("Transfer");
-        String description = request.getParameter("description");
-        String checkNumber = request.getParameter("checkNumber");
-        String caseNumber = request.getParameter("caseNumber");
-        String ciNumber = request.getParameter("ciNumber");
-        transferTransaction.setDescription(description);
+        //String description = request.getParameter("description");
+        //String checkNumber = request.getParameter("checkNumber");
+        //String caseNumber = request.getParameter("caseNumber");
+        //String ciNumber = request.getParameter("ciNumber");
+        //transferTransaction.setDescription(description);
         DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
         String stringDate = request.getParameter("date");
         try {
@@ -101,9 +101,9 @@ public class Transaction {
         transferTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
         transferTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
         transferTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
-        transferTransaction.setCheckNumber(checkNumber);
-        transferTransaction.setCaseNumber(caseNumber);
-        transferTransaction.setCiNumber(ciNumber);
+        //transferTransaction.setCheckNumber(checkNumber);
+        //transferTransaction.setCaseNumber(caseNumber);
+        //transferTransaction.setCiNumber(ciNumber);
         
         String debitPassword = request.getParameter("debitPassword");
         String creditPassword = request.getParameter("creditPassword");
@@ -134,11 +134,11 @@ public class Transaction {
 
         TransferTransaction depositTransaction = new TransferTransaction();
         depositTransaction.setTransactionType("Deposit");
-        String description = request.getParameter("description");
+        //String description = request.getParameter("description");
         String checkNumber = request.getParameter("checkNumber");
         String caseNumber = request.getParameter("caseNumber");
-        String ciNumber = request.getParameter("ciNumber");
-        depositTransaction.setDescription(description);
+        //String ciNumber = request.getParameter("ciNumber");
+        //depositTransaction.setDescription(description);
         DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
         String stringDate = request.getParameter("date");
         try {
@@ -159,7 +159,7 @@ public class Transaction {
         depositTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
         depositTransaction.setCheckNumber(checkNumber);
         depositTransaction.setCaseNumber(caseNumber);
-        depositTransaction.setCiNumber(ciNumber);
+        //depositTransaction.setCiNumber(ciNumber);
         
         String creditPassword = request.getParameter("creditPassword");
 
@@ -188,7 +188,7 @@ public class Transaction {
         TransferTransaction expenditureTransaction = new TransferTransaction();
         expenditureTransaction.setTransactionType("Expenditure");
         String description = request.getParameter("description");
-        String checkNumber = request.getParameter("checkNumber");
+        //String checkNumber = request.getParameter("checkNumber");
         String caseNumber = request.getParameter("caseNumber");
         String ciNumber = request.getParameter("ciNumber");
         expenditureTransaction.setDescription(description);
@@ -210,7 +210,7 @@ public class Transaction {
         expenditureTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
         expenditureTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
         expenditureTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
-        expenditureTransaction.setCheckNumber(checkNumber);
+        //expenditureTransaction.setCheckNumber(checkNumber);
         expenditureTransaction.setCaseNumber(caseNumber);
         expenditureTransaction.setCiNumber(ciNumber);
         

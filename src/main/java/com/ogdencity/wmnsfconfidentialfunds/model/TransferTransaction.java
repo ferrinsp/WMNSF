@@ -23,7 +23,6 @@ public class TransferTransaction implements Serializable {
     private Long id;
     @NotNull(message = "Transaction must have a date")
     private Date date;
-    @NotBlank(message = "Please enter a description")
     private String description;
     @Column(name = "transaction_type")
     @NotBlank(message = "Must have transaction type")
@@ -42,7 +41,6 @@ public class TransferTransaction implements Serializable {
     private User operatorUser;
 
     @OneToOne @JoinColumn(name = "fund_type_id")
-    @NotNull(message = "Must have a fund type")
     private FundType fundType;
     
     @Column(name = "check_number")

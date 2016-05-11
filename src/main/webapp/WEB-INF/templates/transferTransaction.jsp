@@ -195,8 +195,8 @@
             <td>Description:</td>
             <td>
             	<select id="description" name="description" autofocus required placeholder="Payment for...">
-					<option value="PI">PI-Payment for Information</option>
-					<option value = "PE">PE-Payment for Evidence</option>
+					<option value="PI-Payment for Information">PI-Payment for Information</option>
+					<option value = "PE-Payment for Evidence">PE-Payment for Evidence</option>
                 </select>
             </td>
         </tr>
