@@ -155,7 +155,7 @@ DROP TABLE IF EXISTS `transfer_transaction`;
 CREATE TABLE `transfer_transaction` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
-  `description` varchar(250) NOT NULL,
+  `description` varchar(250),
   `debit_user_id` int(11) DEFAULT NULL,
   `credit_user_id` int(11) DEFAULT NULL,
   `amount` decimal(12,2) DEFAULT NULL,

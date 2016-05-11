@@ -7,8 +7,9 @@
 <tags:template pageTitle="Error">
     <jsp:body>
         <body>
-        <h4 align=center>The application as experienced an error. Please close the website and restart the application.</h4>
-        <h5 align=center>If the problem persists please contact your administrator.</h5>
+        	<h4 align=center>The application as experienced an error.</h4>
+	        <h4 align=center>Please click on the report tab to return to the main page.</h4>
+	        <h5 align=center>If the problem persists please contact your administrator.</h5>
         </body>
     </jsp:body>
 </tags:template>
