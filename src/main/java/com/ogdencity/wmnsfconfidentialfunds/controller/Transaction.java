@@ -146,7 +146,7 @@ public class Transaction {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String creditOfficerId = request.getParameter("creditOfficer");
+        String creditOfficerId = request.getParameter("moneyTo");
 
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
         creditOfficer.setBalance(creditOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
