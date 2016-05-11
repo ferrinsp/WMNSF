@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -20,6 +21,12 @@
 	
       <form action="doLogin" method="post" class="form-signin">
       	<div class="formDiv">
+			<c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
+				<div class="error">
+    			Your login attempt was not successful, try again.<br />
+    			Reason: ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
+				</div>
+			</c:if>
 	        <h2 class="form-signin-heading">Please Login</h2>
 	        <label class="loginLabel">Email:</label>
 	        <input type="text" class="input-block-level" name="username" placeholder="Yourname@mail.com"id="username" autofocus>
