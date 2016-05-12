@@ -36,6 +36,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import java.security.Principal;
 import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -64,7 +65,7 @@ public class Administration {
     EntityManager em;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String Administration(ModelMap model){
+    public String Administration(ModelMap model , Principal principal){
         List<Sort.Order> order = new ArrayList<>();
         order.add(new Sort.Order(Sort.Direction.DESC, "enabled"));
         order.add(new Sort.Order(Sort.Direction.ASC, "firstName"));
@@ -76,10 +77,13 @@ public class Administration {
         model.addAttribute("permissions", permissions);
         
         List<Sort.Order> order2 = new ArrayList<>();
-        order2.add(new Sort.Order(Sort.Direction.DESC, "effectiveStart"));//added by Dylan 11/15/2015
+        order2.add(new Sort.Order(Sort.Direction.DESC, "effectiveStart"));
         
-        List<FundType> fundTypes = fundTypeRepo.findAll(new Sort(order2));//added by Dylan 11/15/2015
+        List<FundType> fundTypes = fundTypeRepo.findAll(new Sort(order2));
         model.addAttribute("fundTypes", fundTypes);
+        
+        User operator = userRepo.findByEmail(principal.getName()).get(0);
+        model.addAttribute("balance", operator.getBalance());
 
         return "administration";
     }
@@ -171,7 +175,7 @@ public class Administration {
     public ModelAndView NewFundType(HttpServletRequest request, RedirectAttributes redirectAttributes){
     	
     	String description = request.getParameter("description");
-    	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH); //hours minutes and second included on database
+    	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
     	String effectiveStart = request.getParameter("effectiveStart");
     	
     	String effectiveEnd = request.getParameter("effectiveEnd");
@@ -236,11 +240,11 @@ public class Administration {
     }
     
     @Transactional
-    @RequestMapping("/EditFundType")//NEED TO TEST
+    @RequestMapping("/EditFundType")
     public ModelAndView EditFundType(HttpServletRequest request, RedirectAttributes redirectAttributes){
     	long id = Long.parseLong(request.getParameter("id"));
     	String description = request.getParameter("description");
-    	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH); //hours minutes seconds removed from database.
+    	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
     	String effectiveStart = request.getParameter("effectiveStart");
     	String effectiveEnd = request.getParameter("effectiveEnd");
     	
@@ -279,7 +283,7 @@ public class Administration {
         return user;
     }
     
-    @RequestMapping("/GetFundType")//NEED TO FIX DATE FORMATTING, currently set to be blank as ajax call creates a non date output
+    @RequestMapping("/GetFundType")
     public @ResponseBody FundType GetFundType(String id) {
     	long fundTypeId = Long.parseLong(id);
     	FundType fundType = fundTypeRepo.findById(fundTypeId);

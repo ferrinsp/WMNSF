@@ -67,11 +67,11 @@ public class Report {
         else{
             allEnabledUsers.add(operator);
         }
-        
         model.addAttribute("transactionTypes", TransactionType.values());
         model.addAttribute("users", allEnabledUsers);
         model.addAttribute("transactions", transferTransactions);
         model.addAttribute("fundTypes", allFundTypes);
+        model.addAttribute("balance", operator.getBalance());
         
         return "report";
     }

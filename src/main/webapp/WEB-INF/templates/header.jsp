@@ -4,16 +4,19 @@
 			<% String name = request.getRemoteUser();%>
 			<%=name %>
 			logged in as: 
-			<% if (request.isUserInRole("ADMIN") && request.isUserInRole("USER")) {%>
+			<% int balance = Integer.MIN_VALUE;%>
+			<% if(request.getAttribute("balance") != null) balance = (Integer)request.getAttribute("balance");%>
+			<% if(request.isUserInRole("ADMIN") && request.isUserInRole("USER")) {%>
 				Administrator/User
 			<%} else if(request.isUserInRole("ADMIN")){%>
 				Administrator
 			<%} else if(request.isUserInRole("USER")){%>
 				User
 			<%} %>	  
-			&nbsp;&nbsp;Balance:  &nbsp;&nbsp;
-			&nbsp;&nbsp;$0 &nbsp;&nbsp;
-			<a style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/Password">&nbsp;&nbsp;&nbsp;
+			<% if(balance != Integer.MIN_VALUE) {%>
+				Balance: $<%=balance%>	
+			<%}	%>
+			<a type="submit" style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/Password">&nbsp;&nbsp;&nbsp;
 				<button style="background-color:darkgreen;" label="Reset Password">Reset Password</button>
 			</a>
 			<a style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/LogOut">&nbsp;
