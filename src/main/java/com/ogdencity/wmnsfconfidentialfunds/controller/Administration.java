@@ -95,7 +95,7 @@ public class Administration {
         String lastName = request.getParameter("lastName");
         String permissions[] = request.getParameterValues("permission");
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        //String password = request.getParameter("password");
         
         User user = new User();
         
@@ -103,8 +103,8 @@ public class Administration {
         user.setLastName(lastName);
         user.setEmail(email);
 
-        password = encoder.encode(password);
-        user.setPassword(password);
+        //password = encoder.encode(password);
+        //user.setPassword(password);
         user.setEnabled(true);
 
         List<Permission> givenPermissions = new ArrayList<>();

@@ -74,11 +74,11 @@
                                            name="email" required></td>
                             </tr>
 
-                            <tr>
+                            <!--  <tr>
                                 <td>Password</td>
                                 <td><input type="password" class="input-block-level" placeholder="Password"
                                            id="password" name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" maxlength="20" required></td>
-                            </tr>
+                            </tr>-->
                         </table>
                         <input type="submit" value="Submit">
                         <input type="button" onclick="cancel()" value="Cancel">
@@ -110,7 +110,7 @@
                                         <button class="statusButton" id="status${user.getId()}" onclick="statusUser(${user.getId()})">${user.isEnabled() ? "Disable" : "Enable"}</button>
                                     </td>
                                     <td>
-                                    	<button class="resetPassword" id="reset${user.getId()}" onclick="resetPassword(${user.getId()})">Password</button>
+                                    	<button class="resetPassword" id="reset${user.getId()}" onclick="resetPassword(${user})">Password</button>
                                     </td>
                                     <td>${user.getFirstName()}</td>
                                     <td>${user.getLastName()}</td>
@@ -262,10 +262,11 @@
                     }
                 });
             }
-            function resetPassword(id){
+            function resetPassword(user){
             	//TODO: Build functionality to reset user password
             	//Generate random password
             	//Email to email address provided on the website
+            	Administration.resetPassword(user)
             	console.log("Reseting password")
             }
 
