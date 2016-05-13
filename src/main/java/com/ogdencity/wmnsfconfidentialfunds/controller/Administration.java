@@ -95,16 +95,12 @@ public class Administration {
         String lastName = request.getParameter("lastName");
         String permissions[] = request.getParameterValues("permission");
         String email = request.getParameter("email");
-        //String password = request.getParameter("password");
         
         User user = new User();
         
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
-
-        //password = encoder.encode(password);
-        //user.setPassword(password);
         user.setEnabled(true);
 
         List<Permission> givenPermissions = new ArrayList<>();
@@ -122,8 +118,8 @@ public class Administration {
     
     public String resetPassword(User user) {
     	    	
-    		Random r = new Random();
-    		int randomNo = r.nextInt(10);
+    		//Random r = new Random();
+    		//int randomNo = r.nextInt(10);
     	
     		String email = user.getEmail();
     		final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -134,7 +130,7 @@ public class Administration {
     		   sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
     		
     		String userPassword = sb.toString();
-    		System.out.println(userPassword);
+    		//System.out.println(userPassword);
 
     		final String username = "weber.narcotics.strike.force@gmail.com";
     		final String password = "wmnstrike4ce";
@@ -153,13 +149,12 @@ public class Administration {
     		  });
 
     		try {
-
     			Message message = new MimeMessage(session);
     			message.setFrom(new InternetAddress("weber.narcotics.strike.force@gmail.com"));
     			message.setRecipients(Message.RecipientType.TO,
     				InternetAddress.parse(email));
     			message.setSubject("Password Reset Request");
-    			message.setText("Your Password has been reset to "+userPassword);
+    			message.setText("Your Password has been reset to " + userPassword);
 
     			Transport.send(message);
 
@@ -177,7 +172,6 @@ public class Administration {
     	String description = request.getParameter("description");
     	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
     	String effectiveStart = request.getParameter("effectiveStart");
-    	
     	String effectiveEnd = request.getParameter("effectiveEnd");
     	
     	FundType fundType = new FundType();
@@ -221,13 +215,10 @@ public class Administration {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String permissions[] = request.getParameterValues("permission");
-        String password = request.getParameter("password");
 
         User user = userRepo.findById(id);
         user.setFirstName(firstName);
         user.setLastName(lastName);
-
-        user.setPassword(password);
 
         List<Permission> givenPermissions = new ArrayList<>();
         if(permissions != null)
