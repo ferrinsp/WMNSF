@@ -232,7 +232,6 @@
                             $("#permission").multiSelect('select', permission.id.toString());
                         });
                         $("#email").val(user.email);
-                        $("#password").val("");
                         $("#email").attr("readonly", "true");
                         $("#formAddEditUser").attr("action", "/Administration/EditUser");
                         userModal.dialog("open");
@@ -312,7 +311,6 @@
                 $("#lastName").val("");
                 $('#permission').multiSelect('deselect_all');
                 $("#email").val("");
-                $("#password").val("");
                 userModal.dialog("close");
             }
 
@@ -350,24 +348,22 @@
                 $('#fundTypesTable').DataTable();
 
                 <c:if test="${failedUser != null}">
-                $("#firstName").val("${failedUser.firstName}");
-                $("#lastName").val("${failedUser.lastName}");
-                $('#permission').multiSelect('deselect_all');
-                $("#email").val("${failedUser.email}");
-                $("#transactionType").val("${search.getTransactionType().toString()}");
-
-                $("#formHeader").text("New User");
-                $("#formAddEditUser").attr("action", "/Administration/NewUser");
-                
-                <c:if test="${failedUser.getId() != null}">
-                $("#email").removeAttr("readonly");
-                $('#id').val("${failedUser.id}");
-                $("#formHeader").text("Edit User");
-                $("#formAddEditUser").attr("action", "/Administration/EditUser");
-                </c:if>
-
-                $("#password").val("");
-                userModal.dialog("open");
+	                $("#firstName").val("${failedUser.firstName}");
+	                $("#lastName").val("${failedUser.lastName}");
+	                $('#permission').multiSelect('deselect_all');
+	                $("#email").val("${failedUser.email}");
+	                $("#transactionType").val("${search.getTransactionType().toString()}");
+	
+	                $("#formHeader").text("New User");
+	                $("#formAddEditUser").attr("action", "/Administration/NewUser");
+	                
+	                <c:if test="${failedUser.getId() != null}">
+		                $("#email").removeAttr("readonly");
+		                $('#id').val("${failedUser.id}");
+		                $("#formHeader").text("Edit User");
+		                $("#formAddEditUser").attr("action", "/Administration/EditUser");
+	                </c:if>
+	                userModal.dialog("open");
                 </c:if>
             });
         </script>
