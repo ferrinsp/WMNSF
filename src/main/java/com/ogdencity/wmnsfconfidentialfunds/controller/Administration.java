@@ -170,6 +170,63 @@ public class Administration {
             user.setPassword(encodedPassword);
     		return userPassword;
     	}
+    
+    @Transactional
+    @RequestMapping("/ResetPassword")
+    public @ResponseBody String resetPassword(String id) {
+    	    	
+    	long userId = Long.parseLong(id);
+        User user = userRepo.findById(userId);
+        
+    		Random r = new Random();
+    		int randomNo = r.nextInt(10);
+    	
+    		String email = user.getEmail();
+    		final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    		SecureRandom rnd = new SecureRandom();
+
+    		StringBuilder sb = new StringBuilder(9);
+    		for( int i = 0; i < 9; i++ ) 
+    		   sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
+    		
+    		String userPassword = sb.toString();
+    		System.out.println(userPassword);
+
+    		final String username = "weber.narcotics.strike.force@gmail.com";
+    		final String password = "wmnstrike4ce";
+    		
+    		Properties props = new Properties();
+    		props.put("mail.smtp.auth", "true");
+    		props.put("mail.smtp.starttls.enable", "true");
+    		props.put("mail.smtp.host", "smtp.gmail.com");
+    		props.put("mail.smtp.port", "587");
+
+    		Session session = Session.getInstance(props,
+    		  new javax.mail.Authenticator() {
+    			protected PasswordAuthentication getPasswordAuthentication() {
+    				return new PasswordAuthentication(username, password);
+    			}
+    		  });
+
+    		try {
+
+    			Message message = new MimeMessage(session);
+    			message.setFrom(new InternetAddress("weber.narcotics.strike.force@gmail.com"));
+    			message.setRecipients(Message.RecipientType.TO,
+    				InternetAddress.parse(email));
+    			message.setSubject("Password Reset Request");
+    			message.setText("Your Password has been reset to "+userPassword);
+
+    			Transport.send(message);
+
+    		} catch (MessagingException e) {
+    			throw new RuntimeException(e);
+    		}
+    		String encodedPassword = encoder.encode(userPassword);
+            user.setPassword(encodedPassword);
+    		return userPassword;
+    	}
+    
     @Transactional
     @RequestMapping("/NewFundType")//Built but not fully working
     public ModelAndView NewFundType(HttpServletRequest request, RedirectAttributes redirectAttributes){

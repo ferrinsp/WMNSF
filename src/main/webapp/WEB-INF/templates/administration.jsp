@@ -258,9 +258,16 @@
                 });
             }
             function resetPassword(id){
-            	//TODO: Build functionality to reset user password
-            	//Generate random password
-            	//Email to email address provided on the website
+            	$.ajax({
+                    type: "POST",
+                    url: "/Administration/ResetPassword",
+                    data: ({
+                        id: id
+                    }),
+                    success: function (user) {
+                        toastr["success"]("Reset password email has been sent successfully ");
+                    }
+                });
             	console.log("Reseting password")
             }
 
