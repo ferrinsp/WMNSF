@@ -171,6 +171,7 @@
                                 <th>Fund Type Name</th>
                                 <th>Effective Date</th>
                                 <th>End Date</th>
+                                <th>Unallocated Funds</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -183,6 +184,7 @@
 	                                    <td>${fundType.getDescription()}</td>
 	                                    <td><fmt:formatDate value="${fundType.getEffectiveStart()}" pattern="MM-dd-yyyy"/></td>
 	                                    <td><fmt:formatDate value="${fundType.getEffectiveEnd()}" pattern="MM-dd-yyyy"/></td>
+	                            		<td>$10,000</td>
 	                             </tr>
                             </c:forEach>
                             </tbody>

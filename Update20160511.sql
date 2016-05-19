@@ -105,6 +105,7 @@ CREATE TABLE `fund_type` (
   `Description` varchar(255) DEFAULT NULL,
   `effective_start` datetime DEFAULT NULL,
   `effective_end` datetime DEFAULT NULL,
+  `unallocted_funds` int DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -115,9 +116,9 @@ CREATE TABLE `fund_type` (
 
 LOCK TABLES `fund_type` WRITE;
 /*!40000 ALTER TABLE `fund_type` DISABLE KEYS */;
-INSERT INTO `fund_type` VALUES (1,'HIDTA15','2015-01-01 00:00:00','2016-12-31 23:59:59'),
-(2,'15N01','2014-07-01 00:00:00','2016-06-30 23:59:59'),
-(3,'test','2015-12-07 00:00:00','2016-12-23 00:00:00');
+INSERT INTO `fund_type` VALUES (1,'HIDTA15','2015-01-01 00:00:00','2016-12-31 23:59:59','4000'),
+(2,'15N01','2014-07-01 00:00:00','2016-06-30 23:59:59','2000'),
+(3,'test','2015-12-07 00:00:00','2016-12-23 00:00:00','3000');
 /*!40000 ALTER TABLE `fund_type` ENABLE KEYS */;
 UNLOCK TABLES;
 

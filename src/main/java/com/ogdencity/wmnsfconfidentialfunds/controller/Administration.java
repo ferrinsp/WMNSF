@@ -230,6 +230,8 @@ public class Administration {
     	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
     	String effectiveStart = request.getParameter("effectiveStart");
     	String effectiveEnd = request.getParameter("effectiveEnd");
+    	//String unallocatedFunds= request.getParameter("fundTotal");
+    	//TODO: Store the fund amount into database
     	
     	FundType fundType = new FundType();
     	fundType.setDescription(description);
@@ -295,6 +297,8 @@ public class Administration {
     	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
     	String effectiveStart = request.getParameter("effectiveStart");
     	String effectiveEnd = request.getParameter("effectiveEnd");
+    	//String unallocatedFunds= request.getParameter("fundTotal");
+    	//TODO: Get the fund amount from database
     	
     	FundType fundType = fundTypeRepo.findById(id);
     	fundType.setDescription(description);
