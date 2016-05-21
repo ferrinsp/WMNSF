@@ -86,9 +86,11 @@ public class Transaction {
         String creditOfficerId = request.getParameter("moneyTo");
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
-        debitOfficer.setBalance(debitOfficer.getBalance() - Integer.parseInt(request.getParameter("amount")));
+        String fundDebitName = request.getParameter("fundType");
+        debitOfficer.transferFunds((Integer.parseInt(request.getParameter("amount"))), fundDebitName);
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
-        creditOfficer.setBalance(creditOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
+        String fundCreditName = request.getParameter("fundType");
+        creditOfficer.transferFunds((Integer.parseInt(request.getParameter("amount"))), fundCreditName);
 
         transferTransaction.setDebitUser(debitOfficer);
         transferTransaction.setCreditUser(creditOfficer);
@@ -138,7 +140,8 @@ public class Transaction {
         String creditOfficerId = request.getParameter("moneyTo");
 
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
-        creditOfficer.setBalance(creditOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
+        String fundName = request.getParameter("fundType");
+        creditOfficer.depositFunds((Integer.parseInt(request.getParameter("amount"))), fundName);
         
         depositTransaction.setDebitUser(null);
         depositTransaction.setCreditUser(creditOfficer);
@@ -189,7 +192,8 @@ public class Transaction {
         String debitOfficerId = request.getParameter("moneyFrom");
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
-        debitOfficer.setBalance(debitOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
+        String fundName = request.getParameter("fundType");
+        debitOfficer.expendFunds((Integer.parseInt(request.getParameter("amount"))), fundName);
         
         expenditureTransaction.setDebitUser(debitOfficer);
         expenditureTransaction.setCreditUser(null);

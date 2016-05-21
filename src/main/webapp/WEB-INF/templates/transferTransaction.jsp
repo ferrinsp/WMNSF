@@ -18,6 +18,7 @@
     <button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnNewTransfer">New Transfer</button>
     <button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnNewDeposit">New Deposit</button>
     <button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnNewExpenditure">New Expenditure</button>
+	<button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnBalanceData">Balance Data</button>
 </div>
 <br/>
 
