@@ -91,6 +91,7 @@
                                 <th>Last Name</th>
                                 <th>Permission</th>
                                 <th>E-Mail</th>
+                                <td>Allocated Amount</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -115,6 +116,7 @@
                                         </c:forEach>
                                     </td>
                                     <td>${user.getEmail()}</td>
+                                    <td>Balance:$0</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
