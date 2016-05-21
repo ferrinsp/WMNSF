@@ -91,7 +91,7 @@
                                 <th>Last Name</th>
                                 <th>Permission</th>
                                 <th>E-Mail</th>
-                                <td>Allocated Amount</td>
+                                <td>Allocated Balance</td>
                             </tr>
                             </thead>
                             <tbody>
