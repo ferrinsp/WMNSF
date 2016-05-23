@@ -6,6 +6,10 @@ table.dataTable {
 	border-spacing: 0
 }
 
+#balanceForm{
+	width: 60%;
+}
+
 table.dataTable thead th, table.dataTable tfoot th {
 	font-weight: bold
 }

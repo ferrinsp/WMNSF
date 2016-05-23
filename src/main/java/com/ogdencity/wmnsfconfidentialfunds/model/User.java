@@ -77,7 +77,7 @@ public class User implements Serializable{
             inverseJoinColumns = {@JoinColumn(name = "permission_id", nullable = false, updatable = false)})
     
     private List<Permission> permissions = new ArrayList<>();
-    private List<AllocatedFunds> funds = new ArrayList<>();
+    //private List<AllocatedFunds> funds = new ArrayList<>();
     
     public Long getId() {
         return id;
@@ -162,7 +162,7 @@ public class User implements Serializable{
         enabled = !enabled;
     }
     
-    private void updateBalance() {
+    /*private void updateBalance() {
     	for(AllocatedFunds af: funds) balance += af.getRemainingBalance();
     }
     
@@ -183,5 +183,5 @@ public class User implements Serializable{
     	boolean result = funds.get(funds.indexOf(fundName)).changeRemainingBlanace(value * -1);
     	this.updateBalance();
     	return result;
-    }
+    }*/
 }

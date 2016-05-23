@@ -87,10 +87,10 @@ public class Transaction {
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
         String fundDebitName = request.getParameter("fundType");
-        debitOfficer.transferFunds((Integer.parseInt(request.getParameter("amount"))), fundDebitName);
+        //debitOfficer.transferFunds((Integer.parseInt(request.getParameter("amount"))), fundDebitName);
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
         String fundCreditName = request.getParameter("fundType");
-        creditOfficer.transferFunds((Integer.parseInt(request.getParameter("amount"))), fundCreditName);
+        //creditOfficer.transferFunds((Integer.parseInt(request.getParameter("amount"))), fundCreditName);
 
         transferTransaction.setDebitUser(debitOfficer);
         transferTransaction.setCreditUser(creditOfficer);
@@ -141,7 +141,7 @@ public class Transaction {
 
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
         String fundName = request.getParameter("fundType");
-        creditOfficer.depositFunds((Integer.parseInt(request.getParameter("amount"))), fundName);
+        //creditOfficer.depositFunds((Integer.parseInt(request.getParameter("amount"))), fundName);
         
         depositTransaction.setDebitUser(null);
         depositTransaction.setCreditUser(creditOfficer);
@@ -193,7 +193,7 @@ public class Transaction {
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
         String fundName = request.getParameter("fundType");
-        debitOfficer.expendFunds((Integer.parseInt(request.getParameter("amount"))), fundName);
+        //debitOfficer.expendFunds((Integer.parseInt(request.getParameter("amount"))), fundName);
         
         expenditureTransaction.setDebitUser(debitOfficer);
         expenditureTransaction.setCreditUser(null);

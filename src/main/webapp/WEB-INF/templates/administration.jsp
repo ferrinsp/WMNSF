@@ -19,10 +19,6 @@
     </jsp:attribute>
     <jsp:body>
         <body>
-        <div class="title">
-            <h2>Welcome, Administrator</h2>
-        </div>
-
         <div role="tabpanel" class="formTabPane">
             <div class="tabs">
                 <ul role="tablist" class="nav nav-tabs formSelect">
