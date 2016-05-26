@@ -116,10 +116,30 @@ public class Administration {
         return new ModelAndView("redirect:/Administration");
     }
     
+    @Transactional
+    @RequestMapping("/NewPassword")
+    public ModelAndView NewPassword(HttpServletRequest request, RedirectAttributes redirectAttributes){
+    	long id = Long.parseLong(request.getParameter("id"));
+        String oldPassword = request.getParameter("oldPassword");
+        String newPassword = request.getParameter("newPassword");
+        String verifyNewPassword = request.getParameter("verifyNewPassword");
+        
+        
+        User user = userRepo.findById(id);
+        if(user.getPassword() == encoder.encode(oldPassword) && newPassword.equals(verifyNewPassword))
+        {
+        	String encodedPassword = encoder.encode(newPassword);
+            user.setPassword(encodedPassword);
+        }
+        
+        user.setEnabled(true);
+
+        em.persist(user);
+        redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "User " + user.getFullName() + " has been successfully added.");
+        return new ModelAndView("redirect:/Administration");
+    }
+    
     public String resetPassword(User user) {
-    	    	
-    		//Random r = new Random();
-    		//int randomNo = r.nextInt(10);
     	
     		String email = user.getEmail();
     		final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -130,7 +150,6 @@ public class Administration {
     		   sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
     		
     		String userPassword = sb.toString();
-    		//System.out.println(userPassword);
 
     		final String username = "weber.narcotics.strike.force@gmail.com";
     		final String password = "wmnstrike4ce";
@@ -168,59 +187,12 @@ public class Administration {
     
     @Transactional
     @RequestMapping("/ResetPassword")
-    public @ResponseBody String resetPassword(String id) {
+    public @ResponseBody void resetPassword(String id) {
     	    	
     	long userId = Long.parseLong(id);
         User user = userRepo.findById(userId);
-        
-    		Random r = new Random();
-    		int randomNo = r.nextInt(10);
-    	
-    		String email = user.getEmail();
-    		final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    		SecureRandom rnd = new SecureRandom();
-
-    		StringBuilder sb = new StringBuilder(9);
-    		for( int i = 0; i < 9; i++ ) 
-    		   sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
-    		
-    		String userPassword = sb.toString();
-    		System.out.println(userPassword);
-
-    		final String username = "weber.narcotics.strike.force@gmail.com";
-    		final String password = "wmnstrike4ce";
-    		
-    		Properties props = new Properties();
-    		props.put("mail.smtp.auth", "true");
-    		props.put("mail.smtp.starttls.enable", "true");
-    		props.put("mail.smtp.host", "smtp.gmail.com");
-    		props.put("mail.smtp.port", "587");
-
-    		Session session = Session.getInstance(props,
-    		  new javax.mail.Authenticator() {
-    			protected PasswordAuthentication getPasswordAuthentication() {
-    				return new PasswordAuthentication(username, password);
-    			}
-    		  });
-
-    		try {
-
-    			Message message = new MimeMessage(session);
-    			message.setFrom(new InternetAddress("weber.narcotics.strike.force@gmail.com"));
-    			message.setRecipients(Message.RecipientType.TO,
-    				InternetAddress.parse(email));
-    			message.setSubject("Password Reset Request");
-    			message.setText("Your Password has been reset to "+userPassword);
-
-    			Transport.send(message);
-
-    		} catch (MessagingException e) {
-    			throw new RuntimeException(e);
-    		}
-    		String encodedPassword = encoder.encode(userPassword);
-            user.setPassword(encodedPassword);
-    		return userPassword;
-    	}
+        resetPassword(user);
+    }
     
     @Transactional
     @RequestMapping("/NewFundType")//Built but not fully working

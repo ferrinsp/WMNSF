@@ -58,7 +58,7 @@
 			  <button class="dropbtn">Options</button>&nbsp;
 			  <span class="dropdown-content">
 			    <a href="/Profile">Profile Information</a>
-			    <a href="/PasswordReset"><!-- type="submit" style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/Password">
+			    <a href="/PasswordReset" onclick="newPassword()"><!-- type="submit" style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/Password">
 				<button style="background-color:darkgreen;" label="Reset Password" -->Reset Password
 				</a>
 			    <a href="/LogOut"><!-- style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/LogOut">
@@ -67,6 +67,7 @@
 			  </span>
 			</span>
 		</span>
+		
 			
 
  			
@@ -80,6 +81,32 @@
 	</div>
 	
 </header>
+<!---------------------------------- Add/Edit User Form -------------------------------------->
+                    <form id="formNewPassword" name="formNewPass" action="/Administration/NewPassword" method="post">
+                        <h2 id="formHeader">Password Change</h2>
+                        <table id="newPasswordTable" class="table">
+
+                            <tr>
+                                <td>Old Password</td>
+                                <td><input type="text" class="input-block-level" id="oldPassword" name="oldPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="Old Password">
+                                    <input type="hidden" id="id" name="id">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>New Password</td>
+                                <td><input type="text" class="input-block-level" id="newPassword" name="newPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="New Password"></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Retype New Password</td>
+                                <td><input type="text" class="input-block-level" id="verifyNewPassword" name="verifyNewPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="Retype New Password"></td>
+                            </tr>
+                            
+                        </table>
+                        <input type="submit" value="Submit">
+                        <input type="button" onclick="cancel()" value="Cancel">
+                    </form>
 <div class="menu">
     <ul class="nav btn-group">
     	<% if (request.isUserInRole("ADMIN")) {%>
@@ -92,6 +119,23 @@
         <%}%>
     </ul>
 </div>  
-<script>
 
+<script type="text/javascript">
+//jQuery
+
+
+function newPassword(){
+                $("#formAddEditUser").attr("action", "/Administration/NewPassword");
+                userModal.dialog("open");
+            }
+userModal = $("#formNewPassword").dialog({
+    autoOpen: false,
+    modal: true,
+    resizable: false,
+    width: 'auto',
+   /* buttons: {
+        "Submit": addEditUser,
+        Cancel: cancel
+    }*/
+});
 </script>
