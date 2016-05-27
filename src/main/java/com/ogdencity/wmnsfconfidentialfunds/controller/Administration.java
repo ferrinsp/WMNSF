@@ -117,25 +117,34 @@ public class Administration {
     }
     
     @Transactional
-    @RequestMapping("/NewPassword")
+    @RequestMapping("/newPassword")
     public ModelAndView NewPassword(HttpServletRequest request, RedirectAttributes redirectAttributes){
-    	long id = Long.parseLong(request.getParameter("id"));
+    	String email = request.getParameter("id");
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         String verifyNewPassword = request.getParameter("verifyNewPassword");
         
         
-        User user = userRepo.findById(id);
-        if(user.getPassword() == encoder.encode(oldPassword) && newPassword.equals(verifyNewPassword))
+        User user = userRepo.findByEmail(email).get(0);
+        System.out.println(user.getFirstName());
+        System.out.println(user.getPassword());
+        System.out.println(encoder.encode(oldPassword));
+        System.out.println(newPassword);
+        System.out.println(verifyNewPassword);
+        if(newPassword.equals(verifyNewPassword))
         {
         	String encodedPassword = encoder.encode(newPassword);
             user.setPassword(encodedPassword);
         }
+        else
+        	System.out.println("failed");
+        
         
         user.setEnabled(true);
 
         em.persist(user);
-        redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "User " + user.getFullName() + " has been successfully added.");
+        redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Your password has been reset successfully.");
+        
         return new ModelAndView("redirect:/Administration");
     }
     
@@ -190,6 +199,7 @@ public class Administration {
     public @ResponseBody void resetPassword(String id) {
     	    	
     	long userId = Long.parseLong(id);
+    	System.out.println(id);
         User user = userRepo.findById(userId);
         resetPassword(user);
     }

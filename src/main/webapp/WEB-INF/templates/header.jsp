@@ -58,9 +58,9 @@
 			  <button class="dropbtn">Options</button>&nbsp;
 			  <span class="dropdown-content">
 			    <a href="/Profile">Profile Information</a>
-			    <a href="/PasswordReset" onclick="newPassword()"><!-- type="submit" style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/Password">
+			    <a onclick="newPassword()"><!-- type="submit" style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/Password">
 				<button style="background-color:darkgreen;" label="Reset Password" -->Reset Password
-				</a>
+				</button>
 			    <a href="/LogOut"><!-- style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/LogOut">
 				<button style="background-color:darkred;" label="Log Off"> -->Log Off
 				</a> 
@@ -81,7 +81,7 @@
 	</div>
 	
 </header>
-<!---------------------------------- Add/Edit User Form -------------------------------------->
+<!---------------------------------- Reset Password Form -------------------------------------->
                     <form id="formNewPassword" name="formNewPass" action="/Administration/NewPassword" method="post">
                         <h2 id="formHeader">Password Change</h2>
                         <table id="newPasswordTable" class="table">
@@ -89,7 +89,7 @@
                             <tr>
                                 <td>Old Password</td>
                                 <td><input type="text" class="input-block-level" id="oldPassword" name="oldPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="Old Password">
-                                    <input type="hidden" id="id" name="id">
+                                    <input type="hidden" id="id" name="id" value=<%=name %>>
                                 </td>
                             </tr>
 
@@ -125,7 +125,7 @@
 
 
 function newPassword(){
-                $("#formAddEditUser").attr("action", "/Administration/NewPassword");
+                $("#formNewPassword").attr("action", "/Administration/newPassword");
                 userModal.dialog("open");
             }
 userModal = $("#formNewPassword").dialog({
