@@ -131,19 +131,21 @@ public class Administration {
         System.out.println(encoder.encode(oldPassword));
         System.out.println(newPassword);
         System.out.println(verifyNewPassword);
-        if(newPassword.equals(verifyNewPassword))
+      
+        if (encoder.matches(oldPassword, user.getPassword()) && newPassword.equals(verifyNewPassword))
         {
         	String encodedPassword = encoder.encode(newPassword);
             user.setPassword(encodedPassword);
+            redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Your password has been reset successfully.");
         }
-        else
-        	System.out.println("failed");
-        
+        else 
+        {
+        	redirectAttributes.addFlashAttribute(NotificationTypes.ERROR.toString(), "Either your password was incorrect, or the new passowrd verification didn't match. Please try again.");
+        }
         
         user.setEnabled(true);
 
         em.persist(user);
-        redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Your password has been reset successfully.");
         
         return new ModelAndView("redirect:/Administration");
     }
