@@ -27,7 +27,9 @@ DROP TABLE IF EXISTS `balance`;
 CREATE TABLE `balance` (
   `user_id` int(11) NOT NULL,
   `fund_type_id` int(11) NOT NULL,
-  `balance` decimal(12,2) NOT NULL,
+  `Description` varchar(255) DEFAULT NULL,
+  `allocatedBalance` int(11) DEFAULT 0,
+  `remainingBalance` int(11) DEFAULT 0,
   KEY `user_id` (`user_id`),
   KEY `fund_type_id` (`fund_type_id`),
   CONSTRAINT `balance_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
@@ -41,7 +43,7 @@ CREATE TABLE `balance` (
 
 LOCK TABLES `balance` WRITE;
 /*!40000 ALTER TABLE `balance` DISABLE KEYS */;
-INSERT INTO `balance` VALUES (2,1,1000),(2,2,500),(12,1,1000),(12,2,400);
+INSERT INTO `balance` VALUES (2,1,'HIDTA15',1000,1000),(2,2,'HIDTA15',500,400),(12,1,'HIDTA15',1000,0),(12,2,'HIDTA15',400,150);
 /*!40000 ALTER TABLE `balance` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +108,7 @@ CREATE TABLE `fund_type` (
   `Description` varchar(255) DEFAULT NULL,
   `effective_start` datetime DEFAULT NULL,
   `effective_end` datetime DEFAULT NULL,
-  `unallocted_funds` int DEFAULT 0,
+  `unallocted_funds` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

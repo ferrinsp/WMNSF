@@ -3,7 +3,7 @@ package com.ogdencity.wmnsfconfidentialfunds.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="allocatedfunds")
+@Table(name="balance")
 public class AllocatedFunds {
 
 	@Id

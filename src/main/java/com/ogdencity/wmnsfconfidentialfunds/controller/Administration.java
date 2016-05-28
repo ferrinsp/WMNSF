@@ -126,11 +126,11 @@ public class Administration {
         
         
         User user = userRepo.findByEmail(email).get(0);
-        System.out.println(user.getFirstName());
+       /* System.out.println(user.getFirstName());
         System.out.println(user.getPassword());
         System.out.println(encoder.encode(oldPassword));
         System.out.println(newPassword);
-        System.out.println(verifyNewPassword);
+        System.out.println(verifyNewPassword);*/
       
         if (encoder.matches(oldPassword, user.getPassword()) && newPassword.equals(verifyNewPassword))
         {
@@ -201,7 +201,7 @@ public class Administration {
     public @ResponseBody void resetPassword(String id) {
     	    	
     	long userId = Long.parseLong(id);
-    	System.out.println(id);
+    	/*System.out.println(id);*/
         User user = userRepo.findById(userId);
         resetPassword(user);
     }
