@@ -112,9 +112,9 @@
 
 function newPassword(){
                 $("#formNewPassword").attr("action", "/Administration/newPassword");
-                userModal.dialog("open");
+                passwordModal.dialog("open");
             }
-userModal = $("#formNewPassword").dialog({
+passwordModal = $("#formNewPassword").dialog({
     autoOpen: false,
     modal: true,
     resizable: false,
@@ -128,6 +128,6 @@ function password() {
     document.getElementById("passwordSubmit").click();
 }
 function cancel () {
-	userModal.dialog("close");
+	passwordModal.dialog("close");
 }
 </script>
