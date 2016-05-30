@@ -58,24 +58,12 @@
 			  <button class="dropbtn">Options</button>&nbsp;
 			  <span class="dropdown-content">
 			    <a href="/Profile">Profile Information</a>
-			    <a onclick="newPassword()"><!-- type="submit" style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/Password">
-				<button style="background-color:darkgreen;" label="Reset Password" -->Reset Password
-				</button>
-			    <a href="/LogOut"><!-- style="color: #FFFFFF; text-decoration: none;" class="buttonHolder" href="/LogOut">
-				<button style="background-color:darkred;" label="Log Off"> -->Log Off
-				</a> 
+			    <a onclick="newPassword()" onmouseover="" style="cursor: pointer;">Reset Password</a>
+			    <a href="/LogOut">Log Off</a> 
 			  </span>
 			</span>
 		</span>
 		
-			
-
- 			
-			<!-- 
-			
-		
-	</p>
-	<!--align="center"-->
 	<div id="center">
 	    <img class="logo" src="/static/images/WMNSF.png" alt="WMNSFLogo"/>
 	</div>
@@ -88,24 +76,23 @@
 
                             <tr>
                                 <td>Old Password</td>
-                                <td><input type="text" class="input-block-level" id="oldPassword" name="oldPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="Old Password">
+                                <td><input type="password" class="input-block-level" id="oldPassword" name="oldPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="Old Password">
                                     <input type="hidden" id="id" name="id" value=<%=name %>>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>New Password</td>
-                                <td><input type="text" class="input-block-level" id="newPassword" name="newPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="New Password"></td>
+                                <td><input type="password" class="input-block-level" id="newPassword" name="newPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="New Password"></td>
                             </tr>
                             
                             <tr>
                                 <td>Retype New Password</td>
-                                <td><input type="text" class="input-block-level" id="verifyNewPassword" name="verifyNewPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="Retype New Password"></td>
+                                <td><input type="password" class="input-block-level" id="verifyNewPassword" name="verifyNewPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="Retype New Password"></td>
                             </tr>
                             
                         </table>
-                        <input type="submit" value="Submit">
-                        <input type="button" onclick="cancel()" value="Cancel">
+                        <input id="passwordSubmit" type="submit" value="Submit" style="display:none;">
                     </form>
 <div class="menu">
     <ul class="nav btn-group">
@@ -123,7 +110,6 @@
 <script type="text/javascript">
 //jQuery
 
-
 function newPassword(){
                 $("#formNewPassword").attr("action", "/Administration/newPassword");
                 userModal.dialog("open");
@@ -133,9 +119,15 @@ userModal = $("#formNewPassword").dialog({
     modal: true,
     resizable: false,
     width: 'auto',
-   /* buttons: {
-        "Submit": addEditUser,
+    buttons: {
+        "Submit": password,
         Cancel: cancel
-    }*/
+    }
 });
+function password() {
+    document.getElementById("passwordSubmit").click();
+}
+function cancel () {
+	userModal.dialog("close");
+}
 </script>
