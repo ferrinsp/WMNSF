@@ -162,7 +162,7 @@ CREATE TABLE `transfer_transaction` (
   `description` varchar(250),
   `debit_user_id` int(11) DEFAULT NULL,
   `credit_user_id` int(11) DEFAULT NULL,
-  `amount` decimal(12,2) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
   `operator_user_id` int(11) DEFAULT NULL,
   `fund_type_id` int(11) DEFAULT NULL,
   `check_number` int(16) DEFAULT NULL,
@@ -187,22 +187,22 @@ CREATE TABLE `transfer_transaction` (
 
 LOCK TABLES `transfer_transaction` WRITE;
 /*!40000 ALTER TABLE `transfer_transaction` DISABLE KEYS */;
-INSERT INTO `transfer_transaction` VALUES (1,'2014-05-09','Test Description',2,12,89222.00,2,1,123,'1111','WC-1111','Deposit'),
-(2,'2013-05-26','fun things',12,4,3499.00,23,1,234,'1112','WC-1112','Transfer'),
-(3,'2014-04-16','New Transaction',23,24,39888.00,25,2,NULL,'1114','WC-1114','Expenditure'),
-(4,'2014-04-16','New Transaction',2,4,3988.00,12,1,NULL,'1115','WC-1115','Expenditure'),
-(5,'2015-03-24','TestDB',12,23,100.00,12,2,321,'1116','WC-1116','Deposit'),
-(6,'2015-04-14','Test transaction',24,2,150.00,2,2,NULL,'1113','WC-1113','Expenditure'),
-(7,'2015-04-14','Test transaction at office',4,12,200.00,2,2,NULL,'1113','WC-1113','Expenditure'),
-(8,'2015-04-16','testDate',23,24,1.00,2,1,NULL,NULL,NULL,'Expenditure'),
-(9,'2015-04-18','testType 2',2,4,2.00,2,1,NULL,NULL,NULL,'Deposit'),
-(10,'2015-04-18','testtype 3',12,23,15.00,2,2,NULL,NULL,NULL,'Expenditure'),
-(11,'2015-06-01','test insert from sql',12,12,100.00,12,2,NULL,NULL,NULL,'Deposit'),
-(12,'2015-06-28','End of month transfer',4,12,100.00,12,1,NULL,NULL,NULL,'Expenditure'),
-(13,'2015-06-30','True end of month, please delete entry on 06/28',4,12,100.00,12,1,NULL,NULL,NULL,'Transfer'),
-(14,'2015-06-29','testing transaction password',4,12,250.00,12,1,NULL,NULL,NULL,'Transfer'),
-(15,'2015-12-07','test 1',12,23,50.00,23,1,12345,'543210','55','Transfer'),
-(16,'2015-10-19','test 2',NULL,12,55.00,23,1,123456,'6543210','testHibernate','Deposit');
+INSERT INTO `transfer_transaction` VALUES (1,'2014-05-09','Test Description',2,12,89222,2,1,123,'1111','WC-1111','Deposit'),
+(2,'2013-05-26','fun things',12,4,3499,23,1,234,'1112','WC-1112','Transfer'),
+(3,'2014-04-16','New Transaction',23,24,39888,25,2,NULL,'1114','WC-1114','Expenditure'),
+(4,'2014-04-16','New Transaction',2,4,3988,12,1,NULL,'1115','WC-1115','Expenditure'),
+(5,'2015-03-24','TestDB',12,23,100,12,2,321,'1116','WC-1116','Deposit'),
+(6,'2015-04-14','Test transaction',24,2,150,2,2,NULL,'1113','WC-1113','Expenditure'),
+(7,'2015-04-14','Test transaction at office',4,12,200,2,2,NULL,'1113','WC-1113','Expenditure'),
+(8,'2015-04-16','testDate',23,24,1,2,1,NULL,NULL,NULL,'Expenditure'),
+(9,'2015-04-18','testType 2',2,4,2,2,1,NULL,NULL,NULL,'Deposit'),
+(10,'2015-04-18','testtype 3',12,23,15,2,2,NULL,NULL,NULL,'Expenditure'),
+(11,'2015-06-01','test insert from sql',12,12,100,12,2,NULL,NULL,NULL,'Deposit'),
+(12,'2015-06-28','End of month transfer',4,12,100,12,1,NULL,NULL,NULL,'Expenditure'),
+(13,'2015-06-30','True end of month, please delete entry on 06/28',4,12,100,12,1,NULL,NULL,NULL,'Transfer'),
+(14,'2015-06-29','testing transaction password',4,12,250,12,1,NULL,NULL,NULL,'Transfer'),
+(15,'2015-12-07','test 1',12,23,50,23,1,12345,'543210','55','Transfer'),
+(16,'2015-10-19','test 2',NULL,12,55,23,1,123456,'6543210','testHibernate','Deposit');
 /*!40000 ALTER TABLE `transfer_transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 

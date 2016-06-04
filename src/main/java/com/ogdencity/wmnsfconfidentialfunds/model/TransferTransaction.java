@@ -2,8 +2,8 @@ package com.ogdencity.wmnsfconfidentialfunds.model;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -28,8 +28,8 @@ public class TransferTransaction implements Serializable {
     @NotBlank(message = "Must have transaction type")
     @Pattern(regexp = "^[A-Za-z]*$", message = "Invalid input, letters only")
     private String transactionType;
-    @DecimalMin("-999999999.99") @DecimalMax("999999999.99")
-    private Double amount;
+    @Min(-999999999) @Max(999999999)
+    private int amount;
 
     @Nullable @OneToOne @JoinColumn(name="debit_user_id")
     private User debitUser;
@@ -88,12 +88,12 @@ public class TransferTransaction implements Serializable {
         this.transactionType = transactionType;
     }
 
-    public Double getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setAmount(int i) {
+        this.amount = i;
     }
     
     public String getCheckNumber() {

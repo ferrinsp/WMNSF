@@ -127,7 +127,7 @@ public class Transaction {
         transferTransaction.setCreditUser(creditOfficer);
         if(userRepo.findByEmail(operatorEmail).isEmpty()) return new ModelAndView("redirect:/Transaction"); // SAFETY
         transferTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
-        transferTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
+        transferTransaction.setAmount(Integer.parseInt(request.getParameter("amount")));
         transferTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
         
         String debitPassword = request.getParameter("debitPassword");
@@ -178,7 +178,7 @@ public class Transaction {
         depositTransaction.setCreditUser(creditOfficer);
         if(userRepo.findByEmail(operatorEmail).isEmpty()) return new ModelAndView("redirect:/Transaction"); // SAFETY
         depositTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
-        depositTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
+        depositTransaction.setAmount(Integer.parseInt(request.getParameter("amount")));
         depositTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
         depositTransaction.setCheckNumber(checkNumber);
         depositTransaction.setCaseNumber(caseNumber);
@@ -230,7 +230,7 @@ public class Transaction {
         expenditureTransaction.setCreditUser(null);
         if(userRepo.findByEmail(operatorEmail).isEmpty()) return new ModelAndView("redirect:/Transaction"); // SAFETY
         expenditureTransaction.setOperatorUser(userRepo.findByEmail(operatorEmail).get(0));
-        expenditureTransaction.setAmount(Double.parseDouble(request.getParameter("amount")));
+        expenditureTransaction.setAmount(Integer.parseInt(request.getParameter("amount")));
         expenditureTransaction.setFundType(fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType"))));
         expenditureTransaction.setCaseNumber(caseNumber);
         expenditureTransaction.setCiNumber(ciNumber);
