@@ -2,36 +2,21 @@ package com.ogdencity.wmnsfconfidentialfunds.model;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name="balance")
 public class AllocatedFunds {
+	private final FundType fund;
+	private int balance;
 
-	@Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Long id;
-	private FundType fund;
-	private int allocatedBalance;
-	private int remainingBalance;
-	
-	public FundType getFund() {
-		return fund;
+	public AllocatedFunds(FundType f){
+		fund = f;
+		balance = 0;
 	}
-	public void setFund(FundType fund) {
-		this.fund = fund;
-	}
-	public int getAllocatedBalance() {
-		return allocatedBalance;
-	}
-	public void setAllocatedBalance(int allocatedBalance) {
-		this.allocatedBalance = allocatedBalance;
-	}
-	public int getRemainingBalance() {
-		return remainingBalance;
-	}
-	public void setRemainingBalance(int remainingBalance) {
-		this.remainingBalance = remainingBalance;
+	public void addToBalance(int value){
+		balance += value;
 	}
 	
+	public void subFromBalance(int value){
+		balance -= value;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -41,54 +26,19 @@ public class AllocatedFunds {
 	}
 	@Override
 	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
 		if (obj == null)
 			return false;
-		String other = (String) obj;
+		if (getClass() != obj.getClass())
+			return false;
+		AllocatedFunds other = (AllocatedFunds) obj;
 		if (fund == null) {
-			if (other != null)
+			if (other.fund != null)
 				return false;
-		} else if (fund.getDescription().equals(other))
-			return true;
-		return false;
+		} else if (!fund.equals(other.fund))
+			return false;
+		return true;
 	}
 	
-	public boolean changeAllocatedBalance(int value){
-		if(value > 0) return addToAllocatedBalance(value);
-		if(value < 0) return subFromAllocatedBalance(value * -1);
-		return false;
-	}
-	public boolean changeRemainingBlanace(int value){
-		if(value > 0) return addToRemainingBalance(value);
-		if(value < 0) return subFromRemainingBalance(value * -1);
-		return false;
-	}
-	private boolean subFromRemainingBalance(int value) {
-		if(remainingBalance >= value){
-			remainingBalance -= value;
-			return true;
-		}
-		return false;
-	}
-	private boolean addToRemainingBalance(int value) {
-		if(allocatedBalance >= remainingBalance + value){
-			remainingBalance += value;
-			return true;
-		}
-		return false;
-	}
-	private boolean subFromAllocatedBalance(int value) {
-		if(remainingBalance >= value){
-			allocatedBalance -= value;
-			remainingBalance -= value;
-			return true;
-		}
-		return false;
-	}
-	private boolean addToAllocatedBalance(int value) {
-		if(value > 0) {
-			allocatedBalance += value;
-			return true;
-		}
-		return false;
-	}
 }

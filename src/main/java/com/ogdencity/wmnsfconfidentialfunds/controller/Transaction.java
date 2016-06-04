@@ -1,6 +1,7 @@
 package com.ogdencity.wmnsfconfidentialfunds.controller;
 
 import com.ogdencity.wmnsfconfidentialfunds.enums.NotificationTypes;
+import com.ogdencity.wmnsfconfidentialfunds.model.AllocatedFunds;
 import com.ogdencity.wmnsfconfidentialfunds.model.FundType;
 import com.ogdencity.wmnsfconfidentialfunds.model.TransferTransaction;
 import com.ogdencity.wmnsfconfidentialfunds.model.User;
@@ -51,8 +52,7 @@ public class Transaction {
         Date now = new Date();
         List<FundType> allActiveFundTypes = fundTypeRepo.findByEffectiveStartBeforeAndEffectiveEndAfter(now, now);
         List<TransferTransaction> transferTransactions = transferTransactionRepo.getAllTransactions();
-
-        System.out.println(operator.getEmail());
+        
         if(!operator.isAdmin()){
 	        for(Iterator<TransferTransaction> iterator = transferTransactions.iterator(); iterator.hasNext();){
 	        	TransferTransaction tt = iterator.next();
@@ -60,7 +60,10 @@ public class Transaction {
 	        		iterator.remove();
 	        	}
 	        }	
-        }   
+        }
+        List<AllocatedFunds> allocatedFunds = getAllocatedFunds(allActiveFundTypes, transferTransactions, operator);
+        
+        model.addAttribute("allocatedFunds", allocatedFunds);
         model.addAttribute("allEnabledUsers", allEnabledUsers);
         model.addAttribute("allActiveFundTypes", allActiveFundTypes);
         model.addAttribute("transferTransactions", transferTransactions);
@@ -68,7 +71,35 @@ public class Transaction {
         return "transaction";
     }
 
-    @Transactional
+    private List<AllocatedFunds> getAllocatedFunds(List<FundType> allActiveFundTypes,
+			List<TransferTransaction> transferTransactions, User operator) {
+		List<AllocatedFunds> list = new ArrayList<>();
+		for(TransferTransaction tt: transferTransactions){
+			if(allActiveFundTypes.contains(tt.getFundType())){
+				int amount = tt.getAmount();
+				int index = list.indexOf(tt.getFundType().getDescription());
+				// if allocation doesn't exist then create new one
+				AllocatedFunds allocation = (index == -1) ? new AllocatedFunds(tt.getFundType()) : list.get(index);
+				
+				if(tt.getTransactionType().equals("Deposit"))
+					allocation.addToBalance(amount);
+				else if(tt.getTransactionType().equals("Transfer")){
+					//TODO CHECK for proper positive/negative
+					if(tt.getCreditUser().equals(operator))
+						allocation.addToBalance(amount);
+					else
+						allocation.subFromBalance(amount);
+				} else {
+					allocation.subFromBalance(amount);
+				}
+				
+			}
+		}
+		
+		return null;
+	}
+
+	@Transactional
     @RequestMapping("/NewTransferTransaction")
     public ModelAndView NewTransferTransaction(HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes) {
         String operatorEmail = principal.getName();
