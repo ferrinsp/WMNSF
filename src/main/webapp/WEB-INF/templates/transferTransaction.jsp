@@ -277,11 +277,11 @@
                           </tr>
                     </thead>
                     <tbody>
-			            <c:forEach var="fundType" items="${FundTypes}" >
-			                <tr id="row${fundType.getId()}">
-			                    <td>${fundType.getDescription}</td>
-			                    <td><fmt:formatNumber value="${fundType.allocatedBalance}" type="currency" /></td>
-			                    <td><fmt:formatNumber value="${fundType.remainingBalance}" type="currency" /></td>	                    
+			            <c:forEach var="allocatedFund" items="${allocatedFunds}" >
+			                <tr>
+			                    <td>${allocatedFund.getDescription()}</td>
+			                    <td><fmt:formatNumber value="${allocatedFund.getAllocatedBalance()}" type="currency" /></td>
+			                    <td><fmt:formatNumber value="${allocatedFund.getBalance()}" type="currency" /></td>	                    
 			                </tr>
 			            </c:forEach>
 		            </tbody>

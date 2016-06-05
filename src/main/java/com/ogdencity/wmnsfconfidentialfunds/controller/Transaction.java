@@ -62,7 +62,7 @@ public class Transaction {
 	        }	
         }
         List<AllocatedFunds> allocatedFunds = getAllocatedFunds(allActiveFundTypes, transferTransactions, operator);
-        
+
         model.addAttribute("allocatedFunds", allocatedFunds);
         model.addAttribute("allEnabledUsers", allEnabledUsers);
         model.addAttribute("allActiveFundTypes", allActiveFundTypes);
@@ -77,7 +77,7 @@ public class Transaction {
 		for(TransferTransaction tt: transferTransactions){
 			if(allActiveFundTypes.contains(tt.getFundType())){
 				int amount = tt.getAmount();
-				int index = list.indexOf(tt.getFundType().getDescription());
+				int index = list.indexOf(tt.getFundType());
 				// if allocation doesn't exist then create new one
 				AllocatedFunds allocation = (index == -1) ? new AllocatedFunds(tt.getFundType()) : list.get(index);
 				
@@ -88,10 +88,12 @@ public class Transaction {
 					allocation.subFromAllocated(amount); // If user is on negative side of transfer
 				else
 					allocation.subFromBalance(amount);
+				if(index == -1)
+					list.add(allocation);
 			}
 		}
 		
-		return null;
+		return list;
 	}
 
 	@Transactional

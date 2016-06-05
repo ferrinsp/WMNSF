@@ -65,7 +65,6 @@ public class FundType implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -75,6 +74,10 @@ public class FundType implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
+		if (obj.getClass() == AllocatedFunds.class){
+			AllocatedFunds other = (AllocatedFunds)obj;
+			return other.equals(this);
+		}
 		if (getClass() != obj.getClass())
 			return false;
 		FundType other = (FundType) obj;
@@ -83,12 +86,9 @@ public class FundType implements Serializable {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
 		return true;
 	}
+
+
     
 }

@@ -5,6 +5,18 @@ import javax.persistence.*;
 public class AllocatedFunds {
 	private final FundType fund;
 	private int balance;
+	public int getBalance() {
+		return balance;
+	}
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+	public int getAllocatedBalance() {
+		return allocatedBalance;
+	}
+	public void setAllocatedBalance(int allocatedBalance) {
+		this.allocatedBalance = allocatedBalance;
+	}
 	private int allocatedBalance;
 
 	public AllocatedFunds(FundType f){
@@ -28,6 +40,9 @@ public class AllocatedFunds {
 		allocatedBalance -= value;
 		balance -= value;
 	}
+	public String getDescription(){
+		return fund.getDescription();
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -37,19 +52,11 @@ public class AllocatedFunds {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AllocatedFunds other = (AllocatedFunds) obj;
-		if (fund == null) {
-			if (other.fund != null)
-				return false;
-		} else if (!fund.equals(other.fund))
-			return false;
-		return true;
+		FundType other = (FundType) obj;
+		return sameFund(other);
+	}
+	private boolean sameFund(FundType ft){
+		return ft.equals(fund);
 	}
 	
 }
