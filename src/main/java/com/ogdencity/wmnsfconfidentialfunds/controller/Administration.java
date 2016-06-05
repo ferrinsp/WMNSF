@@ -207,15 +207,14 @@ public class Administration {
     }
     
     @Transactional
-    @RequestMapping("/NewFundType")//Built but not fully working
+    @RequestMapping("/NewFundType")
     public ModelAndView NewFundType(HttpServletRequest request, RedirectAttributes redirectAttributes){
     	
     	String description = request.getParameter("description");
     	DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
     	String effectiveStart = request.getParameter("effectiveStart");
     	String effectiveEnd = request.getParameter("effectiveEnd");
-    	//String unallocatedFunds= request.getParameter("fundTotal");
-    	//TODO: Store the fund amount into database
+    	String fundTotal = request.getParameter("fundTotal");
     	
     	FundType fundType = new FundType();
     	fundType.setDescription(description);
@@ -230,6 +229,12 @@ public class Administration {
         } catch (ParseException a) {
             a.printStackTrace();
         }
+    	try {
+    		fundType.setBalance(Integer.parseInt(fundTotal));
+    	} catch (NumberFormatException n){
+    		n.printStackTrace();
+    	}
+    	
 		em.persist(fundType);
 		redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Fund Type " + fundType.getDescription() + " has been successfully added.");
 		return new ModelAndView("redirect:/Administration");

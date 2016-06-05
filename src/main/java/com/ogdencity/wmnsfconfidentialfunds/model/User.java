@@ -161,27 +161,4 @@ public class User implements Serializable{
     public void toggleStatus(){
         enabled = !enabled;
     }
-    
-    /*private void updateBalance() {
-    	for(AllocatedFunds af: funds) balance += af.getRemainingBalance();
-    }
-    
-    public boolean depositFunds(int value, String fundName){
-    	boolean result = funds.get(funds.indexOf(fundName)).changeAllocatedBalance(value);
-    	this.updateBalance();
-    	return result;
-    }
-    
-    public boolean transferFunds(int value, String fundName){
-    	if(value < 1) return false;
-    	boolean result = funds.get(funds.indexOf(fundName)).changeAllocatedBalance(value * -1);
-    	this.updateBalance();
-    	return result;
-    }
-    
-    public boolean expendFunds(int value, String fundName){
-    	boolean result = funds.get(funds.indexOf(fundName)).changeRemainingBlanace(value * -1);
-    	this.updateBalance();
-    	return result;
-    }*/
 }

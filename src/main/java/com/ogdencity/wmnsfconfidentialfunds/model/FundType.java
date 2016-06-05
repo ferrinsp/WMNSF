@@ -17,8 +17,17 @@ public class FundType implements Serializable {
     private String description;
     private Date effectiveStart;
     private Date effectiveEnd;
+    private int balance;
 
-    public Long getId() {
+    public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
+	public Long getId() {
         return id;
     }
 
