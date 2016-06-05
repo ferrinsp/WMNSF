@@ -134,26 +134,26 @@
                             <tr>
                             	<td>Fund Type Name:</td>
             					<td colspan="2">
-                					<input type="text" class="input-block-level" id="description" name="description" placeholder="Fund Type Name"></input>
+                					<input type="text" class="input-block-level" id="description" required name="description" placeholder="Fund Type Name"></input>
                 					<input type="hidden" id="fundId" name="id">
             					</td>
             				</tr>
             				<tr>
             					<td>Effective Start Date</td>
             					<td colspan="2">
-                					<input type="text" class="input-block-level" id="effectiveStart" name="effectiveStart" placeholder="Effective Date"/>
+                					<input type="text" class="input-block-level" id="effectiveStart" required name="effectiveStart" placeholder="Effective Date"/>
             					</td>
             				</tr>
             				<tr>
             					<td>Effective End Date</td>
             					<td colspan="2">
-                					<input type="text" class="input-block-level" id="effectiveEnd" name="effectiveEnd" placeholder="End Date"/>
+                					<input type="text" class="input-block-level" id="effectiveEnd" required name="effectiveEnd" placeholder="End Date"/>
             					</td>
             				</tr>
             				<tr>
             					<td>Fund Total</td>
             					<td colspan="2">
-                					<input type="text" class="input-block-level" id="fundTotal" name="fundTotal" placeholder="Amount"/>
+                					<input type="number" class="input-block-level" id="fundTotal" required name="fundTotal" placeholder="Amount"/>
             					</td>
            					</tr>
                         </table>
