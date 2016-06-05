@@ -5,9 +5,11 @@ import javax.persistence.*;
 public class AllocatedFunds {
 	private final FundType fund;
 	private int balance;
+	private int allocatedBalance;
 
 	public AllocatedFunds(FundType f){
 		fund = f;
+		allocatedBalance = 0;
 		balance = 0;
 	}
 	public void addToBalance(int value){
@@ -15,6 +17,15 @@ public class AllocatedFunds {
 	}
 	
 	public void subFromBalance(int value){
+		balance -= value;
+	}
+	public void addToAllocated(int value){
+		allocatedBalance += value;
+		balance += value;
+	}
+	
+	public void subFromAllocated(int value){
+		allocatedBalance -= value;
 		balance -= value;
 	}
 	@Override

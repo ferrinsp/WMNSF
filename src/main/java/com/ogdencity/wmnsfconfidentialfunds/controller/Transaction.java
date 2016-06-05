@@ -81,18 +81,13 @@ public class Transaction {
 				// if allocation doesn't exist then create new one
 				AllocatedFunds allocation = (index == -1) ? new AllocatedFunds(tt.getFundType()) : list.get(index);
 				
-				if(tt.getTransactionType().equals("Deposit"))
-					allocation.addToBalance(amount);
-				else if(tt.getTransactionType().equals("Transfer")){
-					//TODO CHECK for proper positive/negative
-					if(tt.getCreditUser().equals(operator))
-						allocation.addToBalance(amount);
-					else
-						allocation.subFromBalance(amount);
-				} else {
+				if(tt.getTransactionType().equals("Deposit") || // If deposit or user is on positive side of transfer
+						(tt.getTransactionType().equals("Transfer") && tt.getCreditUser().equals(operator)))
+					allocation.addToAllocated(amount);
+				else if (tt.getTransactionType().equals("Transfer") && tt.getDebitUser().equals(operator))
+					allocation.subFromAllocated(amount); // If user is on negative side of transfer
+				else
 					allocation.subFromBalance(amount);
-				}
-				
 			}
 		}
 		
@@ -117,11 +112,11 @@ public class Transaction {
         String creditOfficerId = request.getParameter("moneyTo");
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
-        String fundDebitName = request.getParameter("fundType");
-        //debitOfficer.transferFunds((Integer.parseInt(request.getParameter("amount"))), fundDebitName);
+        debitOfficer.setBalance(debitOfficer.getBalance() - Integer.parseInt(request.getParameter("amount")));
+
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
-        String fundCreditName = request.getParameter("fundType");
-        //creditOfficer.transferFunds((Integer.parseInt(request.getParameter("amount"))), fundCreditName);
+        creditOfficer.setBalance(creditOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
+
 
         transferTransaction.setDebitUser(debitOfficer);
         transferTransaction.setCreditUser(creditOfficer);
@@ -171,8 +166,8 @@ public class Transaction {
         String creditOfficerId = request.getParameter("moneyTo");
 
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
-        String fundName = request.getParameter("fundType");
-        //creditOfficer.depositFunds((Integer.parseInt(request.getParameter("amount"))), fundName);
+        creditOfficer.setBalance(creditOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
+
         
         depositTransaction.setDebitUser(null);
         depositTransaction.setCreditUser(creditOfficer);
@@ -223,8 +218,8 @@ public class Transaction {
         String debitOfficerId = request.getParameter("moneyFrom");
 
         User debitOfficer = userRepo.findOne(Long.parseLong(debitOfficerId));
-        String fundName = request.getParameter("fundType");
-        //debitOfficer.expendFunds((Integer.parseInt(request.getParameter("amount"))), fundName);
+        debitOfficer.setBalance(debitOfficer.getBalance() - Integer.parseInt(request.getParameter("amount")));
+
         
         expenditureTransaction.setDebitUser(debitOfficer);
         expenditureTransaction.setCreditUser(null);
