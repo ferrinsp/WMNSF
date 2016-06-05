@@ -270,7 +270,6 @@
 	    			<thead>
                           <tr>
                           	  <th></th>
-                          	  <th></th>
                               <th>Fund Name</th>
                               <th>Allocated Amount</th>
                               <th>Remaining Amount</th>
@@ -279,6 +278,7 @@
                     <tbody>
 			            <c:forEach var="allocatedFund" items="${allocatedFunds}" >
 			                <tr>
+			                	<td></td>
 			                    <td>${allocatedFund.getDescription()}</td>
 			                    <td><fmt:formatNumber value="${allocatedFund.getAllocatedBalance()}" type="currency" /></td>
 			                    <td><fmt:formatNumber value="${allocatedFund.getBalance()}" type="currency" /></td>	                    
