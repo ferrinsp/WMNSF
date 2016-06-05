@@ -87,7 +87,7 @@
                                 <th>Last Name</th>
                                 <th>Permission</th>
                                 <th>E-Mail</th>
-                                <td>Allocated Balance</td>
+                                <td>Balance Remaining</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -112,7 +112,7 @@
                                         </c:forEach>
                                     </td>
                                     <td>${user.getEmail()}</td>
-                                    <td>Balance:$0</td>
+                                    <td><fmt:formatNumber value="${user.getBalance()}" type="currency"/></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -182,7 +182,7 @@
 	                                    <td>${fundType.getDescription()}</td>
 	                                    <td><fmt:formatDate value="${fundType.getEffectiveStart()}" pattern="MM-dd-yyyy"/></td>
 	                                    <td><fmt:formatDate value="${fundType.getEffectiveEnd()}" pattern="MM-dd-yyyy"/></td>
-	                            		<td>$10,000</td>
+	                            		<td><fmt:formatNumber value="${fundType.getBalance()}" type="currency"/></td>
 	                             </tr>
                             </c:forEach>
                             </tbody>

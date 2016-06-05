@@ -17,6 +17,7 @@ public class FundType implements Serializable {
     private String description;
     private Date effectiveStart;
     private Date effectiveEnd;
+    @Column(name ="unallocted_funds")
     private int balance;
 
     public int getBalance() {
