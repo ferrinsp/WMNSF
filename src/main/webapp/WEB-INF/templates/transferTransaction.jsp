@@ -269,11 +269,22 @@
 	    		<table class="table table-striped" id="balanceTable">
 	    			<thead>
                           <tr>
+                          	  <th></th>
+                          	  <th></th>
                               <th>Fund Name</th>
                               <th>Allocated Amount</th>
                               <th>Remaining Amount</th>
                           </tr>
                     </thead>
+                    <tbody>
+			            <c:forEach var="fundType" items="${FundTypes}" >
+			                <tr id="row${fundType.getId()}">
+			                    <td>${fundType.getDescription}</td>
+			                    <td><fmt:formatNumber value="${fundType.allocatedBalance}" type="currency" /></td>
+			                    <td><fmt:formatNumber value="${fundType.remainingBalance}" type="currency" /></td>	                    
+			                </tr>
+			            </c:forEach>
+		            </tbody>
 	    		</table>
 	    	</div>	
 	</div>
@@ -283,6 +294,7 @@
     $(document).ready(function () {
  
         $('#tblTransferTransactions').DataTable();
+        $('#tblBalance').DataTable();
         
         $("#moneyTo").val('${allEnabledUsers.get(1).id}');
         
