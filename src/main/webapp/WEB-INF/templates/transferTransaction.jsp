@@ -31,7 +31,9 @@
     	<div role="tabpanel" class="formContent tab-pane fade in active" id="transactionForm">
 			<div class="buttonHolder">
 			    <button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnNewTransfer">New Transfer</button>
-			    <button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnNewDeposit">New Deposit</button>
+			    <% if (request.isUserInRole("ADMIN")) {%>
+			    	<button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnNewDeposit">New Deposit</button>
+			    <%}%>
 			    <button style="background-color:darkblue;" class="btn btn-large btn-primary" id="btnNewExpenditure">New Expenditure</button>
 			</div>
 			<br/>
