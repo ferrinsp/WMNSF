@@ -185,6 +185,7 @@ public class Transaction {
 
         if (encoder.matches(creditPassword, creditOfficer.getPassword())) {
         	try {
+        		em.persist(ft);
         		em.persist(depositTransaction);
         		em.merge(creditOfficer);
                 redirectAttributes.addFlashAttribute(NotificationTypes.SUCCESS.toString(), "Deposit successfully saved.");
