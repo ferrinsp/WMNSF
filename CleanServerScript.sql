@@ -31,7 +31,7 @@ CREATE TABLE `fund_type` (
   `effective_end` datetime DEFAULT NULL,
   `unallocted_funds` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB auto_increment=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB auto_increment=1 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `fund_type` (
 
 LOCK TABLES `fund_type` WRITE;
 /*!40000 ALTER TABLE `fund_type` DISABLE KEYS */;
+INSERT INTO `fund_type` VALUES (1,'test','2015-12-07 00:00:00','2016-12-23 00:00:00','3000');
 /*!40000 ALTER TABLE `fund_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +97,7 @@ CREATE TABLE `transfer_transaction` (
   CONSTRAINT `fk_debit_user` FOREIGN KEY (`debit_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `fk_operator_user` FOREIGN KEY (`operator_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `transfer_transaction_ibfk_1` FOREIGN KEY (`fund_type_id`) REFERENCES `fund_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,6 +106,7 @@ CREATE TABLE `transfer_transaction` (
 
 LOCK TABLES `transfer_transaction` WRITE;
 /*!40000 ALTER TABLE `transfer_transaction` DISABLE KEYS */;
+INSERT INTO `transfer_transaction` VALUES (1,'2014-05-09','Test Description',1,1,100,1,1,123,'1111','16n-11111','Deposit');
 /*!40000 ALTER TABLE `transfer_transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +127,7 @@ CREATE TABLE `user` (
   `balance` int(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,6 +136,9 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('admin','user',1,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','admin@user.com',1,0),
+						  ('test','user',2,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','test@user.com',1,0);
+                          
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,6 +165,7 @@ CREATE TABLE `user_permission` (
 
 LOCK TABLES `user_permission` WRITE;
 /*!40000 ALTER TABLE `user_permission` DISABLE KEYS */;
+INSERT INTO `user_permission` VALUES (1,1),(1,2),(2,2);
 /*!40000 ALTER TABLE `user_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
