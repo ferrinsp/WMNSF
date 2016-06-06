@@ -25,7 +25,6 @@
                     </li>
                 </ul>
             </div>
-            <br>
 
 	<div class="formHolder tab-content">
     	<div role="tabpanel" class="formContent tab-pane fade in active" id="transactionForm">
@@ -271,7 +270,6 @@
 	    		<table class="table table-striped" id="balanceTable">
 	    			<thead>
                           <tr>
-                          	  <th></th>
                               <th>Fund Name</th>
                               <th>Allocated Amount</th>
                               <th>Remaining Amount</th>
@@ -280,7 +278,6 @@
                     <tbody>
 			            <c:forEach var="allocatedFund" items="${allocatedFunds}" >
 			                <tr>
-			                	<td></td>
 			                    <td>${allocatedFund.getDescription()}</td>
 			                    <td><fmt:formatNumber value="${allocatedFund.getAllocatedBalance()}" type="currency" /></td>
 			                    <td><fmt:formatNumber value="${allocatedFund.getBalance()}" type="currency" /></td>	                    

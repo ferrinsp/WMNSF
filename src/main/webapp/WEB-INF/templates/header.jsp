@@ -57,7 +57,6 @@
 			<span class="dropdown">&nbsp;
 			  <button class="dropbtn">Options</button>&nbsp;
 			  <span class="dropdown-content">
-			    <a href="/Profile">Profile Information</a>
 			    <a onclick="newPassword()" onmouseover="" style="cursor: pointer;">Reset Password</a>
 			    <a href="/LogOut">Log Off</a> 
 			  </span>
