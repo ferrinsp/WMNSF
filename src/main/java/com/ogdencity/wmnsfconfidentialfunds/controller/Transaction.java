@@ -68,6 +68,7 @@ public class Transaction {
         model.addAttribute("allActiveFundTypes", allActiveFundTypes);
         model.addAttribute("transferTransactions", transferTransactions);
         model.addAttribute("balance", operator.getBalance());
+        model.addAttribute("operator", operator);
         return "transaction";
     }
 
@@ -169,8 +170,8 @@ public class Transaction {
 
         User creditOfficer = userRepo.findOne(Long.parseLong(creditOfficerId));
         creditOfficer.setBalance(creditOfficer.getBalance() + Integer.parseInt(request.getParameter("amount")));
-
-        
+        FundType ft = fundTypeRepo.findOne(Long.parseLong(request.getParameter("fundType")));
+        ft.setBalance(ft.getBalance() - Integer.parseInt(request.getParameter("amount")));
         depositTransaction.setDebitUser(null);
         depositTransaction.setCreditUser(creditOfficer);
         if(userRepo.findByEmail(operatorEmail).isEmpty()) return new ModelAndView("redirect:/Transaction"); // SAFETY
