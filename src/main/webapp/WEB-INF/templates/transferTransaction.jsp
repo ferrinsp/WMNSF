@@ -15,7 +15,7 @@
     <script src="/static/js/dataTables.js"></script>
 </head>
 <div role="tabpanel" class="formTabPane">
-            <div class="tabs">
+            <!-- <div class="tabs">
                 <ul role="tablist" class="nav nav-tabs formSelect">
                     <li role="presentation" id="transactionTab" class="active">
                         <a href="#transactionForm" aria-controls="transactionForm" role="tab" data-toggle="tab">Transactions</a>
@@ -24,7 +24,7 @@
                         <a href="#balanceForm" aria-controls="balanceForm" role="tab" data-toggle="tab">Fund Balances</a>
                     </li>
                 </ul>
-            </div>
+            </div> -->
 
 	<div class="formHolder tab-content">
     	<div role="tabpanel" class="formContent tab-pane fade in active" id="transactionForm">
@@ -265,29 +265,30 @@
 			        </tr>
 		    	</table>	    
 			</form>
-		</div>
-	    	<div role="tabpanel" class="formContent tab-pane fade in active" id="balanceForm">
-	    		<table class="table table-striped" id="balanceTable">
-	    			<thead>
-                          <tr>
-                              <th>Fund Name</th>
-                              <th>Allocated Amount</th>
-                              <th>Remaining Amount</th>
-                          </tr>
-                    </thead>
-                    <tbody>
-			            <c:forEach var="allocatedFund" items="${allocatedFunds}" >
-			                <tr>
-			                    <td>${allocatedFund.getDescription()}</td>
-			                    <td><fmt:formatNumber value="${allocatedFund.getAllocatedBalance()}" type="currency" /></td>
-			                    <td><fmt:formatNumber value="${allocatedFund.getBalance()}" type="currency" /></td>	                    
-			                </tr>
-			            </c:forEach>
-		            </tbody>
-	    		</table>
-	    	</div>	
+		</div>	    		
 	</div>
 </div>
+<div role="tabpanel" class="formContent tab-pane fade in active" id="balanceForm">
+ 	<h2 align="center">Your Current Funds</h2>
+  		<table class="table table-striped" id="balanceTable">
+  			<thead>
+                       <tr>
+                           <th>Fund Name</th>
+                           <th>Allocated Amount</th>
+                           <th>Remaining Amount</th>
+                       </tr>
+                 </thead>
+                 <tbody>
+            <c:forEach var="allocatedFund" items="${allocatedFunds}" >
+                <tr>
+                    <td>${allocatedFund.getDescription()}</td>
+                    <td><fmt:formatNumber value="${allocatedFund.getAllocatedBalance()}" type="currency" /></td>
+                    <td><fmt:formatNumber value="${allocatedFund.getBalance()}" type="currency" /></td>	                    
+                </tr>
+            </c:forEach>
+           </tbody>
+  		</table>
+ </div>
 
 <script>
     $(document).ready(function () {
