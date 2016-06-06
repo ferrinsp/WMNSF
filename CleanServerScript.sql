@@ -40,7 +40,7 @@ CREATE TABLE `fund_type` (
 
 LOCK TABLES `fund_type` WRITE;
 /*!40000 ALTER TABLE `fund_type` DISABLE KEYS */;
-INSERT INTO `fund_type` VALUES (1,'test','2015-12-07 00:00:00','2016-12-23 00:00:00','3000');
+INSERT INTO `fund_type` VALUES (1,'test','2015-12-07 00:00:00','2016-12-23 00:00:00','100');
 /*!40000 ALTER TABLE `fund_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +106,6 @@ CREATE TABLE `transfer_transaction` (
 
 LOCK TABLES `transfer_transaction` WRITE;
 /*!40000 ALTER TABLE `transfer_transaction` DISABLE KEYS */;
-INSERT INTO `transfer_transaction` VALUES (1,'2014-05-09','Test Description',1,1,100,1,1,123,'1111','16n-11111','Deposit');
 /*!40000 ALTER TABLE `transfer_transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,9 +135,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('admin','user',1,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','admin@user.com',1,0),
-						  ('test','user',2,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','test@user.com',1,0);
-                          
+INSERT INTO `user` VALUES ('admin','user',1,'$2a$10$AwgpfisBtTaPGhQA5zA.l.VKTGZdf2hijEGyiypMc5f8laCixhHhK','admin@user.com',1,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +162,7 @@ CREATE TABLE `user_permission` (
 
 LOCK TABLES `user_permission` WRITE;
 /*!40000 ALTER TABLE `user_permission` DISABLE KEYS */;
-INSERT INTO `user_permission` VALUES (1,1),(1,2),(2,2);
+INSERT INTO `user_permission` VALUES (1,1),(1,2);
 /*!40000 ALTER TABLE `user_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

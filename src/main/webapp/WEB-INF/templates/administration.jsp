@@ -108,7 +108,7 @@
                                     <td>${user.getLastName()}</td>
                                     <td>
                                         <c:forEach var="permission" items="${user.getPermissions()}">
-                                            ${permission.getDescription()},
+                                            ${permission.getDescription()} 
                                         </c:forEach>
                                     </td>
                                     <td>${user.getEmail()}</td>
