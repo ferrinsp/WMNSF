@@ -184,7 +184,10 @@ public class Administration {
     			message.setRecipients(Message.RecipientType.TO,
     				InternetAddress.parse(email));
     			message.setSubject("Password Reset Request");
-    			message.setText("Your Password has been reset to " + userPassword);
+    			message.setText("Your Password has been set to " + userPassword+"\n\n"
+    					+"Use this password to login. Once logged in you should create a new password.\n"
+    					+ "To do this select the 'Options' menu in the top right corner and choose 'Reset Password'.\n"
+    					+ "Reset your password using this temporary password as the current password.");
 
     			Transport.send(message);
 

@@ -70,11 +70,11 @@
 </header>
 <!---------------------------------- Reset Password Form -------------------------------------->
                     <form id="formNewPassword" name="formNewPass" action="/Administration/NewPassword" method="post">
-                        <h2 id="formHeader">Password Change</h2>
+                        <h2 id="formHeader">Reset Password</h2>
                         <table id="newPasswordTable" class="table">
 
                             <tr>
-                                <td>Old Password</td>
+                                <td>Current Password</td>
                                 <td><input type="password" class="input-block-level" id="oldPassword" name="oldPassword" required pattern="[A-Za-z0-9]{8,20}" title="Between 8 and 20 alphanumeric characters" placeholder="Old Password">
                                     <input type="hidden" id="id" name="id" value=<%=name %>>
                                 </td>
