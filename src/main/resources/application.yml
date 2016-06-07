@@ -2,8 +2,8 @@ spring:
     application:
         name: Funds Application
     datasource:
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost/WmnsfFunds
+    	driverClassName: Driver: com.microsoft.jdbc.sqlserver.SQLServerDriver
+        url: jdbc:microsoft:sqlserver://localhost:8080/WmnsfFunds
         username: fundsapp
         password: password12345
     view:
@@ -15,13 +15,13 @@ security:
         enabled: false
 
 jpa:
-    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+	database-platform: org.hibernate.dialect.SQLServer2008Dialect
     hibernate:
         ddl-auto: update
 
-#spring.datasource.url=jdbc:mysql://localhost/sfcbdb
+#spring.datasource.url=jdbc:microsoft://localhost/sfcbdb
 #spring.datasource.username=root
-#spring.datasource.password=mysql
-#spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+#spring.datasource.password=mssql
+#spring.datasource.driver-class-name=com.microsoft.jdbc.Driver
 #spring.view.prefix=/WEB-INF/templates/
 #spring.view.suffix=.jsp

@@ -2,7 +2,7 @@ README
 
 Configure Tomcat 8, 7 should work as well.
 
-Set-up MySQL on localhost and do the following:
+Set-up Microsoft SQL on localhost and do the following:
 
 Run the WmnsfFunds.sql as root.
 Set-up User:
